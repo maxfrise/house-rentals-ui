@@ -19,8 +19,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
   const houses = await res.json()
 
-  const house = houses.filter((house: any) => {
-    console.log(house.houseId === params.houseId)
+  const house = houses.filter((house: any) => {    
     return house.houseId === params.houseId
   })
   
