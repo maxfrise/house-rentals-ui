@@ -1,5 +1,7 @@
 # House manager UI
 
+[STAGING](https://staging.maxfrise.com/) -  [PROD](https://maxfrise.com/) 
+
 ## Development
 
 - Start dev server:
