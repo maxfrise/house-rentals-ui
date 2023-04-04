@@ -8,19 +8,27 @@ import {
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import { getHouse } from "~/models/houses.server";
 import { requireUserId } from "~/session.server";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
-  const userId = await requireUserId(request);
-  console.log('userid', userId)
   invariant(params.houseId, "house not found");
+  const url = "https://api.maxfrise.com/gethouses?landlord=sergio";
+  const res = await fetch(url, {
+    method: "GET",
+  });
 
-  const house = await getHouse({ id: params.houseId, userId });
+  const houses = await res.json()
+
+  const house = houses.filter((house: any) => {
+    console.log(house.houseId === params.houseId)
+    return house.houseId === params.houseId
+  })
+  
   if (!house) {
     throw new Response("Not Found", { status: 404 });
-  }
-  return json({ house });
+  }  
+
+  return json(house);
 };
 
 export const action = async ({ params, request }: ActionArgs) => {
@@ -32,22 +40,14 @@ export const action = async ({ params, request }: ActionArgs) => {
   return redirect("/houses");
 };
 
-export default function NoteDetailsPage() {
-  const data = useLoaderData<typeof loader>();
-
+export default function HouseDetailsPage() {
+  const data = useLoaderData<typeof loader>()[0];
   return (
     <div>
-      <h3 className="text-2xl font-bold">{data.house.houseKey}</h3>
-      <p className="py-6">{data.house.description}</p>
+      <h3 className="text-2xl font-bold">{data.houseId}</h3>
+      <p className="py-6">{data.details}</p>
       <hr className="my-4" />
-      <Form method="post">
-        <button
-          type="submit"
-          className="rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
-        >
-          Delete
-        </button>
-      </Form>
+      <pre>{JSON.stringify(data, undefined, 2)}</pre>
     </div>
   );
 }
@@ -64,7 +64,7 @@ export function ErrorBoundary() {
   }
 
   if (error.status === 404) {
-    return <div>Note not found</div>;
+    return <div>House not found</div>;
   }
 
   return <div>An unexpected error occurred: {error.statusText}</div>;

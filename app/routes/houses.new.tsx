@@ -3,7 +3,6 @@ import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 
-import { createHouse } from "~/models/houses.server";
 import { requireUserId } from "~/session.server";
 
 export const action = async ({ request }: ActionArgs) => {
@@ -27,9 +26,32 @@ export const action = async ({ request }: ActionArgs) => {
     );
   }
 
-  const house = await createHouse({ houseKey, description, userId });
+  const url = "https://api.maxfrise.com/createhouse";
 
-  return redirect(`/houses/${house.id}`);
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      landlord: "sergio",
+      "houseId": houseKey,
+      "address": "las perlas 2012",
+      "details": description,
+      "landlords": [
+        {
+          "name": "Yolanda",
+          "phone": "+15093120388"
+        }
+      ],
+      "leaseStatus": "AVAILABLE",
+      "tenants": [
+        {
+          "name": "Javier",
+          "phone": "+523121186644"
+        }
+      ]
+    })
+  });
+
+  return redirect(`/houses/${houseKey}`);
 };
 
 export default function NewNotePage() {

@@ -1,16 +1,7 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
-
-import { getHouseListItems } from "~/models/houses.server";
-import { requireUserId } from "~/session.server";
 import { useUser } from "~/utils";
-
-// export const loader = async ({ request }: LoaderArgs) => {
-//   const userId = await requireUserId(request);
-//   const houseItems = await getHouseListItems({ userId });  
-//   return json({ houseItems });
-// };
 
 export const loader = async ({ request }: LoaderArgs) => {
   const url = "https://api.maxfrise.com/gethouses?landlord=sergio";
@@ -18,22 +9,12 @@ export const loader = async ({ request }: LoaderArgs) => {
     method: "GET",
   });
 
-  const result = {
-    name: "sergio"
-  }
-
   return json(await res.json());  
 }
 
-
-
-
-export default function NotesPage() {
+export default function HousesPage() {
   const data = useLoaderData<typeof loader>();
   const user = useUser();
-
-  console.log(data)
-  console.log(user)
 
   return (
     <div className="flex h-full min-h-screen flex-col">      
@@ -60,19 +41,19 @@ export default function NotesPage() {
 
           <hr />
 
-          {data.houseItems.length === 0 ? (
+          {data.length === 0 ? (
             <p className="p-4">todavia no hay casas</p>
           ) : (
             <ol>
-              {data.houseItems.map((house) => (
-                <li key={house.id}>
+              {data.map((house:any) => (
+                <li key={house.houseId}>
                   <NavLink
                     className={({ isActive }) =>
                       `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`
                     }
-                    to={house.id}
+                    to={house.houseId}
                   >
-                    🏡 {house.houseKey}
+                    🏡 {house.houseId}
                   </NavLink>
                 </li>
               ))}
