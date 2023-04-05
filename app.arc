@@ -1,5 +1,5 @@
 @app
-my-remix-app-ac08
+house-rentals-app01
 
 @http
 /*
@@ -14,10 +14,6 @@ user
 
 password
   pk *String # userId
-
-note
-  pk *String  # userId
-  sk **String # noteId
 
 house
   pk *String # userId
