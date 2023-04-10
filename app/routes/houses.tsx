@@ -3,6 +3,9 @@ import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { useUser } from "~/utils";
 
+import type { UiSpacingProps } from '@uireact/foundation';
+import { Sizing, UiSpacing } from '@uireact/foundation';
+
 export const loader = async ({ request }: LoaderArgs) => {
   const url = "https://api.maxfrise.com/gethouses?landlord=sergio";
   const res = await fetch(url, {
@@ -12,6 +15,8 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json(await res.json());  
 }
 
+const headingMargin: UiSpacingProps['margin'] = {inline: Sizing.five};
+
 export default function HousesPage() {
   const data = useLoaderData<typeof loader>();
   const user = useUser();
@@ -19,9 +24,12 @@ export default function HousesPage() {
   return (
     <div className="flex h-full min-h-screen flex-col">      
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
-        <h1 className="text-3xl font-bold">
-          <Link to=".">Casas</Link>
-        </h1>
+        <UiSpacing margin={headingMargin}>
+          <h1 className="text-3xl font-bold">
+            <Link to=".">Casas</Link>
+          </h1>
+        </UiSpacing>
+        
         <p>{user.email}</p>
         <Form action="/logout" method="post">
           <button
