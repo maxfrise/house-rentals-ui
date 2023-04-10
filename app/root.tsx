@@ -9,6 +9,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import { ThemeContext, Themes } from '@uireact/foundation';
+
 import tailwindStylesheetUrl from "~/styles/tailwind.css";
 import { getUser } from "~/session.server";
 
@@ -22,6 +24,8 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({ user: await getUser(request) });
 };
 
+const noOpFn = () => {};
+
 export default function App() {
   return (
     <html lang="en" className="h-full">
@@ -32,10 +36,12 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <ThemeContext.Provider value={{ theme: Themes.dark, toogleTheme: noOpFn }}>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </ThemeContext.Provider>
       </body>
     </html>
   );
