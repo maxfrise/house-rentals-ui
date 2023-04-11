@@ -1,11 +1,11 @@
 import { Link } from "@remix-run/react";
 
-export default function NoteIndexPage() {
+export default function HouseIndexPage() {
   return (
     <p>
-      No note selected. Select a note on the left, or{" "}
+      Ninguna casa esta seleccionada. Selecciona una a la izquierda, o{" "}
       <Link to="new" className="text-blue-500 underline">
-        create a new note.
+        agrega una nueva casa.
       </Link>
     </p>
   );

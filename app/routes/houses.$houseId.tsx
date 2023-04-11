@@ -12,7 +12,8 @@ import { requireUserId } from "~/session.server";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   invariant(params.houseId, "house not found");
-  const url = "https://api.maxfrise.com/gethouses?landlord=sergio";
+  const userId = await requireUserId(request);  
+  const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(userId)}`;  
   const res = await fetch(url, {
     method: "GET",
   });
