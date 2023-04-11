@@ -1,6 +1,10 @@
+pnpm-lock.yaml
+pnpm-lock.yml
+
 node_modules
 
 /server/index.js
+/server/index.js.map
 /public/build
 preferences.arc
 sam.json
@@ -11,3 +15,5 @@ sam.yaml
 /cypress/videos
 
 /app/styles/tailwind.css
+
+.DS_Store
