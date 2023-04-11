@@ -22,7 +22,7 @@ const headingMargin: UiSpacingProps['margin'] = {inline: Sizing.five};
 export default function HousesPage() {
   const data = useLoaderData<typeof loader>();
   const user = useUser();
-  
+
   return (
     <div className="flex h-full min-h-screen flex-col">      
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
