@@ -2,12 +2,14 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { useUser } from "~/utils";
+import { requireUserId } from "~/session.server";
 
 import type { UiSpacingProps } from '@uireact/foundation';
 import { Sizing, UiSpacing } from '@uireact/foundation';
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const url = "https://api.maxfrise.com/gethouses?landlord=sergio";
+  const userId = await requireUserId(request);  
+  const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(userId)}`;  
   const res = await fetch(url, {
     method: "GET",
   });

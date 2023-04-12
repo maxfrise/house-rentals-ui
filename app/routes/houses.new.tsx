@@ -31,7 +31,7 @@ export const action = async ({ request }: ActionArgs) => {
   const res = await fetch(url, {
     method: "POST",
     body: JSON.stringify({
-      landlord: "sergio",
+      landlord: userId,
       "houseId": houseKey,
       "address": "las perlas 2012",
       "details": description,
