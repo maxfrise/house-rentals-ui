@@ -1,6 +1,6 @@
 # House manager UI
 
-[STAGING](https://staging.maxfrise.com/) -  [PROD](https://maxfrise.com/) 
+[STAGING](https://staging.maxfrise.com/) - [PROD](https://maxfrise.com/)
 
 ## Development
 
@@ -13,6 +13,7 @@
 This starts your app in development mode, rebuilding assets on file changes.
 
 ## Deployment
+
 TODO
 
 ## GitHub Actions
