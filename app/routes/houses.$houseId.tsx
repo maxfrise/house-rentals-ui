@@ -12,21 +12,23 @@ import { requireUserId } from "~/session.server";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   invariant(params.houseId, "house not found");
-  const userId = await requireUserId(request);  
-  const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(userId)}`;  
+  const userId = await requireUserId(request);
+  const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(
+    userId
+  )}`;
   const res = await fetch(url, {
     method: "GET",
   });
 
-  const houses = await res.json()
+  const houses = await res.json();
 
-  const house = houses.filter((house: any) => {    
-    return house.houseId === params.houseId
-  })
-  
+  const house = houses.filter((house: any) => {
+    return house.houseId === params.houseId;
+  });
+
   if (!house) {
     throw new Response("Not Found", { status: 404 });
-  }  
+  }
 
   return json(house);
 };

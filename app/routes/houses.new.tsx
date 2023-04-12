@@ -32,23 +32,23 @@ export const action = async ({ request }: ActionArgs) => {
     method: "POST",
     body: JSON.stringify({
       landlord: userId,
-      "houseId": houseKey,
-      "address": "las perlas 2012",
-      "details": description,
-      "landlords": [
+      houseId: houseKey,
+      address: "las perlas 2012",
+      details: description,
+      landlords: [
         {
-          "name": "Yolanda",
-          "phone": "+15093120388"
-        }
+          name: "Yolanda",
+          phone: "+15093120388",
+        },
       ],
-      "leaseStatus": "AVAILABLE",
-      "tenants": [
+      leaseStatus: "AVAILABLE",
+      tenants: [
         {
-          "name": "Javier",
-          "phone": "+523121186644"
-        }
-      ]
-    })
+          name: "Javier",
+          phone: "+523121186644",
+        },
+      ],
+    }),
   });
 
   return redirect(`/houses/${houseKey}`);
@@ -104,7 +104,7 @@ export default function NewNotePage() {
             ref={bodyRef}
             name="body"
             rows={8}
-            className="w-full flex-1 rounded-md border-2 border-blue-500 py-2 px-3 text-lg leading-6"
+            className="w-full flex-1 rounded-md border-2 border-blue-500 px-3 py-2 text-lg leading-6"
             aria-invalid={actionData?.errors?.body ? true : undefined}
             aria-errormessage={
               actionData?.errors?.body ? "body-error" : undefined
@@ -121,7 +121,7 @@ export default function NewNotePage() {
       <div className="text-right">
         <button
           type="submit"
-          className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
         >
           Save
         </button>
