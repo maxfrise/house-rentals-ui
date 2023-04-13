@@ -7,6 +7,12 @@ import { requireUserId } from "~/session.server";
 import type { UiSpacingProps } from "@uireact/foundation";
 import { Sizing, UiSpacing } from "@uireact/foundation";
 
+type House = {
+  landlord: string,
+  houseId: string,
+  houseFriendlyName: string
+}
+
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
   const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(
@@ -16,13 +22,24 @@ export const loader = async ({ request }: LoaderArgs) => {
     method: "GET",
   });
 
-  return json(await res.json());
+  const data = await res.json()
+  
+  const result: House[] = data.map((house: House) => (
+    {
+      landlord: house.landlord,
+      houseId: house.houseId.replace(/^house#/, ""),
+      houseFriendlyName: house.houseFriendlyName || 'friendly name not defined'
+    }
+  ))
+
+  return json(result);
 };
 
 const headingMargin: UiSpacingProps["margin"] = { inline: Sizing.five };
 
 export default function HousesPage() {
   const data = useLoaderData<typeof loader>();
+
   const user = useUser();
 
   return (
@@ -57,7 +74,7 @@ export default function HousesPage() {
             <p className="p-4">todavia no hay casas</p>
           ) : (
             <ol>
-              {data.map((house: any) => (
+              {data.map((house: House) => (
                 <li key={house.houseId}>
                   <NavLink
                     className={({ isActive }) =>
@@ -65,7 +82,7 @@ export default function HousesPage() {
                     }
                     to={house.houseId}
                   >
-                    🏡 {house.houseId}
+                    🏡 {house.houseFriendlyName}
                   </NavLink>
                 </li>
               ))}
