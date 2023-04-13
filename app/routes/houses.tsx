@@ -2,39 +2,60 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { useUser } from "~/utils";
+import { requireUserId } from "~/session.server";
 
-import type { UiSpacingProps } from '@uireact/foundation';
-import { Sizing, UiSpacing } from '@uireact/foundation';
+import type { UiSpacingProps } from "@uireact/foundation";
+import { Sizing, UiSpacing } from "@uireact/foundation";
+
+type House = {
+  landlord: string,
+  houseId: string,
+  houseFriendlyName: string
+}
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const url = "https://api.maxfrise.com/gethouses?landlord=sergio";
+  const userId = await requireUserId(request);
+  const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(
+    userId
+  )}`;
   const res = await fetch(url, {
     method: "GET",
   });
 
-  return json(await res.json());  
-}
+  const data = await res.json()
+  
+  const result: House[] = data.map((house: House) => (
+    {
+      landlord: house.landlord,
+      houseId: house.houseId.replace(/^house#/, ""),
+      houseFriendlyName: house.houseFriendlyName || 'friendly name not defined'
+    }
+  ))
 
-const headingMargin: UiSpacingProps['margin'] = {inline: Sizing.five};
+  return json(result);
+};
+
+const headingMargin: UiSpacingProps["margin"] = { inline: Sizing.five };
 
 export default function HousesPage() {
   const data = useLoaderData<typeof loader>();
+
   const user = useUser();
 
   return (
-    <div className="flex h-full min-h-screen flex-col">      
+    <div className="flex h-full min-h-screen flex-col">
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
         <UiSpacing margin={headingMargin}>
           <h1 className="text-3xl font-bold">
             <Link to=".">Casas</Link>
           </h1>
         </UiSpacing>
-        
+
         <p>{user.email}</p>
         <Form action="/logout" method="post">
           <button
             type="submit"
-            className="rounded bg-slate-600 py-2 px-4 text-blue-100 hover:bg-blue-500 active:bg-blue-600"
+            className="rounded bg-slate-600 px-4 py-2 text-blue-100 hover:bg-blue-500 active:bg-blue-600"
           >
             Logout
           </button>
@@ -53,7 +74,7 @@ export default function HousesPage() {
             <p className="p-4">todavia no hay casas</p>
           ) : (
             <ol>
-              {data.map((house:any) => (
+              {data.map((house: House) => (
                 <li key={house.houseId}>
                   <NavLink
                     className={({ isActive }) =>
@@ -61,7 +82,7 @@ export default function HousesPage() {
                     }
                     to={house.houseId}
                   >
-                    🏡 {house.houseId}
+                    🏡 {house.houseFriendlyName}
                   </NavLink>
                 </li>
               ))}

@@ -2,6 +2,7 @@ import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import cuid from "cuid";
 
 import { requireUserId } from "~/session.server";
 
@@ -9,12 +10,12 @@ export const action = async ({ request }: ActionArgs) => {
   const userId = await requireUserId(request);
 
   const formData = await request.formData();
-  const houseKey = formData.get("title");
+  const houseFriendlyName = formData.get("houseFriendlyName");
   const description = formData.get("body");
 
-  if (typeof houseKey !== "string" || houseKey.length === 0) {
+  if (typeof description !== "string" || description.length === 0) {
     return json(
-      { errors: { body: null, title: "houseKey is required" } },
+      { errors: { body: null, title: "house friendly is required" } },
       { status: 400 }
     );
   }
@@ -28,30 +29,33 @@ export const action = async ({ request }: ActionArgs) => {
 
   const url = "https://api.maxfrise.com/createhouse";
 
+  const houseId = `house#${cuid()}`
+
   const res = await fetch(url, {
     method: "POST",
     body: JSON.stringify({
-      landlord: "sergio",
-      "houseId": houseKey,
-      "address": "las perlas 2012",
-      "details": description,
-      "landlords": [
+      landlord: userId,
+      houseId,
+      houseFriendlyName,
+      address: "las perlas 2012",
+      details: description,
+      landlords: [
         {
-          "name": "Yolanda",
-          "phone": "+15093120388"
-        }
+          name: "Yolanda",
+          phone: "+15093120388",
+        },
       ],
-      "leaseStatus": "AVAILABLE",
-      "tenants": [
+      leaseStatus: "AVAILABLE",
+      tenants: [
         {
-          "name": "Javier",
-          "phone": "+523121186644"
-        }
-      ]
-    })
+          name: "Javier",
+          phone: "+523121186644",
+        },
+      ],
+    }),
   });
 
-  return redirect(`/houses/${houseKey}`);
+  return redirect(`/houses/${houseId.replace(/^house#/, "")}`);
 };
 
 export default function NewNotePage() {
@@ -82,7 +86,7 @@ export default function NewNotePage() {
           <span>Casa: </span>
           <input
             ref={titleRef}
-            name="title"
+            name="houseFriendlyName"
             className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
             aria-invalid={actionData?.errors?.title ? true : undefined}
             aria-errormessage={
@@ -104,7 +108,7 @@ export default function NewNotePage() {
             ref={bodyRef}
             name="body"
             rows={8}
-            className="w-full flex-1 rounded-md border-2 border-blue-500 py-2 px-3 text-lg leading-6"
+            className="w-full flex-1 rounded-md border-2 border-blue-500 px-3 py-2 text-lg leading-6"
             aria-invalid={actionData?.errors?.body ? true : undefined}
             aria-errormessage={
               actionData?.errors?.body ? "body-error" : undefined
@@ -121,7 +125,7 @@ export default function NewNotePage() {
       <div className="text-right">
         <button
           type="submit"
-          className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
         >
           Save
         </button>
