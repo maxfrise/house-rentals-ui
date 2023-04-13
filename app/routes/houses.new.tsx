@@ -2,6 +2,7 @@ import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import cuid from "cuid";
 
 import { requireUserId } from "~/session.server";
 
@@ -9,12 +10,12 @@ export const action = async ({ request }: ActionArgs) => {
   const userId = await requireUserId(request);
 
   const formData = await request.formData();
-  const houseKey = formData.get("title");
+  const houseFriendlyName = formData.get("houseFriendlyName");
   const description = formData.get("body");
 
-  if (typeof houseKey !== "string" || houseKey.length === 0) {
+  if (typeof description !== "string" || description.length === 0) {
     return json(
-      { errors: { body: null, title: "houseKey is required" } },
+      { errors: { body: null, title: "house friendly is required" } },
       { status: 400 }
     );
   }
@@ -28,11 +29,14 @@ export const action = async ({ request }: ActionArgs) => {
 
   const url = "https://api.maxfrise.com/createhouse";
 
+  const houseId = `house#${cuid()}`
+
   const res = await fetch(url, {
     method: "POST",
     body: JSON.stringify({
       landlord: userId,
-      houseId: houseKey,
+      houseId,
+      houseFriendlyName,
       address: "las perlas 2012",
       details: description,
       landlords: [
@@ -51,7 +55,7 @@ export const action = async ({ request }: ActionArgs) => {
     }),
   });
 
-  return redirect(`/houses/${houseKey}`);
+  return redirect(`/houses/${houseId.replace(/^house#/, "")}`);
 };
 
 export default function NewNotePage() {
@@ -82,7 +86,7 @@ export default function NewNotePage() {
           <span>Casa: </span>
           <input
             ref={titleRef}
-            name="title"
+            name="houseFriendlyName"
             className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
             aria-invalid={actionData?.errors?.title ? true : undefined}
             aria-errormessage={

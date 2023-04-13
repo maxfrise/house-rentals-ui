@@ -1,7 +1,6 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import {
-  Form,
+import {  
   isRouteErrorResponse,
   useLoaderData,
   useRouteError,
@@ -20,13 +19,13 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     method: "GET",
   });
 
-  const houses = await res.json();
+  const houses = await res.json();  
 
   const house = houses.filter((house: any) => {
-    return house.houseId === params.houseId;
+    return house.houseId.replace(/^house#/, "") === params.houseId;
   });
 
-  if (!house) {
+  if (!house || house.length === 0) {
     throw new Response("Not Found", { status: 404 });
   }
 
@@ -46,7 +45,7 @@ export default function HouseDetailsPage() {
   const data = useLoaderData<typeof loader>()[0];
   return (
     <div>
-      <h3 className="text-2xl font-bold">{data.houseId}</h3>
+      <h3 className="text-2xl font-bold">{data.houseFriendlyName}</h3>
       <p className="py-6">{data.details}</p>
       <hr className="my-4" />
       <pre>{JSON.stringify(data, undefined, 2)}</pre>
