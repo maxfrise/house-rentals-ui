@@ -93,7 +93,11 @@ export default function HousesPage() {
         <div className="flex-1 p-6">
           <Outlet />
         </div>
+        <div>
+        hola mundo
+        </div>
       </main>
     </div>
+   
   );
 }
