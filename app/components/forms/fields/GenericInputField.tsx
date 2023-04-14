@@ -1,12 +1,12 @@
 import { useRef, useEffect } from "react";
 
-interface GenericInputFiledProps {
+interface GenericInputFieldProps {
   label: string;
   name: string;
   error?: string | null;
 }
 
-export const GenericInputField: React.FC<GenericInputFiledProps> = ({
+export const GenericInputField: React.FC<GenericInputFieldProps> = ({
   label,
   name,
   error,
