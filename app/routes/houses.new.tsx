@@ -11,18 +11,18 @@ export const action = async ({ request }: ActionArgs) => {
 
   const formData = await request.formData();
   const houseFriendlyName = formData.get("houseFriendlyName");
-  const description = formData.get("body");
+  const description = formData.get("description");
 
   if (typeof description !== "string" || description.length === 0) {
     return json(
-      { errors: { body: null, title: "house friendly is required" } },
+      { errors: { description: null, title: "house friendly is required" } },
       { status: 400 }
     );
   }
 
   if (typeof description !== "string" || description.length === 0) {
     return json(
-      { errors: { body: "Description is required", title: null } },
+      { errors: { description: "Description is required", title: null } },
       { status: 400 }
     );
   }
@@ -66,7 +66,7 @@ export default function NewNotePage() {
   useEffect(() => {
     if (actionData?.errors?.title) {
       titleRef.current?.focus();
-    } else if (actionData?.errors?.body) {
+    } else if (actionData?.errors?.description) {
       bodyRef.current?.focus();
     }
   }, [actionData]);
@@ -106,18 +106,18 @@ export default function NewNotePage() {
           <span>Descripcion: </span>
           <textarea
             ref={bodyRef}
-            name="body"
+            name="description"
             rows={8}
             className="w-full flex-1 rounded-md border-2 border-blue-500 px-3 py-2 text-lg leading-6"
-            aria-invalid={actionData?.errors?.body ? true : undefined}
+            aria-invalid={actionData?.errors?.description ? true : undefined}
             aria-errormessage={
-              actionData?.errors?.body ? "body-error" : undefined
+              actionData?.errors?.description ? "description-error" : undefined
             }
           />
         </label>
-        {actionData?.errors?.body && (
-          <div className="pt-1 text-red-700" id="body-error">
-            {actionData.errors.body}
+        {actionData?.errors?.description && (
+          <div className="pt-1 text-red-700" id="description-error">
+            {actionData.errors.description}
           </div>
         )}
       </div>
