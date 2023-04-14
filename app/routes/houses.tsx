@@ -8,10 +8,10 @@ import type { UiSpacingProps } from "@uireact/foundation";
 import { Sizing, UiSpacing } from "@uireact/foundation";
 
 type House = {
-  landlord: string,
-  houseId: string,
-  houseFriendlyName: string
-}
+  landlord: string;
+  houseId: string;
+  houseFriendlyName: string;
+};
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
@@ -22,15 +22,13 @@ export const loader = async ({ request }: LoaderArgs) => {
     method: "GET",
   });
 
-  const data = await res.json()
-  
-  const result: House[] = data.map((house: House) => (
-    {
-      landlord: house.landlord,
-      houseId: house.houseId.replace(/^house#/, ""),
-      houseFriendlyName: house.houseFriendlyName || 'friendly name not defined'
-    }
-  ))
+  const data = await res.json();
+
+  const result: House[] = data.map((house: House) => ({
+    landlord: house.landlord,
+    houseId: house.houseId.replace(/^house#/, ""),
+    houseFriendlyName: house.houseFriendlyName || "friendly name not defined",
+  }));
 
   return json(result);
 };
