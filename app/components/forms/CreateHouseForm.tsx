@@ -1,9 +1,7 @@
 import { Form } from "@remix-run/react";
-import { SerializeFrom } from "@remix-run/server-runtime";
-
-import { action } from "../../routes/houses.new";
-
-import { GenericInputField } from "./fields/GenericInputFiled";
+import type { SerializeFrom } from "@remix-run/server-runtime";
+import type { action } from "../../routes/houses.new";
+import { GenericInputField } from "./fields/GenericInputField";
 import { GenericTextArea } from "./fields/GenericTextArea";
 import { SubmitButton } from "./fields/SubmitButton";
 
@@ -30,7 +28,7 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         name="houseFriendlyName"
       />
       <GenericTextArea
-        label="Descripción  de la propiedad"
+        label="Descripción de la propiedad"
         error={actionData?.errors.description}
         name="details"
       />

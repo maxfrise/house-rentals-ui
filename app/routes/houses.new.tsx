@@ -31,7 +31,7 @@ export const action = async ({ request }: ActionArgs) => {
 
   const houseId = `house#${cuid()}`;
 
-  const res = await fetch(url, {
+  await fetch(url, {
     method: "POST",
     body: JSON.stringify({
       landlord: userId,

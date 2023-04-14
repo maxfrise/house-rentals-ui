@@ -1,5 +1,5 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import type { LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
   isRouteErrorResponse,
   useLoaderData,
@@ -30,15 +30,6 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   }
 
   return json(house);
-};
-
-export const action = async ({ params, request }: ActionArgs) => {
-  const userId = await requireUserId(request);
-  invariant(params.noteId, "houseId not found");
-
-  // await deleteNote({ id: params.noteId, userId });
-
-  return redirect("/houses");
 };
 
 export default function HouseDetailsPage() {
