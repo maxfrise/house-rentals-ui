@@ -39,7 +39,9 @@ describe("smoke tests", () => {
 
     cy.findByRole("link", { name: /\+ Nueva casa/i }).click();
 
-    cy.findByRole("textbox", { name: /Nombre de la propiedad/i }).type(testHouse.houseFriendlyName);
+    cy.findByRole("textbox", { name: /Nombre de la propiedad/i }).type(
+      testHouse.houseFriendlyName
+    );
     cy.findByRole("textbox", { name: /Descripción de la propiedad/i }).type(
       testHouse.description
     );

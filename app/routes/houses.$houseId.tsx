@@ -4,6 +4,8 @@ import {
   isRouteErrorResponse,
   useLoaderData,
   useRouteError,
+  Outlet,
+  Link,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
@@ -34,14 +36,23 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 
 export default function HouseDetailsPage() {
   const data = useLoaderData<typeof loader>()[0];
+
   return (
     <div>
       <h3 className="text-2xl font-bold">{data.houseFriendlyName}</h3>
       <p className="py-6">{data.details}</p>
       <hr className="my-4" />
-      <pre className="whitespace-pre-wrap">
-        {JSON.stringify(data, undefined, 2)}
-      </pre>
+      {data.leaseStatus === "AVAILABLE" && (
+        <Link
+          to="startLease"
+          className="rounded-none bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
+        >
+          Arrendar la casa
+        </Link>
+      )}
+      <div className="my-4">
+        <Outlet />
+      </div>
     </div>
   );
 }
