@@ -25,15 +25,42 @@ describe("Datasource", () => {
     mockResponse("test", "text/plain", "/getText");
     const dataSource = new DataSource(apiUrl);
     const result = await dataSource.fetch("/getText", { method: "GET" });
-
     expect(result).toEqual("test");
   });
 
-  it('rejects promise on errors', async () => {
+  test("interpolates query params", async () => {
+    mockResponse(
+      { landlord: "sergio" },
+      "application/json",
+      "/path?houseid=123"
+    );
+    const dataSource = new DataSource(apiUrl);
+    const result = await dataSource.fetch(`/path`, {
+      method: "GET",
+      params: { houseid: "123" },
+    });
+    expect(result).toEqual({ landlord: "sergio" });
+  });
+
+  test("interpolates path variables", async () => {
+    mockResponse(
+      { landlord: "sergio" },
+      "application/json",
+      "/path/montecervino"
+    );
+    const dataSource = new DataSource(apiUrl);
+    const result = await dataSource.fetch(`/path/:houseid`, {
+      method: "GET",
+      params: { houseid: "montecervino" },
+    });
+    expect(result).toEqual({ landlord: "sergio" });
+  });
+
+  test("rejects promise on errors", async () => {
     nock(apiUrl).get("/endpoint-with-error").reply(500);
     const dataSource = new DataSource(apiUrl);
-    await expect(dataSource.fetch("endpoint-with-error", { method: 'GET' })).rejects.toEqual(
-      'HTTP Error Response: 500'
-    );
+    await expect(
+      dataSource.fetch("endpoint-with-error", { method: "GET" })
+    ).rejects.toEqual("HTTP Error Response: 500");
   });
 });
