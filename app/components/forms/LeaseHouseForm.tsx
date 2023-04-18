@@ -1,18 +1,11 @@
 import { Form } from "@remix-run/react";
-import type { SerializeFrom } from "@remix-run/server-runtime";
-import type { action } from "../../routes/houses.$houseId.startLease";
 import {
   GenericInputField,
   InputType,
 } from "../forms/fields/GenericInputField";
 import { SubmitButton } from "./fields/SubmitButton";
 
-interface CreateHouseFormProps {
-  actionData: SerializeFrom<typeof action> | undefined;
-}
-
-export default function LeaseHouseForm(props: CreateHouseFormProps) {
-  const { actionData } = props;
+export default function LeaseHouseForm() {
   return (
     <Form
       method="post"

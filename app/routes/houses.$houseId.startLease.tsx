@@ -3,7 +3,6 @@ import LeaseHouseForm from "../components/forms/LeaseHouseForm";
 import { requireUserId } from "~/session.server";
 
 import { ActionArgs, redirect } from "@remix-run/node";
-import { useActionData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
 // TODO: the loader should check the house status, and if it is rented then it should redirect it back to the prev view
@@ -43,7 +42,5 @@ export const action = async ({ params, request }: ActionArgs) => {
 };
 
 export default function StartLeaseView() {
-  const actionData = useActionData<typeof action>();
-
-  return <LeaseHouseForm actionData={actionData} />;
+  return <LeaseHouseForm />;
 }
