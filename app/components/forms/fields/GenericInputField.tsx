@@ -1,15 +1,23 @@
 import { useRef, useEffect } from "react";
 
+export enum InputType {
+  DATE = "date",
+  TEXT = "text",
+  NUMBER = "number",
+}
+
 interface GenericInputFieldProps {
   label: string;
   name: string;
   error?: string | null;
+  type?: InputType;
 }
 
 export const GenericInputField: React.FC<GenericInputFieldProps> = ({
   label,
   name,
   error,
+  type,
 }) => {
   const ref = useRef<HTMLInputElement>(null);
 
@@ -26,6 +34,7 @@ export const GenericInputField: React.FC<GenericInputFieldProps> = ({
         <input
           ref={ref}
           name={name}
+          type={type ? type : InputType.TEXT}
           className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
           aria-invalid={error ? true : undefined}
           aria-errormessage={error ? `${name}-error` : undefined}
