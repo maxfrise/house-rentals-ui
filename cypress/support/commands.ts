@@ -1,4 +1,6 @@
 import { faker } from "@faker-js/faker";
+// React 18
+import { mount } from "cypress/react18";
 
 declare global {
   namespace Cypress {
@@ -25,6 +27,7 @@ declare global {
        *    cy.visitAndCheck('/', 500)
        */
       visitAndCheck: typeof visitAndCheck;
+      mount: typeof mount;
     }
   }
 }
@@ -51,3 +54,4 @@ function visitAndCheck(url: string, waitTime: number = 1000) {
 
 Cypress.Commands.add("login", login);
 Cypress.Commands.add("visitAndCheck", visitAndCheck);
+Cypress.Commands.add("mount", mount);

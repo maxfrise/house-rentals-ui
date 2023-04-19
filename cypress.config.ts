@@ -24,4 +24,26 @@ export default defineConfig({
       return { ...config, ...configOverrides };
     },
   },
+
+  component: {
+    devServer: {
+      framework: "react",
+      bundler: "vite",
+      viteConfig: {
+        build: {
+          sourcemap: "inline",
+        },
+        esbuild: {
+          jsx: "transform",
+        },
+        define: {
+          "process.env.DEBUG_PRINT_LIMIT": 10000,
+        },
+        logLevel: "error",
+      },
+    },
+    specPattern: "./cypress/components/*.spec.tsx",
+    supportFile: "./cypress/support/component.ts",
+    excludeSpecPattern: "**/node_modules/**",
+  },
 });
