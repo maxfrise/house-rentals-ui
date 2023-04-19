@@ -7,11 +7,12 @@ export class MaxfriseApi extends DataSource {
     super(apiUrl);
   }
 
-  async getHouses(landLord: string): Promise<House[]> {
+  async getHouses(landlord: string): Promise<House[]> {
+    console.log("landlord:", landlord);
     return (
       (await this.fetch("/gethouses", {
         method: "GET",
-        params: { landLord },
+        params: { landlord },
       })) || []
     );
   }

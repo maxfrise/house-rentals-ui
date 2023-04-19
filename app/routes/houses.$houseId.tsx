@@ -8,20 +8,16 @@ import {
   Link,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 
 import { requireUserId } from "~/session.server";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
+  const api = new MaxfriseApi("https://api.maxfrise.com");
   invariant(params.houseId, "house not found");
   const userId = await requireUserId(request);
-  const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(
-    userId
-  )}`;
-  const res = await fetch(url, {
-    method: "GET",
-  });
 
-  const houses = await res.json();
+  const houses = await api.getHouses(userId);
 
   const house = houses.filter((house: any) => {
     return house.houseId.replace(/^house#/, "") === params.houseId;

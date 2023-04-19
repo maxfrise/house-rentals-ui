@@ -15,7 +15,6 @@ describe("MaxfriseApi", () => {
       .reply(200, response, { "Content-Type": contentType });
   }
 
-
   test("get houses", async () => {
     mockResponse(
       [
@@ -41,7 +40,7 @@ describe("MaxfriseApi", () => {
         },
       ],
       "application/json",
-      "/gethouses?landLord=email%2523audel91%2540gmail.com"
+      "/gethouses?landlord=email%23audel91%40gmail.com"
     );
     const houses = await api.getHouses("email#audel91@gmail.com");
     expect(houses[0].landlords[0].landlordName).toEqual("Sergio");

@@ -93,7 +93,7 @@ export class DataSource {
           encodeURIComponent(value)
         );
       } else {
-        url.searchParams.append(name, encodeURIComponent(value));
+        url.searchParams.append(name, value);
       }
     }
   }
