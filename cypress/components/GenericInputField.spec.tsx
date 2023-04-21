@@ -1,7 +1,7 @@
 import React from "react";
 import { GenericInputField } from "../../app/components/forms/fields/GenericInputField";
 
-describe("GenericInputField.cy.ts", () => {
+describe("GenericInputField", () => {
   it("lets you type a name", () => {
     cy.mount(
       <GenericInputField
