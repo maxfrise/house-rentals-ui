@@ -131,6 +131,7 @@ jobs:
         with:
           start: npm run dev
           wait-on: "http://localhost:8811"
+          component: true
         env:
           PORT: "8811"
 
