@@ -5,6 +5,8 @@ import { redirect } from "@remix-run/node";
 import type { ActionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
+// TODO: the loader should check the house status, and if it is rented then it should redirect it back to the prev view
+
 export const action = async ({ params, request }: ActionArgs) => {
   const userId = await requireUserId(request);
   const formData = await request.formData();
@@ -17,9 +19,7 @@ export const action = async ({ params, request }: ActionArgs) => {
 
   invariant(params.houseId, "house not found");
   invariant(startDate, "start date is required");
-
-  // TODO: populate tenants and landlord from the DB
-  // Send a request to get the house first
+    
   const body = {
     user: userId.replace(/^email#/, ""),
     houseid: params.houseId,
