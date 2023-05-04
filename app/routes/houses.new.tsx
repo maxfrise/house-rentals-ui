@@ -39,9 +39,9 @@ export const action = async ({ request }: ActionArgs) => {
       houseFriendlyName,
       address,
       details,
-      landlords: [{ landlordName, landlordPhone }],
+      landlords: [{ name: landlordName, phone: landlordPhone }],
       leaseStatus: "AVAILABLE", // Hardcoded as it is the default state
-      tenants: [{ tenantName, tenantPhone }],
+      tenants: [{ name: tenantName, phone: tenantPhone }],
     }),
   });
 
