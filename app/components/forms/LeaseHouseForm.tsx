@@ -4,8 +4,11 @@ import {
   InputType,
 } from "../forms/fields/GenericInputField";
 import { SubmitButton } from "./fields/SubmitButton";
+import { useMatchesData } from "../../utils";
+import type { House } from "../../datasource/MaxfriseApi/MaxfriseApiTypes";
 
 export default function LeaseHouseForm() {
+  const houses = useMatchesData("routes/houses.$houseId") as unknown as House[];
   return (
     <Form
       method="post"
@@ -37,6 +40,16 @@ export default function LeaseHouseForm() {
         type={InputType.NUMBER}
       />
       <SubmitButton />
+      <input
+        type="hidden"
+        name="tenants"
+        value={JSON.stringify(houses?.[0]?.tenants)}
+      />
+      <input
+        type="hidden"
+        name="landlords"
+        value={JSON.stringify(houses?.[0]?.landlords)}
+      />
     </Form>
   );
 }

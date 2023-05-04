@@ -1,12 +1,9 @@
 import LeaseHouseForm from "../components/forms/LeaseHouseForm";
-
 import { requireUserId } from "~/session.server";
 
 import { redirect } from "@remix-run/node";
 import type { ActionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
-
-// TODO: the loader should check the house status, and if it is rented then it should redirect it back to the prev view
 
 export const action = async ({ params, request }: ActionArgs) => {
   const userId = await requireUserId(request);
@@ -15,22 +12,25 @@ export const action = async ({ params, request }: ActionArgs) => {
   const startDate = formData.get("startDate");
   const term = formData.get("term");
   const rentAmount = formData.get("rentAmount");
+  const tenants = formData.get("tenants");
+  const landlords = formData.get("landlords");
 
   invariant(params.houseId, "house not found");
   invariant(startDate, "start date is required");
 
-  const date = new Date(startDate.toString());
-
+  // TODO: populate tenants and landlord from the DB
+  // Send a request to get the house first
   const body = {
-    landlord: userId,
-    houseKey: `house#${params.houseId}`,
-    startDate: date.getTime() / 1000,
-    term: term,
-    dueDay: date.getDate(),
-    rentAmount: rentAmount,
+    user: userId.replace(/^email#/, ""),
+    houseid: params.houseId,
+    startDate,
+    term,
+    rentAmount,
+    landlords: JSON.parse(landlords?.toString() || "[]"),
+    tenants: JSON.parse(tenants?.toString() || "[]"),
   };
 
-  const apiUrl = "https://api.maxfrise.com/createlease";
+  const apiUrl = "https://api.maxfrise.com/initlease";
 
   const res = await fetch(apiUrl, {
     method: "POST",
