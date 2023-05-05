@@ -107,8 +107,7 @@ describe("MaxfriseApi", () => {
       "application/json",
       "/houseoverview?houseid=123&user=audel91%40gmail.com"
     );
-    const houseOverview = await api.getHouseOverView("123", "email#audel91@gmail.com");
-    console.log(houseOverview)
+    const houseOverview = await api.getHouseOverView("123", "email#audel91@gmail.com");    
     expect(houseOverview?.house).toStrictEqual({
       "landlords": [
         {
