@@ -1,11 +1,23 @@
 type Landlord = {
-  landlordName: string;
-  landlordPhone: String;
+  name: string;
+  phone: String;
 };
 
 type Tenant = {
-  tenantName: string;
-  tenantPhone: String;
+  name: string;
+  phone: String;
+};
+
+type Detail = {
+  amount: string;
+};
+
+type Payment = {
+  landlords: Landlord[];
+  status: string;
+  tenants: Tenant[];
+  details: Detail[];
+  pk: string;
 };
 
 export type House = {
@@ -17,4 +29,9 @@ export type House = {
   address: string;
   details: string;
   leaseStatus: string;
+};
+
+export type HouseOverview = {
+  house: House;
+  payments: Payment[];
 };

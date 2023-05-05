@@ -21,14 +21,14 @@ describe("MaxfriseApi", () => {
         {
           landlords: [
             {
-              landlordPhone: "+523121186644",
-              landlordName: "Sergio",
+              phone: "+523121186644",
+              name: "Sergio",
             },
           ],
           tenants: [
             {
-              tenantName: "Juan",
-              tenantPhone: "+5212345678",
+              name: "Juan",
+              phone: "+5212345678",
             },
           ],
           houseId: "house#clggukphp0000zlw958vz113s",
@@ -43,10 +43,10 @@ describe("MaxfriseApi", () => {
       "/gethouses?landlord=email%23audel91%40gmail.com"
     );
     const houses = await api.getHouses("email#audel91@gmail.com");
-    expect(houses[0].landlords[0].landlordName).toEqual("Sergio");
-    expect(houses[0].landlords[0].landlordPhone).toEqual("+523121186644");
-    expect(houses[0].tenants[0].tenantName).toEqual("Juan");
-    expect(houses[0].tenants[0].tenantPhone).toEqual("+5212345678");
+    expect(houses[0].landlords[0].name).toEqual("Sergio");
+    expect(houses[0].landlords[0].phone).toEqual("+523121186644");
+    expect(houses[0].tenants[0].name).toEqual("Juan");
+    expect(houses[0].tenants[0].phone).toEqual("+5212345678");
     expect(houses[0].houseId).toEqual("house#clggukphp0000zlw958vz113s");
     expect(houses[0].houseFriendlyName).toEqual("Monte cervino");
     expect(houses[0].landlord).toEqual("email#audel91@gmail.com");
@@ -54,4 +54,105 @@ describe("MaxfriseApi", () => {
     expect(houses[0].details).toEqual("Casa a una cuadra del jardin");
     expect(houses[0].leaseStatus).toEqual("LEASED");
   });
+
+  test("get houseoverview", async (params) => {
+    mockResponse(
+      {
+        "house": {
+          "landlords": [
+            {
+              "name": "Sergio Audel",
+              "phone": "3121186644"
+            }
+          ],
+          "tenants": [
+            {
+              "name": "Yolanda",
+              "phone": "+150931203388"
+            }
+          ],
+          "houseId": "house#clh9njfth00004uw9h47y1lcn",
+          "houseFriendlyName": "Monte cervino",
+          "landlord": "email#audel91@gmail.com",
+          "address": "Monte cervino 137",
+          "details": "Casa a una cuadra del jardin",
+          "leaseStatus": "LEASED"
+        },
+        "payments": [
+          {
+            "landlords": [
+              {
+                "name": "Sergio Audel",
+                "phone": "3121186644"
+              }
+            ],
+            "st": "clh9njfth00004uw9h47y1lcn|2023-05-17T00:00:00.000Z|045e99c3-96ef-4e92-90d1-6496aa25fc58",
+            "houseid": "clh9njfth00004uw9h47y1lcn",
+            "status": "NOT_DUE",
+            "tanants": [
+              {
+                "name": "Yolanda",
+                "phone": "+150931203388"
+              }
+            ],
+            "details": [
+              {
+                "amount": "12000"
+              }
+            ],
+            "pk": "p#2023-05-17T00:00:00.000Z"
+          }
+        ]
+      },
+      "application/json",
+      "/houseoverview?houseid=123&user=audel91%40gmail.com"
+    );
+    const houseOverview = await api.getHouseOverView("123", "email#audel91@gmail.com");
+    console.log(houseOverview)
+    expect(houseOverview?.house).toStrictEqual({
+      "landlords": [
+        {
+          "name": "Sergio Audel",
+          "phone": "3121186644"
+        }
+      ],
+      "tenants": [
+        {
+          "name": "Yolanda",
+          "phone": "+150931203388"
+        }
+      ],
+      "houseId": "house#clh9njfth00004uw9h47y1lcn",
+      "houseFriendlyName": "Monte cervino",
+      "landlord": "email#audel91@gmail.com",
+      "address": "Monte cervino 137",
+      "details": "Casa a una cuadra del jardin",
+      "leaseStatus": "LEASED"
+    });
+    expect(houseOverview?.payments).toStrictEqual([
+      {
+        "landlords": [
+          {
+            "name": "Sergio Audel",
+            "phone": "3121186644"
+          }
+        ],
+        "st": "clh9njfth00004uw9h47y1lcn|2023-05-17T00:00:00.000Z|045e99c3-96ef-4e92-90d1-6496aa25fc58",
+        "houseid": "clh9njfth00004uw9h47y1lcn",
+        "status": "NOT_DUE",
+        "tanants": [
+          {
+            "name": "Yolanda",
+            "phone": "+150931203388"
+          }
+        ],
+        "details": [
+          {
+            "amount": "12000"
+          }
+        ],
+        "pk": "p#2023-05-17T00:00:00.000Z"
+      }
+    ])
+  })
 });
