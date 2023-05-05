@@ -1,6 +1,6 @@
 import { DataSource } from "../Datasource";
 
-import type { House } from "./MaxfriseApiTypes";
+import type { House, HouseOverview } from "./MaxfriseApiTypes";
 
 export class MaxfriseApi extends DataSource {
   constructor(apiUrl: string) {
@@ -14,5 +14,18 @@ export class MaxfriseApi extends DataSource {
         params: { landlord },
       })) || []
     );
+  }
+
+  async getHouseOverView(
+    houseid: string,
+    user: string
+  ): Promise<HouseOverview | undefined> {
+    return await this.fetch("/houseoverview", {
+      method: "GET",
+      params: {
+        houseid,
+        user: user.replace(/^email#/, ""),
+      },
+    });
   }
 }

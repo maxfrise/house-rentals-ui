@@ -19,7 +19,7 @@ export const action = async ({ params, request }: ActionArgs) => {
 
   invariant(params.houseId, "house not found");
   invariant(startDate, "start date is required");
-    
+
   const body = {
     user: userId.replace(/^email#/, ""),
     houseid: params.houseId,
