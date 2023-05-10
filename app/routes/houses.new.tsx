@@ -8,6 +8,7 @@ import { requireUserId } from "~/session.server";
 import { CreateHouseForm } from "../components/forms/CreateHouseForm";
 
 import FormValidator from "../components/forms/validator/form-validator";
+import { useState } from "react";
 
 export const action = async ({ request }: ActionArgs) => {
   const userId = await requireUserId(request);
@@ -48,7 +49,75 @@ export const action = async ({ request }: ActionArgs) => {
   return redirect(`/houses/${houseId.replace(/^house#/, "")}`);
 };
 
+type FormField = {
+  value: string;
+  error?: string
+}
+
+export type FormState = {
+  houseFriendlyName: FormField;
+  details: FormField;
+  landlordName: FormField;
+  landlordPhone: FormField;
+  address: FormField;
+  tenantName: FormField;
+  tenantPhone: FormField;
+}
+
 export default function NewNotePage() {
   const actionData = useActionData<typeof action>();
-  return <CreateHouseForm actionData={actionData} />;
+  const [formState, setFormState] = useState<FormState>({
+    houseFriendlyName: {
+      value: ''
+    },
+    details: {
+      value: ''
+    },
+    landlordName: {
+      value: ''
+    },
+    landlordPhone: {
+      value: ''
+    },
+    address: {
+      value: ''
+    },
+    tenantName: {
+      value: ''
+    },
+    tenantPhone: {
+      value: ''
+    }
+  })
+
+  const onInputChange = (value: Partial<FormState>) => {
+    /**
+     * Global form state is being through thougth this callback
+     */
+    setFormState({
+      ...formState,  
+      ...value    
+    })    
+    // Do update the state here!
+  }
+
+  const onFormSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    // validate, if valid let the form go
+    // otherwise prevent the default
+    console.log("VALIDATE_FORM", formState)
+    // const validate = () => true
+    // if (validate()) {
+    //   // Do nothing here, let the form submit
+    // } else {
+    //   event.preventDefault()
+    // }
+    event.preventDefault()
+  }
+
+  return <CreateHouseForm
+    formChangeCB={onInputChange}
+    onFormSubmit={onFormSubmit}
+    actionData={actionData}
+    formState={formState}
+  />;
 }
