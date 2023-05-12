@@ -58,100 +58,103 @@ describe("MaxfriseApi", () => {
   test("get houseoverview", async (params) => {
     mockResponse(
       {
-        "house": {
-          "landlords": [
+        house: {
+          landlords: [
             {
-              "name": "Sergio Audel",
-              "phone": "3121186644"
-            }
+              name: "Sergio Audel",
+              phone: "3121186644",
+            },
           ],
-          "tenants": [
+          tenants: [
             {
-              "name": "Yolanda",
-              "phone": "+150931203388"
-            }
+              name: "Yolanda",
+              phone: "+150931203388",
+            },
           ],
-          "houseId": "house#clh9njfth00004uw9h47y1lcn",
-          "houseFriendlyName": "Monte cervino",
-          "landlord": "email#audel91@gmail.com",
-          "address": "Monte cervino 137",
-          "details": "Casa a una cuadra del jardin",
-          "leaseStatus": "LEASED"
+          houseId: "house#clh9njfth00004uw9h47y1lcn",
+          houseFriendlyName: "Monte cervino",
+          landlord: "email#audel91@gmail.com",
+          address: "Monte cervino 137",
+          details: "Casa a una cuadra del jardin",
+          leaseStatus: "LEASED",
         },
-        "payments": [
+        payments: [
           {
-            "landlords": [
+            landlords: [
               {
-                "name": "Sergio Audel",
-                "phone": "3121186644"
-              }
+                name: "Sergio Audel",
+                phone: "3121186644",
+              },
             ],
-            "st": "clh9njfth00004uw9h47y1lcn|2023-05-17T00:00:00.000Z|045e99c3-96ef-4e92-90d1-6496aa25fc58",
-            "houseid": "clh9njfth00004uw9h47y1lcn",
-            "status": "NOT_DUE",
-            "tanants": [
+            st: "clh9njfth00004uw9h47y1lcn|2023-05-17T00:00:00.000Z|045e99c3-96ef-4e92-90d1-6496aa25fc58",
+            houseid: "clh9njfth00004uw9h47y1lcn",
+            status: "NOT_DUE",
+            tanants: [
               {
-                "name": "Yolanda",
-                "phone": "+150931203388"
-              }
+                name: "Yolanda",
+                phone: "+150931203388",
+              },
             ],
-            "details": [
+            details: [
               {
-                "amount": "12000"
-              }
+                amount: "12000",
+              },
             ],
-            "pk": "p#2023-05-17T00:00:00.000Z"
-          }
-        ]
+            pk: "p#2023-05-17T00:00:00.000Z",
+          },
+        ],
       },
       "application/json",
       "/houseoverview?houseid=123&user=audel91%40gmail.com"
     );
-    const houseOverview = await api.getHouseOverView("123", "email#audel91@gmail.com");    
+    const houseOverview = await api.getHouseOverView(
+      "123",
+      "email#audel91@gmail.com"
+    );
     expect(houseOverview?.house).toStrictEqual({
-      "landlords": [
+      landlords: [
         {
-          "name": "Sergio Audel",
-          "phone": "3121186644"
-        }
+          name: "Sergio Audel",
+          phone: "3121186644",
+        },
       ],
-      "tenants": [
+      tenants: [
         {
-          "name": "Yolanda",
-          "phone": "+150931203388"
-        }
+          name: "Yolanda",
+          phone: "+150931203388",
+        },
       ],
-      "houseId": "house#clh9njfth00004uw9h47y1lcn",
-      "houseFriendlyName": "Monte cervino",
-      "landlord": "email#audel91@gmail.com",
-      "address": "Monte cervino 137",
-      "details": "Casa a una cuadra del jardin",
-      "leaseStatus": "LEASED"
+      houseId: "house#clh9njfth00004uw9h47y1lcn",
+      houseFriendlyName: "Monte cervino",
+      landlord: "email#audel91@gmail.com",
+      address: "Monte cervino 137",
+      details: "Casa a una cuadra del jardin",
+      leaseStatus: "LEASED",
     });
     expect(houseOverview?.payments).toStrictEqual([
       {
-        "landlords": [
+        landlords: [
           {
-            "name": "Sergio Audel",
-            "phone": "3121186644"
-          }
+            name: "Sergio Audel",
+            phone: "3121186644",
+          },
         ],
-        "st": "clh9njfth00004uw9h47y1lcn|2023-05-17T00:00:00.000Z|045e99c3-96ef-4e92-90d1-6496aa25fc58",
-        "houseid": "clh9njfth00004uw9h47y1lcn",
-        "status": "NOT_DUE",
-        "tanants": [
+        st: "clh9njfth00004uw9h47y1lcn|2023-05-17T00:00:00.000Z|045e99c3-96ef-4e92-90d1-6496aa25fc58",
+        houseid: "clh9njfth00004uw9h47y1lcn",
+        status: "NOT_DUE",
+        tanants: [
           {
-            "name": "Yolanda",
-            "phone": "+150931203388"
-          }
+            name: "Yolanda",
+            phone: "+150931203388",
+          },
         ],
-        "details": [
+        details: [
           {
-            "amount": "12000"
-          }
+            amount: "12000",
+          },
         ],
-        "pk": "p#2023-05-17T00:00:00.000Z"
-      }
-    ])
-  })
+        pk: "p#2023-05-17T00:00:00.000Z",
+      },
+    ]);
+  });
 });

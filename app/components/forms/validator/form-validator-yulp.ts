@@ -1,4 +1,4 @@
-import { Schema, ValidationError } from "yup";
+import type { Schema, ValidationError } from "yup";
 import merge from "lodash.merge";
 
 export type MaxfriseErrors<Values> = {
@@ -44,7 +44,7 @@ function yupToMaxfriseFormErrors<Values>(
 ): MaxfriseErrors<Values> {
   let errors: any = {};
 
-  yupError.inner.map((error) => {
+  yupError.inner.forEach((error) => {
     errors = merge(errors, convertToObject(error.path, error.message));
   });
 

@@ -12,7 +12,7 @@ import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 
 import { requireUserId } from "~/session.server";
 
-export const loader = async ({ params, request }: LoaderArgs) => {  
+export const loader = async ({ params, request }: LoaderArgs) => {
   const api = new MaxfriseApi("https://api.maxfrise.com");
   invariant(params.houseId, "house not found");
   const userId = await requireUserId(request);
@@ -85,11 +85,11 @@ export default function HouseDetailsPage() {
         <>
           <h3 className="pt-4 text-2xl font-bold">Pagos</h3>
           <div className="payments">
-            {data.payments?.map((payment) => {
+            {data.payments?.map((payment, idx) => {
               const dateString = payment.pk.replace(/^p#/, "");
               const date = dateString.replace(/T.*$/, "");
               return (
-                <div className="flex p-2">
+                <div key={`payment-${idx}`} className="flex p-2">
                   <div className="flex-auto">
                     <p>{payment.details[0].amount}</p>
                   </div>
