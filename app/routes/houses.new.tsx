@@ -10,6 +10,15 @@ import { CreateHouseForm } from "../components/forms/CreateHouseForm";
 import FormValidator from "../components/forms/validator/form-validator";
 import { useState } from "react";
 
+import { object, string, number, date, InferType, setLocale } from 'yup';
+import { validate } from "../components/forms/validator/form-validator-yulp"
+
+setLocale({
+  mixed: {
+    required: "el campo es requerido"
+  }
+})
+
 export const action = async ({ request }: ActionArgs) => {
   const userId = await requireUserId(request);
 
@@ -90,18 +99,17 @@ export default function NewNotePage() {
     }
   })
 
-  const onInputChange = (value: Partial<FormState>) => {
+  const onFormFieldChange = (value: Partial<FormState>) => {
     /**
-     * Global form state is being through thougth this callback
+     * Global form state is being tracked through this handler
      */
     setFormState({
-      ...formState,  
-      ...value    
-    })    
-    // Do update the state here!
+      ...formState,
+      ...value
+    })
   }
 
-  const onFormSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onFormSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     // validate, if valid let the form go
     // otherwise prevent the default
     console.log("VALIDATE_FORM", formState)
@@ -111,11 +119,42 @@ export default function NewNotePage() {
     // } else {
     //   event.preventDefault()
     // }
+    let userSchema = object({
+      name: string().required(),
+      age: number().required().positive().integer(),
+      email: string().email(),
+      website: string().url().nullable(),
+      createdOn: date().default(() => new Date()),
+    });
+
+    // try {
+    //   const result = await userSchema.validate({ name: 1 })
+    //   console.log("validation", result)
+    // } catch (err) {
+    //   console.log("There was an error validatiing the form")
+    //   console.log(err)
+    // }
+
+    // const result = userSchema.validate({ name: 1 })
+    //   .then(() => {
+    //     // Here seems like all good?
+    //   }, (err) => {
+    //     console.log("THERE WAS A YULP ERROR!")
+    //     console.log(err.name)
+    //   })
+    validate({ name: 1 }, userSchema).then(() => {
+      // Here seems like all good?
+    }, (err) => {
+      console.log("THERE WAS A YULP ERROR!")
+      console.log(err)
+    })          
+    // The state should be validated, the result of that should be reset
+
     event.preventDefault()
   }
 
   return <CreateHouseForm
-    formChangeCB={onInputChange}
+    onFormFieldChange={onFormFieldChange}
     onFormSubmit={onFormSubmit}
     actionData={actionData}
     formState={formState}

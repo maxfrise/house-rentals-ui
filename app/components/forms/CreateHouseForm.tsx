@@ -9,12 +9,12 @@ import type { FormState } from "../../routes/houses.new"
 interface CreateHouseFormProps {
   actionData: SerializeFrom<typeof action> | undefined;
   formState?: FormState;
-  formChangeCB?: (value: Partial<FormState>) => void;
+  onFormFieldChange?: (value: Partial<FormState>) => void;
   onFormSubmit?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const CreateHouseForm = (props: CreateHouseFormProps) => {
-  const { actionData, formChangeCB, onFormSubmit, formState } = props;
+  const { actionData, onFormFieldChange, onFormSubmit, formState } = props;
 
   return (
     <Form
@@ -28,49 +28,49 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
     >
       <GenericInputField
         initialValue={formState?.houseFriendlyName.value}
-        cb={formChangeCB}
+        cb={onFormFieldChange}
         label="Nombre de la propiedad"
         error={actionData?.errors.houseFriendlyName}
         name="houseFriendlyName"
       />
       <GenericTextArea
         initialValue={formState?.details.value}
-        cb={formChangeCB}
+        cb={onFormFieldChange}
         label="Descripción de la propiedad"
         error={actionData?.errors.description}
         name="details"
       />
       <GenericInputField
         initialValue={formState?.landlordName.value}
-        cb={formChangeCB}
+        cb={onFormFieldChange}
         label="Nombre del arrendador"
         error={actionData?.errors.landlordName}
         name="landlordName"
       />
       <GenericInputField
         initialValue={formState?.landlordPhone.value}
-        cb={formChangeCB}
+        cb={onFormFieldChange}
         label="Telefono del arrendador"
         error={actionData?.errors.landlordPhone}
         name="landlordPhone"
       />
       <GenericInputField
         initialValue={formState?.address.value}
-        cb={formChangeCB}
+        cb={onFormFieldChange}
         label="Direccion de la casa"
         error={actionData?.errors.address}
         name="address"
       />
       <GenericInputField
         initialValue={formState?.tenantName.value}
-        cb={formChangeCB}
+        cb={onFormFieldChange}
         label="Nombre del arrendatario"
         error={actionData?.errors.tenantName}
         name="tenantName"
       />
       <GenericInputField
         initialValue={formState?.tenantPhone.value}
-        cb={formChangeCB}
+        cb={onFormFieldChange}
         label="Telefono del arrendatario"
         error={actionData?.errors.tenantPhone}
         name="tenantPhone"
