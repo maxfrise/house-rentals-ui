@@ -1,5 +1,5 @@
 interface SubmitButtonProps {
-  onFormSubmit?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onFormSubmit?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 export const SubmitButton: React.FC<SubmitButtonProps> = ({ onFormSubmit }) => {
   return (

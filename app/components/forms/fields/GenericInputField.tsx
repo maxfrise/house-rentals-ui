@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRef, useEffect } from "react";
-import type { FormState } from "../../../routes/houses.new"
+import type { FormState } from "../../../routes/houses.new";
 
 export enum InputType {
   DATE = "date",
@@ -14,7 +14,7 @@ interface GenericInputFieldProps {
   error?: string | null;
   type?: InputType;
   cb?: (value: Partial<FormState>) => void;
-  initialValue?: string | number
+  initialValue?: string | number;
 }
 
 export const GenericInputField: React.FC<GenericInputFieldProps> = ({
@@ -23,10 +23,10 @@ export const GenericInputField: React.FC<GenericInputFieldProps> = ({
   error,
   type,
   cb,
-  initialValue
+  initialValue,
 }) => {
   const ref = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState(initialValue)
+  const [value, setValue] = useState(initialValue);
 
   useEffect(() => {
     if (error) {
@@ -34,11 +34,11 @@ export const GenericInputField: React.FC<GenericInputFieldProps> = ({
     }
   }, [error]);
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {    
-    const currentValue = event.target.value
-    setValue(currentValue)
-    cb?.({ [name]: currentValue })
-  }
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const currentValue = event.target.value;
+    setValue(currentValue);
+    cb?.({ [name]: currentValue });
+  };
 
   return (
     <div>

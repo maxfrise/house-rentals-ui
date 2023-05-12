@@ -12,7 +12,7 @@ import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 
 import { requireUserId } from "~/session.server";
 
-export const loader = async ({ params, request }: LoaderArgs) => {  
+export const loader = async ({ params, request }: LoaderArgs) => {
   const api = new MaxfriseApi("https://api.maxfrise.com");
   invariant(params.houseId, "house not found");
   const userId = await requireUserId(request);

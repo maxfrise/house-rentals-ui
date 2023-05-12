@@ -4,13 +4,13 @@ import type { action } from "../../routes/houses.new";
 import { GenericInputField } from "./fields/GenericInputField";
 import { GenericTextArea } from "./fields/GenericTextArea";
 import { SubmitButton } from "./fields/SubmitButton";
-import type { FormState } from "../../routes/houses.new"
+import type { FormState } from "../../routes/houses.new";
 
 interface CreateHouseFormProps {
   actionData: SerializeFrom<typeof action> | undefined;
   formState?: FormState;
   onFormFieldChange?: (value: Partial<FormState>) => void;
-  onFormSubmit?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onFormSubmit?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const CreateHouseForm = (props: CreateHouseFormProps) => {

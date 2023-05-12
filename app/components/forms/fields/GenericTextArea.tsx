@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import type { FormState } from "../../../routes/houses.new"
+import type { FormState } from "../../../routes/houses.new";
 
 interface GenericTextAreaInterface {
   label: string;
   name: string;
   error?: string | null;
   cb?: (value: Partial<FormState>) => void;
-  initialValue?: string | number
+  initialValue?: string | number;
 }
 
 export const GenericTextArea: React.FC<GenericTextAreaInterface> = ({
@@ -14,10 +14,10 @@ export const GenericTextArea: React.FC<GenericTextAreaInterface> = ({
   name,
   error,
   cb,
-  initialValue
+  initialValue,
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
-  const [value, setValue] = useState(initialValue)
+  const [value, setValue] = useState(initialValue);
 
   useEffect(() => {
     if (error) {
@@ -25,11 +25,11 @@ export const GenericTextArea: React.FC<GenericTextAreaInterface> = ({
     }
   }, [error]);
 
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {    
-    const currentValue = event.target.value
-    setValue(currentValue)
-    cb?.({ [name]: currentValue })
-  }
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const currentValue = event.target.value;
+    setValue(currentValue);
+    cb?.({ [name]: currentValue });
+  };
 
   return (
     <div>

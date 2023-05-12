@@ -10,14 +10,14 @@ import { CreateHouseForm } from "../components/forms/CreateHouseForm";
 import FormValidator from "../components/forms/validator/form-validator";
 import { useState } from "react";
 
-import { object, string, number, date, InferType, setLocale } from 'yup';
-import { validate } from "../components/forms/validator/form-validator-yulp"
+import { object, string, number, date, InferType, setLocale } from "yup";
+import { validate } from "../components/forms/validator/form-validator-yulp";
 
 setLocale({
   mixed: {
-    required: "el campo es requerido"
-  }
-})
+    required: "el campo es requerido",
+  },
+});
 
 export const action = async ({ request }: ActionArgs) => {
   const userId = await requireUserId(request);
@@ -60,8 +60,8 @@ export const action = async ({ request }: ActionArgs) => {
 
 type FormField = {
   value: string;
-  error?: string
-}
+  error?: string;
+};
 
 export type FormState = {
   houseFriendlyName: FormField;
@@ -71,33 +71,33 @@ export type FormState = {
   address: FormField;
   tenantName: FormField;
   tenantPhone: FormField;
-}
+};
 
 export default function NewNotePage() {
   const actionData = useActionData<typeof action>();
   const [formState, setFormState] = useState<FormState>({
     houseFriendlyName: {
-      value: ''
+      value: "",
     },
     details: {
-      value: ''
+      value: "",
     },
     landlordName: {
-      value: ''
+      value: "",
     },
     landlordPhone: {
-      value: ''
+      value: "",
     },
     address: {
-      value: ''
+      value: "",
     },
     tenantName: {
-      value: ''
+      value: "",
     },
     tenantPhone: {
-      value: ''
-    }
-  })
+      value: "",
+    },
+  });
 
   const onFormFieldChange = (value: Partial<FormState>) => {
     /**
@@ -105,14 +105,14 @@ export default function NewNotePage() {
      */
     setFormState({
       ...formState,
-      ...value
-    })
-  }
+      ...value,
+    });
+  };
 
   const onFormSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     // validate, if valid let the form go
     // otherwise prevent the default
-    console.log("VALIDATE_FORM", formState)
+    console.log("VALIDATE_FORM", formState);
     // const validate = () => true
     // if (validate()) {
     //   // Do nothing here, let the form submit
@@ -142,21 +142,26 @@ export default function NewNotePage() {
     //     console.log("THERE WAS A YULP ERROR!")
     //     console.log(err.name)
     //   })
-    validate({ name: 1 }, userSchema).then(() => {
-      // Here seems like all good?
-    }, (err) => {
-      console.log("THERE WAS A YULP ERROR!")
-      console.log(err)
-    })          
+    validate({ name: 1 }, userSchema).then(
+      () => {
+        // Here seems like all good?
+      },
+      (err) => {
+        console.log("THERE WAS A YULP ERROR!");
+        console.log(err);
+      }
+    );
     // The state should be validated, the result of that should be reset
 
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
-  return <CreateHouseForm
-    onFormFieldChange={onFormFieldChange}
-    onFormSubmit={onFormSubmit}
-    actionData={actionData}
-    formState={formState}
-  />;
+  return (
+    <CreateHouseForm
+      onFormFieldChange={onFormFieldChange}
+      onFormSubmit={onFormSubmit}
+      actionData={actionData}
+      formState={formState}
+    />
+  );
 }
