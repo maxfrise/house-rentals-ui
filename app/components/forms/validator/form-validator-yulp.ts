@@ -11,7 +11,7 @@ export type MaxfriseErrors<Values> = {
     : string;
 };
 
-export function validate<Values>(
+export async function validate<Values>(
   values: Values,
   schema: Schema
 ): Promise<MaxfriseErrors<Values>> {

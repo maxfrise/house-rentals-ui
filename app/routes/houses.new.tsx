@@ -10,8 +10,8 @@ import { CreateHouseForm } from "../components/forms/CreateHouseForm";
 import FormValidator from "../components/forms/validator/form-validator";
 import { useState } from "react";
 
-import { object, string, number, date, InferType, setLocale } from "yup";
-import { validate } from "../components/forms/validator/form-validator-yulp";
+import { object, string, setLocale } from "yup";
+import { validate, MaxfriseErrors } from "../components/forms/validator/form-validator-yulp";
 
 setLocale({
   mixed: {
@@ -58,46 +58,29 @@ export const action = async ({ request }: ActionArgs) => {
   return redirect(`/houses/${houseId.replace(/^house#/, "")}`);
 };
 
-type FormField = {
-  value: string;
-  error?: string;
-};
-
 export type FormState = {
-  houseFriendlyName: FormField;
-  details: FormField;
-  landlordName: FormField;
-  landlordPhone: FormField;
-  address: FormField;
-  tenantName: FormField;
-  tenantPhone: FormField;
+  houseFriendlyName: string;
+  details: string;
+  landlordName: string;
+  landlordPhone: string;
+  address: string;
+  tenantName: string;
+  tenantPhone: string;
 };
 
 export default function NewNotePage() {
+  const newHouseModel: FormState = {
+    houseFriendlyName: "",
+    details: "",
+    landlordName: "",
+    landlordPhone: "",
+    address: "",
+    tenantName: "",
+    tenantPhone: ""
+  }
   const actionData = useActionData<typeof action>();
-  const [formState, setFormState] = useState<FormState>({
-    houseFriendlyName: {
-      value: "",
-    },
-    details: {
-      value: "",
-    },
-    landlordName: {
-      value: "",
-    },
-    landlordPhone: {
-      value: "",
-    },
-    address: {
-      value: "",
-    },
-    tenantName: {
-      value: "",
-    },
-    tenantPhone: {
-      value: "",
-    },
-  });
+  const [formState, setFormState] = useState<FormState>(newHouseModel);
+  const [errors, setErrors] = useState<MaxfriseErrors<FormState>>(newHouseModel)
 
   const onFormFieldChange = (value: Partial<FormState>) => {
     /**
@@ -110,50 +93,19 @@ export default function NewNotePage() {
   };
 
   const onFormSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    // validate, if valid let the form go
-    // otherwise prevent the default
-    console.log("VALIDATE_FORM", formState);
-    // const validate = () => true
-    // if (validate()) {
-    //   // Do nothing here, let the form submit
-    // } else {
-    //   event.preventDefault()
-    // }
-    let userSchema = object({
-      name: string().required(),
-      age: number().required().positive().integer(),
-      email: string().email(),
-      website: string().url().nullable(),
-      createdOn: date().default(() => new Date()),
+    // TODO: move this where it can be used by the server, and add full validations
+    let newHouseSchema = object({
+      houseFriendlyName: string().required(),
     });
-
-    // try {
-    //   const result = await userSchema.validate({ name: 1 })
-    //   console.log("validation", result)
-    // } catch (err) {
-    //   console.log("There was an error validatiing the form")
-    //   console.log(err)
-    // }
-
-    // const result = userSchema.validate({ name: 1 })
-    //   .then(() => {
-    //     // Here seems like all good?
-    //   }, (err) => {
-    //     console.log("THERE WAS A YULP ERROR!")
-    //     console.log(err.name)
-    //   })
-    validate({ name: 1 }, userSchema).then(
-      () => {
-        // Here seems like all good?
-      },
-      (err) => {
-        console.log("THERE WAS A YULP ERROR!");
-        console.log(err);
-      }
-    );
-    // The state should be validated, the result of that should be reset
-
-    event.preventDefault();
+    
+    const errors = await validate(formState, newHouseSchema)
+    
+    if (Object.keys({errors}).length > 0) {
+      event.preventDefault();
+      setErrors(errors)
+    }
+    
+    // When no error let the form submit
   };
 
   return (
@@ -162,6 +114,7 @@ export default function NewNotePage() {
       onFormSubmit={onFormSubmit}
       actionData={actionData}
       formState={formState}
+      errors={errors}
     />
   );
 }
