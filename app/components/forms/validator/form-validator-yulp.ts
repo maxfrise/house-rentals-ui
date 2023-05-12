@@ -23,7 +23,7 @@ export function validate<Values>(
       (err: any) => {
         // Any yulp error will be handled and transformed into a MaxfriseErrors error
         if (err.name === "ValidationError") {
-          resolve(yupToFormErrors(err)); // Convert the error into something more usefull.
+          resolve(yupToMaxfriseFormErrors(err)); // Convert the error into something more usefull.
         } else {
           // Any other error will just be thrown
           if (process.env.NODE_ENV !== "production") {
@@ -39,7 +39,7 @@ export function validate<Values>(
   });
 }
 
-function yupToFormErrors<Values>(
+function yupToMaxfriseFormErrors<Values>(
   yupError: ValidationError
 ): MaxfriseErrors<Values> {
   let errors: any = {};
