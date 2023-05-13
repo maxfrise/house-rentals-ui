@@ -5,7 +5,7 @@ import { GenericInputField } from "./fields/GenericInputField";
 import { GenericTextArea } from "./fields/GenericTextArea";
 import { SubmitButton } from "./fields/SubmitButton";
 import type { FormState } from "../../routes/houses.new";
-import { MaxfriseErrors } from "./validator/form-validator-yulp";
+import { MaxfriseErrors } from "./validator/form-validator-yup";
 
 interface CreateHouseFormProps {
   actionData: SerializeFrom<typeof action> | undefined;

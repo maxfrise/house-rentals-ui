@@ -11,7 +11,7 @@ import FormValidator from "../components/forms/validator/form-validator";
 import { useState } from "react";
 
 import { object, string, setLocale } from "yup";
-import { validate, MaxfriseErrors } from "../components/forms/validator/form-validator-yulp";
+import { validate, MaxfriseErrors } from "../components/forms/validator/form-validator-yup";
 
 setLocale({
   mixed: {
@@ -92,18 +92,18 @@ export default function NewNotePage() {
     });
   };
 
-  const onFormSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onFormSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     // TODO: move this where it can be used by the server, and add full validations
-    let newHouseSchema = object({
-      houseFriendlyName: string().required(),
-    });
+    // let newHouseSchema = object({
+    //   houseFriendlyName: string().required(),
+    // });
     
-    const errors = await validate(formState, newHouseSchema)
+    // const errors = await validate(formState, newHouseSchema)
     
-    if (Object.keys({errors}).length > 0) {
-      event.preventDefault();
-      setErrors(errors)
-    }
+    // if (Object.keys({errors}).length > 0) {
+    //   event.preventDefault();
+    //   setErrors(errors)
+    // }
     
     // When no error let the form submit
   };
