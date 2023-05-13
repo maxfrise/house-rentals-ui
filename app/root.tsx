@@ -9,7 +9,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import { ThemeContext, Themes } from "@uireact/foundation";
+import { DefaultTheme, ThemeColor, ThemeContext } from "@uireact/foundation";
 
 import tailwindStylesheetUrl from "~/styles/tailwind.css";
 import { getUser } from "~/session.server";
@@ -37,7 +37,7 @@ export default function App() {
       </head>
       <body className="h-full">
         <ThemeContext.Provider
-          value={{ theme: Themes.dark, toogleTheme: noOpFn }}
+          value={{ theme: DefaultTheme, selectedTheme: ThemeColor.dark }}
         >
           <Outlet />
           <ScrollRestoration />
