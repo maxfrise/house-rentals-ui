@@ -2,40 +2,56 @@ import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
 import cuid from "cuid";
-
 import { requireUserId } from "~/session.server";
-
 import { CreateHouseForm } from "../components/forms/CreateHouseForm";
-
-import FormValidator from "../components/forms/validator/form-validator";
-import { useState } from "react";
-
-import { object, string, setLocale } from "yup";
+import { useEffect, useState } from "react";
+import { object, string, setLocale, number } from "yup";
 import { validate, MaxfriseErrors } from "../components/forms/validator/form-validator-yup";
 
 setLocale({
   mixed: {
-    required: "el campo es requerido",
+    required: "El campo es obligatorio",
   },
+  string: {
+    max: 'El campo tiene que tener maximo ${max} caracteres'
+  },
+  number: {
+    positive: "El numero tiene que ser positivo",
+    integer: "El numero tiene que ser entero",
+    max: "El numero tiene que ser menor o igual que ${max} digitos"
+  },
+});
+
+const newHouseSchema = object({
+  houseFriendlyName: string().required().max(40),
+  details: string().required().max(500),
+  landlordName: string().required().max(40),
+  landlordPhone: number()
+    .typeError("El campo tiene que se numero")
+    .positive()
+    .integer()
+    .test('len', 'El telefono tiene que ser de 10 digitos', val => val?.toString().length === 10)
+    .required(),
+  address: string().required().max(40),
+  tenantName: string().required().max(40),
+  tenantPhone: number()
+    .typeError("El campo tiene que se numero")
+    .positive()
+    .integer()
+    .test('len', 'El telefono tiene que ser de 10 digitos', val => val?.toString().length === 10)
+    .required()
 });
 
 export const action = async ({ request }: ActionArgs) => {
   const userId = await requireUserId(request);
+  const formData = Object.fromEntries(await request.formData())
+  const errors: MaxfriseErrors<FormState> = await validate(formData, newHouseSchema)
 
-  const formData = await request.formData();
-  const landlordName = formData.get("landlordName");
-  const landlordPhone = formData.get("landlordPhone");
-  const address = formData.get("address");
-  const details = formData.get("details");
-  const houseFriendlyName = formData.get("houseFriendlyName");
-  const tenantName = formData.get("tenantName");
-  const tenantPhone = formData.get("tenantPhone");
-
-  const errors = FormValidator(formData);
-
-  if (errors.hasErrors) {
+  if (Object.keys(errors).length > 0) {
     return json({ errors }, { status: 400 });
   }
+
+  const { houseFriendlyName, address, details, landlordName, landlordPhone, tenantName, tenantPhone } = formData
 
   const url = "https://api.maxfrise.com/createhouse";
 
@@ -49,9 +65,9 @@ export const action = async ({ request }: ActionArgs) => {
       houseFriendlyName,
       address,
       details,
-      landlords: [{ name: landlordName, phone: landlordPhone }],
+      landlords: [{ name: landlordName, phone: `+52${landlordPhone}` }],
       leaseStatus: "AVAILABLE", // Hardcoded as it is the default state
-      tenants: [{ name: tenantName, phone: tenantPhone }],
+      tenants: [{ name: tenantName, phone: `+52${tenantPhone}` }],
     }),
   });
 
@@ -68,7 +84,7 @@ export type FormState = {
   tenantPhone: string;
 };
 
-export default function NewNotePage() {
+export default function NewHousePage() {
   const newHouseModel: FormState = {
     houseFriendlyName: "",
     details: "",
@@ -79,8 +95,14 @@ export default function NewNotePage() {
     tenantPhone: ""
   }
   const actionData = useActionData<typeof action>();
+
   const [formState, setFormState] = useState<FormState>(newHouseModel);
-  const [errors, setErrors] = useState<MaxfriseErrors<FormState>>(newHouseModel)
+  const [errors, setErrors] = useState<MaxfriseErrors<FormState>>(actionData?.errors || newHouseModel)
+
+  useEffect(() => {
+    // Set the errors that comes form the server
+    setErrors(actionData?.errors || newHouseModel)
+  }, [actionData?.errors])
 
   const onFormFieldChange = (value: Partial<FormState>) => {
     /**
@@ -92,20 +114,14 @@ export default function NewNotePage() {
     });
   };
 
-  const onFormSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // TODO: move this where it can be used by the server, and add full validations
-    // let newHouseSchema = object({
-    //   houseFriendlyName: string().required(),
-    // });
-    
-    // const errors = await validate(formState, newHouseSchema)
-    
-    // if (Object.keys({errors}).length > 0) {
-    //   event.preventDefault();
-    //   setErrors(errors)
-    // }
-    
-    // When no error let the form submit
+  const onFormSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+
+    const errors = await validate(formState, newHouseSchema)
+
+    if (Object.keys(errors).length > 0) {
+      event.preventDefault();
+      setErrors(errors)
+    }
   };
 
   return (

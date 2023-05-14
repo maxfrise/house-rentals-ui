@@ -17,10 +17,7 @@ interface CreateHouseFormProps {
 
 export const CreateHouseForm = (props: CreateHouseFormProps) => {
   const { actionData, onFormFieldChange, onFormSubmit, formState, errors } = props;
-
-  console.log("ERROR")
-  console.log(errors)
-
+    
   return (
     <Form
       method="post"
@@ -42,42 +39,42 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         initialValue={formState?.details}
         cb={onFormFieldChange}
         label="Descripción de la propiedad"
-        error={actionData?.errors.description}
+        error={errors?.details}
         name="details"
       />
       <GenericInputField
         initialValue={formState?.landlordName}
         cb={onFormFieldChange}
         label="Nombre del arrendador"
-        error={actionData?.errors.landlordName}
+        error={errors?.landlordName}
         name="landlordName"
       />
       <GenericInputField
         initialValue={formState?.landlordPhone}
         cb={onFormFieldChange}
         label="Telefono del arrendador"
-        error={actionData?.errors.landlordPhone}
+        error={errors?.landlordPhone}
         name="landlordPhone"
       />
       <GenericInputField
         initialValue={formState?.address}
         cb={onFormFieldChange}
         label="Direccion de la casa"
-        error={actionData?.errors.address}
+        error={errors?.address}
         name="address"
       />
       <GenericInputField
         initialValue={formState?.tenantName}
         cb={onFormFieldChange}
         label="Nombre del arrendatario"
-        error={actionData?.errors.tenantName}
+        error={errors?.tenantName}
         name="tenantName"
       />
       <GenericInputField
         initialValue={formState?.tenantPhone}
         cb={onFormFieldChange}
         label="Telefono del arrendatario"
-        error={actionData?.errors.tenantPhone}
+        error={errors?.tenantPhone}
         name="tenantPhone"
       />
       <SubmitButton onFormSubmit={onFormSubmit} />
