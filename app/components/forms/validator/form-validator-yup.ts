@@ -21,7 +21,7 @@ export async function validate<Values>(
         resolve({});
       },
       (err: any) => {
-        // Any yulp error will be handled and transformed into a MaxfriseErrors error
+        // Any yup error will be handled and transformed into a MaxfriseErrors error
         if (err.name === "ValidationError") {
           resolve(yupToMaxfriseFormErrors(err)); // Convert the error into something more usefull.
         } else {

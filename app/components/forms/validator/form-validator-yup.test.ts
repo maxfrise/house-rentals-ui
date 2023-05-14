@@ -1,4 +1,4 @@
-import { validate } from "./form-validator-yulp";
+import { validate } from "./form-validator-yup";
 import {
   object,
   string,

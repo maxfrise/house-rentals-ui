@@ -4,13 +4,19 @@ import type { action } from "../../routes/houses.new";
 import { GenericInputField } from "./fields/GenericInputField";
 import { GenericTextArea } from "./fields/GenericTextArea";
 import { SubmitButton } from "./fields/SubmitButton";
+import type { FormState } from "../../routes/houses.new";
+import { MaxfriseErrors } from "./validator/form-validator-yup";
 
-interface CreateHouseFormProps {
-  actionData: SerializeFrom<typeof action> | undefined;
+interface CreateHouseFormProps {  
+  formState?: FormState;
+  errors: MaxfriseErrors<FormState>;
+  onFormFieldChange?: (value: Partial<FormState>) => void;
+  onFormSubmit?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const CreateHouseForm = (props: CreateHouseFormProps) => {
-  const { actionData } = props;
+  const { formState, errors, onFormFieldChange, onFormSubmit } =
+    props;
 
   return (
     <Form
@@ -24,40 +30,54 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
     >
       <GenericInputField
         label="Nombre de la propiedad"
-        error={actionData?.errors.houseFriendlyName}
         name="houseFriendlyName"
+        initialValue={formState?.houseFriendlyName}
+        cb={onFormFieldChange}
+        error={errors?.houseFriendlyName}
       />
       <GenericTextArea
         label="Descripción de la propiedad"
-        error={actionData?.errors.description}
         name="details"
+        initialValue={formState?.details}
+        cb={onFormFieldChange}
+        error={errors?.details}
       />
       <GenericInputField
         label="Nombre del arrendador"
-        error={actionData?.errors.landlordName}
         name="landlordName"
+        initialValue={formState?.landlordName}
+        cb={onFormFieldChange}
+        error={errors?.landlordName}
       />
       <GenericInputField
         label="Telefono del arrendador"
-        error={actionData?.errors.landlordPhone}
         name="landlordPhone"
+        initialValue={formState?.landlordPhone}
+        cb={onFormFieldChange}
+        error={errors?.landlordPhone}
       />
       <GenericInputField
         label="Direccion de la casa"
-        error={actionData?.errors.address}
         name="address"
+        initialValue={formState?.address}
+        cb={onFormFieldChange}
+        error={errors?.address}
       />
       <GenericInputField
         label="Nombre del arrendatario"
-        error={actionData?.errors.tenantName}
         name="tenantName"
+        initialValue={formState?.tenantName}
+        cb={onFormFieldChange}
+        error={errors?.tenantName}
       />
       <GenericInputField
         label="Telefono del arrendatario"
-        error={actionData?.errors.tenantPhone}
         name="tenantPhone"
+        initialValue={formState?.tenantPhone}
+        cb={onFormFieldChange}
+        error={errors?.tenantPhone}
       />
-      <SubmitButton />
+      <SubmitButton onFormSubmit={onFormSubmit} />
     </Form>
   );
 };
