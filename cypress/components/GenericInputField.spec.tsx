@@ -47,7 +47,7 @@ describe("GenericInputField", () => {
     cy.get("div[id=tenantName-error").should("have.text", "invalid field");
   });
 
-  it("tirggers a cb on input change", () => {
+  it("triggers a cb on input change", () => {
     const stub = cy.stub().as("callback");
     cy.mount(
       <GenericInputField
