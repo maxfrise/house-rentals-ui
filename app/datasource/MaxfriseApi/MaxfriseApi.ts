@@ -3,10 +3,6 @@ import { DataSource } from "../Datasource";
 import type { House, HouseOverview } from "./MaxfriseApiTypes";
 
 export class MaxfriseApi extends DataSource {
-  constructor(apiUrl: string) {
-    super(apiUrl);
-  }
-
   async getHouses(landlord: string): Promise<House[]> {
     return (
       (await this.fetch("/gethouses", {
