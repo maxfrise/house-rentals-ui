@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
@@ -94,15 +94,17 @@ export const action = async ({ request }: ActionArgs) => {
 };
 
 export default function NewHousePage() {
-  const newHouseModel: FormState = {
+
+  const newHouseModel: FormState = useMemo(() => ({
     houseFriendlyName: "",
     details: "",
     landlordName: "",
     landlordPhone: "",
     address: "",
     tenantName: "",
-    tenantPhone: "",
-  };
+    tenantPhone: ""
+  }), [])
+
   const actionData = useActionData<typeof action>();
 
   const [formState, setFormState] = useState<FormState>(newHouseModel);
