@@ -93,7 +93,7 @@ export const action = async ({ request }: ActionArgs) => {
   return redirect(`/houses/${houseId.replace(/^house#/, "")}`);
 };
 
-export default function NewNotePage() {
+export default function NewHousePage() {
   const newHouseModel: FormState = {
     houseFriendlyName: "",
     details: "",
