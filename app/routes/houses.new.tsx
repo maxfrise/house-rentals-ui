@@ -9,10 +9,8 @@ import { requireUserId } from "~/session.server";
 import { CreateHouseForm } from "../components/forms/CreateHouseForm";
 
 import { object, string, number } from "yup";
-import {
-  validate,
-  MaxfriseErrors,
-} from "../components/forms/validator/form-validator-yup";
+import { validate } from "../components/forms/validator/form-validator-yup";
+import type { MaxfriseErrors } from "../components/forms/validator/form-validator-yup";
 
 const newHouseSchema = object({
   houseFriendlyName: string().required().max(40),
@@ -115,7 +113,7 @@ export default function NewNotePage() {
   useEffect(() => {
     // Set the errors that comes from the server
     setErrors(actionData?.errors || newHouseModel);
-  }, [actionData?.errors]);
+  }, [actionData?.errors, newHouseModel]);
 
   const onFormFieldChange = (value: Partial<FormState>) => {
     /**

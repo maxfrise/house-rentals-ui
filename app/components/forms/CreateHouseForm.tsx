@@ -1,13 +1,11 @@
 import { Form } from "@remix-run/react";
-import type { SerializeFrom } from "@remix-run/server-runtime";
-import type { action } from "../../routes/houses.new";
 import { GenericInputField } from "./fields/GenericInputField";
 import { GenericTextArea } from "./fields/GenericTextArea";
 import { SubmitButton } from "./fields/SubmitButton";
 import type { FormState } from "../../routes/houses.new";
-import { MaxfriseErrors } from "./validator/form-validator-yup";
+import type { MaxfriseErrors } from "./validator/form-validator-yup";
 
-interface CreateHouseFormProps {  
+interface CreateHouseFormProps {
   formState?: FormState;
   errors: MaxfriseErrors<FormState>;
   onFormFieldChange?: (value: Partial<FormState>) => void;
@@ -15,8 +13,7 @@ interface CreateHouseFormProps {
 }
 
 export const CreateHouseForm = (props: CreateHouseFormProps) => {
-  const { formState, errors, onFormFieldChange, onFormSubmit } =
-    props;
+  const { formState, errors, onFormFieldChange, onFormSubmit } = props;
 
   return (
     <Form

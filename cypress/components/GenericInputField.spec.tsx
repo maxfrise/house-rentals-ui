@@ -48,7 +48,7 @@ describe("GenericInputField", () => {
   });
 
   it("tirggers a cb on input change", () => {
-    const stub = cy.stub().as('callback');
+    const stub = cy.stub().as("callback");
     cy.mount(
       <GenericInputField
         label="Nombre del arrendatario"
@@ -57,9 +57,8 @@ describe("GenericInputField", () => {
       />
     );
 
-    cy.get("input")
-      .type("Sergio")
+    cy.get("input").type("Sergio");
 
-    cy.get('@callback').should('have.callCount', 6);
+    cy.get("@callback").should("have.callCount", 6);
   });
 });
