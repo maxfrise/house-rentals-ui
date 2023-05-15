@@ -13,6 +13,7 @@ import { ThemeContext, Themes } from "@uireact/foundation";
 
 import tailwindStylesheetUrl from "~/styles/tailwind.css";
 import { getUser } from "~/session.server";
+import { setLocale } from "yup";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
@@ -25,6 +26,20 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 const noOpFn = () => {};
+
+setLocale({
+  mixed: {
+    required: "El campo es obligatorio",
+  },
+  string: {
+    max: "El campo tiene que tener maximo ${max} caracteres",
+  },
+  number: {
+    positive: "El número tiene que ser positivo",
+    integer: "El número tiene que ser entero",
+    max: "El número tiene que ser menor o igual que ${max} digitos",
+  },
+});
 
 export default function App() {
   return (

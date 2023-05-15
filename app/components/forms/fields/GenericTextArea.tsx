@@ -1,23 +1,35 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import type { FormState } from "../../../routes/houses.new";
 
 interface GenericTextAreaInterface {
   label: string;
   name: string;
   error?: string | null;
+  cb?: (value: Partial<FormState>) => void;
+  initialValue?: string | number;
 }
 
 export const GenericTextArea: React.FC<GenericTextAreaInterface> = ({
   label,
   name,
   error,
+  cb,
+  initialValue,
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
+  const [value, setValue] = useState(initialValue);
 
   useEffect(() => {
     if (error) {
       ref.current?.focus();
     }
   }, [error]);
+
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const currentValue = event.target.value;
+    setValue(currentValue);
+    cb?.({ [name]: currentValue });
+  };
 
   return (
     <div>
@@ -30,6 +42,8 @@ export const GenericTextArea: React.FC<GenericTextAreaInterface> = ({
           className="w-full flex-1 rounded-md border-2 border-blue-500 px-3 py-2 text-lg leading-6"
           aria-invalid={error ? true : undefined}
           aria-errormessage={error ? `${name}-error` : undefined}
+          value={value}
+          onChange={onChange}
         />
       </label>
       {error && (
