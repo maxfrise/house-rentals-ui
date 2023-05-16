@@ -1,135 +1,153 @@
+import { useEffect, useState, useMemo } from "react";
 import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Form, useActionData } from "@remix-run/react";
-import { useEffect, useRef } from "react";
+import { useActionData } from "@remix-run/react";
 import cuid from "cuid";
 
 import { requireUserId } from "~/session.server";
 
+import { CreateHouseForm } from "../components/forms/CreateHouseForm";
+
+import { object, string, number } from "yup";
+import { validate } from "../components/forms/validator/form-validator-yup";
+import type { MaxfriseErrors } from "../components/forms/validator/form-validator-yup";
+import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+
+const newHouseSchema = object({
+  houseFriendlyName: string().required().max(40),
+  details: string().required().max(500),
+  landlordName: string().required().max(40),
+  landlordPhone: number()
+    .typeError("El campo tiene que ser número")
+    .positive()
+    .integer()
+    .test(
+      "len",
+      "El telefono tiene que ser de 10 digitos",
+      (val) => val?.toString().length === 10
+    )
+    .required(),
+  address: string().required().max(40),
+  tenantName: string().required().max(40),
+  tenantPhone: number()
+    .typeError("El campo tiene que ser número")
+    .positive()
+    .integer()
+    .test(
+      "len",
+      "El telefono tiene que ser de 10 digitos",
+      (val) => val?.toString().length === 10
+    )
+    .required(),
+});
+
+export type FormState = {
+  houseFriendlyName: string;
+  details: string;
+  landlordName: string;
+  landlordPhone: string;
+  address: string;
+  tenantName: string;
+  tenantPhone: string;
+};
+
 export const action = async ({ request }: ActionArgs) => {
   const userId = await requireUserId(request);
+  const formData = Object.fromEntries(await request.formData());
+  const errors: MaxfriseErrors<FormState> = await validate(
+    formData,
+    newHouseSchema
+  );
 
-  const formData = await request.formData();
-  const houseFriendlyName = formData.get("houseFriendlyName");
-  const description = formData.get("body");
-
-  if (typeof description !== "string" || description.length === 0) {
-    return json(
-      { errors: { body: null, title: "house friendly is required" } },
-      { status: 400 }
-    );
+  if (Object.keys(errors).length > 0) {
+    return json({ errors }, { status: 400 });
   }
 
-  if (typeof description !== "string" || description.length === 0) {
-    return json(
-      { errors: { body: "Description is required", title: null } },
-      { status: 400 }
-    );
-  }
+  const {
+    houseFriendlyName,
+    address,
+    details,
+    landlordName,
+    landlordPhone,
+    tenantName,
+    tenantPhone,
+  } = formData;
 
-  const url = "https://api.maxfrise.com/createhouse";
+  const houseId = `house#${cuid()}`;
+  // TODO: figure out a good strategy to get the api url from the env variables and be declared once in a single place.
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://api.maxfrise.com"
+      : "https://staging.api.maxfrise.com";
 
-  const houseId = `house#${cuid()}`
+  const api = new MaxfriseApi(url);
 
-  const res = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify({
-      landlord: userId,
-      houseId,
-      houseFriendlyName,
-      address: "las perlas 2012",
-      details: description,
-      landlords: [
-        {
-          name: "Yolanda",
-          phone: "+15093120388",
-        },
-      ],
-      leaseStatus: "AVAILABLE",
-      tenants: [
-        {
-          name: "Javier",
-          phone: "+523121186644",
-        },
-      ],
-    }),
+  await api.createHouse({
+    landlord: userId,
+    houseId,
+    houseFriendlyName: `${houseFriendlyName}`,
+    address: `${address}`,
+    details: `${details}`,
+    landlords: [{ name: `${landlordName}`, phone: `+52${landlordPhone}` }],
+    leaseStatus: "AVAILABLE", // Hardcoded as it is the default state
+    tenants: [{ name: `${tenantName}`, phone: `+52${tenantPhone}` }],
   });
 
   return redirect(`/houses/${houseId.replace(/^house#/, "")}`);
 };
 
-export default function NewNotePage() {
+export default function NewHousePage() {
+  const newHouseModel: FormState = useMemo(
+    () => ({
+      houseFriendlyName: "",
+      details: "",
+      landlordName: "",
+      landlordPhone: "",
+      address: "",
+      tenantName: "",
+      tenantPhone: "",
+    }),
+    []
+  );
+
   const actionData = useActionData<typeof action>();
-  const titleRef = useRef<HTMLInputElement>(null);
-  const bodyRef = useRef<HTMLTextAreaElement>(null);
+
+  const [formState, setFormState] = useState<FormState>(newHouseModel);
+  const [errors, setErrors] = useState<MaxfriseErrors<FormState>>(
+    actionData?.errors || newHouseModel
+  );
 
   useEffect(() => {
-    if (actionData?.errors?.title) {
-      titleRef.current?.focus();
-    } else if (actionData?.errors?.body) {
-      bodyRef.current?.focus();
+    // Set the errors that comes from the server
+    setErrors(actionData?.errors || newHouseModel);
+  }, [actionData?.errors, newHouseModel]);
+
+  const onFormFieldChange = (value: Partial<FormState>) => {
+    /**
+     * Global form state is being tracked through this handler
+     */
+    setFormState({
+      ...formState,
+      ...value,
+    });
+  };
+
+  const onFormSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const errors = await validate(formState, newHouseSchema);
+
+    if (Object.keys(errors).length > 0) {
+      event.preventDefault();
+      setErrors(errors);
     }
-  }, [actionData]);
+    // If no errors, let the form be submitted
+  };
 
   return (
-    <Form
-      method="post"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-        width: "100%",
-      }}
-    >
-      <div>
-        <label className="flex w-full flex-col gap-1">
-          <span>Casa: </span>
-          <input
-            ref={titleRef}
-            name="houseFriendlyName"
-            className="flex-1 rounded-md border-2 border-blue-500 px-3 text-lg leading-loose"
-            aria-invalid={actionData?.errors?.title ? true : undefined}
-            aria-errormessage={
-              actionData?.errors?.title ? "title-error" : undefined
-            }
-          />
-        </label>
-        {actionData?.errors?.title && (
-          <div className="pt-1 text-red-700" id="title-error">
-            {actionData.errors.title}
-          </div>
-        )}
-      </div>
-
-      <div>
-        <label className="flex w-full flex-col gap-1">
-          <span>Descripcion: </span>
-          <textarea
-            ref={bodyRef}
-            name="body"
-            rows={8}
-            className="w-full flex-1 rounded-md border-2 border-blue-500 px-3 py-2 text-lg leading-6"
-            aria-invalid={actionData?.errors?.body ? true : undefined}
-            aria-errormessage={
-              actionData?.errors?.body ? "body-error" : undefined
-            }
-          />
-        </label>
-        {actionData?.errors?.body && (
-          <div className="pt-1 text-red-700" id="body-error">
-            {actionData.errors.body}
-          </div>
-        )}
-      </div>
-
-      <div className="text-right">
-        <button
-          type="submit"
-          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
-        >
-          Save
-        </button>
-      </div>
-    </Form>
+    <CreateHouseForm
+      onFormFieldChange={onFormFieldChange}
+      onFormSubmit={onFormSubmit}
+      formState={formState}
+      errors={errors}
+    />
   );
 }

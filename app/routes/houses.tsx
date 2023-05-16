@@ -6,31 +6,31 @@ import { requireUserId } from "~/session.server";
 
 import type { UiSpacingProps } from "@uireact/foundation";
 import { Sizing, UiSpacing } from "@uireact/foundation";
+import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 
 type House = {
-  landlord: string,
-  houseId: string,
-  houseFriendlyName: string
-}
+  landlord: string;
+  houseId: string;
+  houseFriendlyName: string;
+  leaseStatus: string;
+};
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
-  const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(
-    userId
-  )}`;
-  const res = await fetch(url, {
-    method: "GET",
-  });
+  // TODO: figure out a good strategy to get the api url from the env variables and be declared once in a single place.
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://api.maxfrise.com"
+      : "https://staging.api.maxfrise.com";
 
-  const data = await res.json()
-  
-  const result: House[] = data.map((house: House) => (
-    {
-      landlord: house.landlord,
-      houseId: house.houseId.replace(/^house#/, ""),
-      houseFriendlyName: house.houseFriendlyName || 'friendly name not defined'
-    }
-  ))
+  const api = new MaxfriseApi(url);
+
+  const result = (await api.getHouses(userId)).map((house: House) => ({
+    landlord: house.landlord,
+    houseId: house.houseId.replace(/^house#/, ""),
+    houseFriendlyName: house.houseFriendlyName || "friendly name not defined",
+    leaseStatus: house.leaseStatus,
+  }));
 
   return json(result);
 };
@@ -83,6 +83,17 @@ export default function HousesPage() {
                     to={house.houseId}
                   >
                     🏡 {house.houseFriendlyName}
+                    <div className="float-right">
+                      {house.leaseStatus === "AVAILABLE" ? (
+                        <span className="mr-2 rounded border border-green-400 bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-gray-700 dark:text-green-400">
+                          Disponible
+                        </span>
+                      ) : (
+                        <span className="mr-2 rounded border border-yellow-300 bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-gray-700 dark:text-yellow-300">
+                          Rentada
+                        </span>
+                      )}
+                    </div>
                   </NavLink>
                 </li>
               ))}

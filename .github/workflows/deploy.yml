@@ -134,6 +134,13 @@ jobs:
         env:
           PORT: "8811"
 
+      - name: 👨🏿‍💻 Component Testing
+        uses: cypress-io/github-action@v5
+        with:
+          # we have already installed everything
+          install: false
+          component: true
+
   deploy:
     needs: [lint, typecheck, vitest, cypress]
     runs-on: ubuntu-latest

@@ -1,6 +1,0 @@
-- [ ] Init project 
-- [ ] SPIKE how to fetch data from the endpoint 
-- [ ] Show all the houses 
-- [ ] New house route 
-- [ ] Add new house form 
-- [ ] Investigate where and how this project can be deployed
