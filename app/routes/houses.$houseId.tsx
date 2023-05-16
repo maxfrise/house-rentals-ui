@@ -13,8 +13,7 @@ import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 import { requireUserId } from "~/session.server";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
-  // TODO: figure out a good strategy to get the api url from the env variables and be declared once in a single place.
-  const url = process.env.MAXFRISE_API
+  const url = process.env.MAXFRISE_API;
   const api = new MaxfriseApi(url);
   invariant(params.houseId, "house not found");
   const userId = await requireUserId(request);
