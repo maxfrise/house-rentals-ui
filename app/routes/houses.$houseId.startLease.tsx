@@ -4,6 +4,7 @@ import { requireUserId } from "~/session.server";
 import { redirect } from "@remix-run/node";
 import type { ActionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
+import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 
 // TODO: the loader should check the house status, and if it is rented then it should redirect it back to the prev view
 
@@ -19,25 +20,25 @@ export const action = async ({ params, request }: ActionArgs) => {
 
   invariant(params.houseId, "house not found");
   invariant(startDate, "start date is required");
+  // TODO: figure out a good strategy to get the api url from the env variables and be declared once in a single place.
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://api.maxfrise.com"
+      : "https://staging.api.maxfrise.com";
 
-  const body = {
+  const api = new MaxfriseApi(url);
+
+  const res = await api.initlease({
     user: userId.replace(/^email#/, ""),
     houseid: params.houseId,
-    startDate,
-    term,
-    rentAmount,
+    startDate: `${startDate}`,
+    term: `${term}`,
+    rentAmount: `${rentAmount}`,
     landlords: JSON.parse(landlords?.toString() || "[]"),
     tenants: JSON.parse(tenants?.toString() || "[]"),
-  };
-
-  const apiUrl = "https://api.maxfrise.com/initlease";
-
-  const res = await fetch(apiUrl, {
-    method: "POST",
-    body: JSON.stringify(body),
   });
 
-  if (res.status === 200) {
+  if (res?.statusCode === 200) {
     return redirect(`/houses/${params.houseId}`);
   }
 };

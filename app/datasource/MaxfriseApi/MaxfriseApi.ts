@@ -1,6 +1,10 @@
 import { DataSource } from "../Datasource";
 
-import type { House, HouseOverview } from "./MaxfriseApiTypes";
+import type {
+  House,
+  HouseOverview,
+  InitLeaseRequest,
+} from "./MaxfriseApiTypes";
 
 export class MaxfriseApi extends DataSource {
   async getHouses(landlord: string): Promise<House[]> {
@@ -22,6 +26,22 @@ export class MaxfriseApi extends DataSource {
         houseid,
         user: user.replace(/^email#/, ""),
       },
+    });
+  }
+
+  async createHouse(house: House): Promise<void> {
+    return await this.fetch("/createhouse", {
+      method: "POST",
+      body: house,
+    });
+  }
+
+  async initlease(
+    initLeaseRequest: InitLeaseRequest
+  ): Promise<{ statusCode: number } | undefined> {
+    return await this.fetch("/initlease", {
+      method: "POST",
+      body: initLeaseRequest,
     });
   }
 }

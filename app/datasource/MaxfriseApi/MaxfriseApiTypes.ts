@@ -20,6 +20,16 @@ type Payment = {
   pk: string;
 };
 
+export type InitLeaseRequest = {
+  user: string;
+  houseid: string;
+  startDate: string;
+  term: string;
+  rentAmount: string;
+  landlords: Landlord[];
+  tenants: Tenant[];
+};
+
 export type House = {
   landlords: Landlord[];
   tenants: Tenant[];

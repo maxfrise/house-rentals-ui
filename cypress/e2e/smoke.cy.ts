@@ -62,7 +62,9 @@ describe("smoke tests", () => {
     );
 
     cy.findByRole("button", { name: /guardar/i }).click();
-    cy.location("pathname").should('match', /\/houses\/[a-zA-Z0-9]+\d+/).wait(1000);
+    cy.location("pathname")
+      .should("match", /\/houses\/[a-zA-Z0-9]+\d+/)
+      .wait(1000);
   });
 
   it("should display errors on invalid form submission", () => {
