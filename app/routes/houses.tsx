@@ -6,6 +6,7 @@ import { requireUserId } from "~/session.server";
 
 import type { UiSpacingProps } from "@uireact/foundation";
 import { Sizing, UiSpacing } from "@uireact/foundation";
+import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 
 type House = {
   landlord: string;
@@ -16,16 +17,15 @@ type House = {
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
-  const url = `https://api.maxfrise.com/gethouses?landlord=${encodeURIComponent(
-    userId
-  )}`;
-  const res = await fetch(url, {
-    method: "GET",
-  });
+  // TODO: figure out a good strategy to get the api url from the env variables and be declared once in a single place.
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://api.maxfrise.com"
+      : "https://staging.api.maxfrise.com";
 
-  const data = await res.json();
+  const api = new MaxfriseApi(url);
 
-  const result: House[] = data.map((house: House) => ({
+  const result = (await api.getHouses(userId)).map((house: House) => ({
     landlord: house.landlord,
     houseId: house.houseId.replace(/^house#/, ""),
     houseFriendlyName: house.houseFriendlyName || "friendly name not defined",

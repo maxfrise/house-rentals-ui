@@ -11,6 +11,7 @@ import { CreateHouseForm } from "../components/forms/CreateHouseForm";
 import { object, string, number } from "yup";
 import { validate } from "../components/forms/validator/form-validator-yup";
 import type { MaxfriseErrors } from "../components/forms/validator/form-validator-yup";
+import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 
 const newHouseSchema = object({
   houseFriendlyName: string().required().max(40),
@@ -72,38 +73,42 @@ export const action = async ({ request }: ActionArgs) => {
     tenantPhone,
   } = formData;
 
-  const url = "https://api.maxfrise.com/createhouse";
-
   const houseId = `house#${cuid()}`;
+  // TODO: figure out a good strategy to get the api url from the env variables and be declared once in a single place.
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://api.maxfrise.com"
+      : "https://staging.api.maxfrise.com";
 
-  await fetch(url, {
-    method: "POST",
-    body: JSON.stringify({
-      landlord: userId,
-      houseId,
-      houseFriendlyName,
-      address,
-      details,
-      landlords: [{ name: landlordName, phone: `+52${landlordPhone}` }],
-      leaseStatus: "AVAILABLE", // Hardcoded as it is the default state
-      tenants: [{ name: tenantName, phone: `+52${tenantPhone}` }],
-    }),
+  const api = new MaxfriseApi(url);
+
+  await api.createHouse({
+    landlord: userId,
+    houseId,
+    houseFriendlyName: `${houseFriendlyName}`,
+    address: `${address}`,
+    details: `${details}`,
+    landlords: [{ name: `${landlordName}`, phone: `+52${landlordPhone}` }],
+    leaseStatus: "AVAILABLE", // Hardcoded as it is the default state
+    tenants: [{ name: `${tenantName}`, phone: `+52${tenantPhone}` }],
   });
 
   return redirect(`/houses/${houseId.replace(/^house#/, "")}`);
 };
 
 export default function NewHousePage() {
-
-  const newHouseModel: FormState = useMemo(() => ({
-    houseFriendlyName: "",
-    details: "",
-    landlordName: "",
-    landlordPhone: "",
-    address: "",
-    tenantName: "",
-    tenantPhone: ""
-  }), [])
+  const newHouseModel: FormState = useMemo(
+    () => ({
+      houseFriendlyName: "",
+      details: "",
+      landlordName: "",
+      landlordPhone: "",
+      address: "",
+      tenantName: "",
+      tenantPhone: "",
+    }),
+    []
+  );
 
   const actionData = useActionData<typeof action>();
 
