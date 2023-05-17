@@ -74,11 +74,8 @@ export const action = async ({ request }: ActionArgs) => {
   } = formData;
 
   const houseId = `house#${cuid()}`;
-  // TODO: figure out a good strategy to get the api url from the env variables and be declared once in a single place.
-  const url =
-    process.env.NODE_ENV === "production"
-      ? "https://api.maxfrise.com"
-      : "https://staging.api.maxfrise.com";
+
+  const url = process.env.MAXFRISE_API;
 
   const api = new MaxfriseApi(url);
 
