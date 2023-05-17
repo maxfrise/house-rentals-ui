@@ -24,7 +24,7 @@ export default defineConfig({
       return { ...config, ...configOverrides };
     },
     retries: {
-      "runMode": 2,
+      runMode: 2,
     }
   },
 
