@@ -1,6 +1,6 @@
 # House manager UI
 
-[STAGING](https://staging.maxfrise.com/) - [PROD](https://maxfrise.com/)
+[STAGING](https://staging.maxfrise.com/) - [PROD](https://www.maxfrise.com/)
 
 ## Development
 
