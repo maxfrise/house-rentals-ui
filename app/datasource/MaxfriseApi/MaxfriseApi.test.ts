@@ -206,39 +206,37 @@ describe("MaxfriseApi", () => {
   });
 
   test("init lease", async () => {
-    nock(apiUrl)
-      .post("/initlease")
-      .reply(
-        200,
-        {
-          "statusCode": 200,
-          "body": "{\"isUserOwner\":true,\"houseAvailable\":true,\"jobsCreated\":12}"
-        },
-        { "Content-Type": "application/json" }
-      );
+    nock(apiUrl).post("/initlease").reply(
+      200,
+      {
+        statusCode: 200,
+        body: '{"isUserOwner":true,"houseAvailable":true,"jobsCreated":12}',
+      },
+      { "Content-Type": "application/json" }
+    );
 
     const result = await api.initlease({
-      "user": "audel91@gmail.com",
-      "houseid": "clhpvy14e0000gxw9acvp8547",
-      "startDate": "2023-05-10",
-      "term": "12",
-      "rentAmount": "1200",
-      "landlords": [
+      user: "audel91@gmail.com",
+      houseid: "clhpvy14e0000gxw9acvp8547",
+      startDate: "2023-05-10",
+      term: "12",
+      rentAmount: "1200",
+      landlords: [
         {
-          "name": "yolanda",
-          "phone": "+13213232345"
-        }
+          name: "yolanda",
+          phone: "+13213232345",
+        },
       ],
-      "tenants": [
+      tenants: [
         {
-          "name": "sergio",
-          "phone": "+13213232345"
+          name: "sergio",
+          phone: "+13213232345",
         },
         {
-          "name": "audel",
-          "phone": "+13213232345"
-        }
-      ]
+          name: "audel",
+          phone: "+13213232345",
+        },
+      ],
     });
 
     expect(result?.statusCode).toBe(200);
