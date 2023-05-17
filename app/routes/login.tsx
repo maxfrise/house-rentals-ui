@@ -22,7 +22,7 @@ export const action = async ({ request }: ActionArgs) => {
 
   if (!validateEmail(email)) {
     return json(
-      { errors: { email: "Email is invalid", password: null } },
+      { errors: { email: "Email invalido", password: null } },
       { status: 400 }
     );
   }
@@ -36,7 +36,7 @@ export const action = async ({ request }: ActionArgs) => {
 
   if (password.length < 8) {
     return json(
-      { errors: { email: null, password: "Password is too short" } },
+      { errors: { email: null, password: "El password es muy corto" } },
       { status: 400 }
     );
   }
@@ -45,7 +45,7 @@ export const action = async ({ request }: ActionArgs) => {
 
   if (!user) {
     return json(
-      { errors: { email: "Invalid email or password", password: null } },
+      { errors: { email: "Email o password invalido", password: null } },
       { status: 400 }
     );
   }
