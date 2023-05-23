@@ -8,12 +8,14 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { setLocale } from "yup";
 
-import { ThemeContext, Themes } from "@uireact/foundation";
+import { ThemeColor } from "@uireact/foundation";
+import { UiView } from '@uireact/view';
 
 import tailwindStylesheetUrl from "~/styles/tailwind.css";
 import { getUser } from "~/session.server";
-import { setLocale } from "yup";
+import { MaxfriseTheme } from './theme';
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
@@ -51,14 +53,12 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <ThemeContext.Provider
-          value={{ theme: Themes.dark, toogleTheme: noOpFn }}
-        >
+        <UiView theme={MaxfriseTheme} selectedTheme={ThemeColor.light}>
           <Outlet />
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
-        </ThemeContext.Provider>
+        </UiView>
       </body>
     </html>
   );
