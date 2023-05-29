@@ -1,10 +1,34 @@
 import type { V2_MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
+import { UiHeader } from "@uireact/header";
+import { UiHeading, UiText } from "@uireact/text";
+import { UiViewRow } from "@uireact/view";
+
 import { useOptionalUser } from "~/utils";
+
+import InitialImage from '../../public/initial-image.jpeg';
+import { UiViewport } from "@uireact/foundation";
 
 export const meta: V2_MetaFunction = () => [{ title: "MaxFrise" }];
 
+export default function Index() { 
+
+  return (
+    <>
+      <UiHeader centered>
+        <UiHeading>Maxfrise</UiHeading>
+      </UiHeader>
+      <UiViewport criteria='l|xl'>
+        <figure style={{ height: '300px', overflow: 'hidden', position: 'relative' }}>
+          <img src={InitialImage} alt="Apartment house" style={{ position: 'absolute', bottom: '-130px', right: 0 }} />
+        </figure>
+      </UiViewport>
+    </>
+  )
+}
+
+/*
 export default function Index() {
   const user = useOptionalUser();
   return (
@@ -61,3 +85,4 @@ export default function Index() {
     </main>
   );
 }
+*/
