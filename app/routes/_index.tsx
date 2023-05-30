@@ -12,8 +12,6 @@ import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
 import { useOptionalUser } from "~/utils";
 import InitialImage from '../../public/initial-image.jpeg';
 
-
-
 export const meta: V2_MetaFunction = () => [{ title: "MaxFrise" }];
 
 export default function Index() { 
@@ -25,24 +23,31 @@ export default function Index() {
 
   return (
     <>
-      <UiHeader centered>
-        <UiFlexGrid>
-          <UiFlexGridItem grow={1}>
-            <UiHeading>Maxfrise</UiHeading>
-          </UiFlexGridItem>
-          <UiButton onClick={handleOpenDialog} theme="tertiary">Open dialog</UiButton>
-        </UiFlexGrid>
+      <UiHeader>
+        <UiViewport criteria='s|m' skipSSr>
+          <UiHeading>Maxfrise</UiHeading>
+        </UiViewport>
+        <UiViewport criteria='l|xl' skipSSr>
+          <UiFlexGrid>
+            <UiFlexGridItem grow={1}>
+              <UiHeading>Maxfrise</UiHeading>
+            </UiFlexGridItem>
+            <UiFlexGridItem>
+              <UiButton onClick={handleOpenDialog} theme="tertiary">Open dialog</UiButton>
+            </UiFlexGridItem>
+          </UiFlexGrid>
+        </UiViewport>
       </UiHeader>
-      <UiViewport criteria={Breakpoints.XLARGE}>
+      <UiViewport criteria={Breakpoints.XLARGE} skipSSr>
         <p>XLarge</p>
       </UiViewport>
-      <UiViewport criteria={Breakpoints.LARGE}>
+      <UiViewport criteria={Breakpoints.LARGE} skipSSr>
         <p>Large</p>
       </UiViewport>
-      <UiViewport criteria={Breakpoints.MEDIUM}>
+      <UiViewport criteria={Breakpoints.MEDIUM} skipSSr>
         <p>Medium</p>
       </UiViewport>
-      <UiViewport criteria={Breakpoints.SMALL}>
+      <UiViewport criteria={Breakpoints.SMALL} skipSSr>
         <p>Small</p>
       </UiViewport>
       <div>

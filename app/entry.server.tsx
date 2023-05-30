@@ -41,39 +41,25 @@ function handleBotRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  return new Promise((resolve, reject) => {
-    const { pipe, abort } = renderToPipeableStream(
+  const sheet = new ServerStyleSheet();
+
+  let markup = renderToString(
+    sheet.collectStyles(
       <RemixServer
         context={remixContext}
         url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
-      {
-        onAllReady() {
-          const body = new PassThrough();
+      />
+    )
+  );
 
-          responseHeaders.set("Content-Type", "text/html");
+  const styles = sheet.getStyleTags();
+  markup = markup.replace("__STYLES__", styles);
 
-          resolve(
-            new Response(body, {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            })
-          );
+  responseHeaders.set("Content-Type", "text/html");
 
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          console.error(error);
-        },
-      }
-    );
-
-    setTimeout(abort, ABORT_DELAY);
+  return new Response("<!DOCTYPE html>" + markup, {
+    status: responseStatusCode,
+    headers: responseHeaders,
   });
 }
 
