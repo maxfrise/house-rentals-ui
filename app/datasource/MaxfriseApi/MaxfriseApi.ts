@@ -4,6 +4,7 @@ import type {
   House,
   HouseOverview,
   InitLeaseRequest,
+  PayHouseRequest,
 } from "./MaxfriseApiTypes";
 
 export class MaxfriseApi extends DataSource {
@@ -42,6 +43,23 @@ export class MaxfriseApi extends DataSource {
     return await this.fetch("/initlease", {
       method: "POST",
       body: initLeaseRequest,
+    });
+  }
+
+  async payHouse(payHouse: PayHouseRequest): Promise<void> {
+    return await this.fetch("/collectpayment", {
+      method: "PUT",
+      body: {
+        pk: payHouse.pk,
+        sk: payHouse.st,
+        details: [
+          {
+            method: payHouse.method,
+            amount: payHouse.amount,
+            comments: payHouse.details,
+          },
+        ],
+      },
     });
   }
 }

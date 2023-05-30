@@ -1,1 +1,1 @@
-export * from './maxfrise-theme';
+export * from "./maxfrise-theme";

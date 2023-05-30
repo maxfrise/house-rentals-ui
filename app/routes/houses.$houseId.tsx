@@ -6,11 +6,23 @@ import {
   useRouteError,
   Outlet,
   Link,
+  useLocation,
+  Form,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+import type { ActionArgs } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 
 import { requireUserId } from "~/session.server";
+
+export const action = async ({ params, request }: ActionArgs) => {
+  invariant(params.houseId, "house not found");
+  const formData = Object.fromEntries(await request.formData());
+  return redirect(
+    `/houses/${params.houseId.replace(/^house#/, "")}/pay/${formData.st}`
+  );
+};
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   const url = process.env.MAXFRISE_API;
@@ -61,28 +73,34 @@ const Badge: React.FC<{ status: string }> = ({ status }) => {
 export default function HouseDetailsPage() {
   const data = useLoaderData<typeof loader>();
   const house = data.house;
+  let location = useLocation();
+  const paymentRouteOn = location.pathname.split("/")?.[3] === "pay";
 
   return (
     <div>
-      <h3 className="text-2xl font-bold">{house.houseFriendlyName}</h3>
-      <p className="py-6">{house.details}</p>
-      <h3 className="text-1xl font-bold">Propietario</h3>
-      <p>{house.landlords[0].name}</p>
-      <p>{house.landlords[0].phone}</p>
-      <h3 className="text-1xl pt-6 font-bold">Arrendatario</h3>
-      <p>{house.tenants[0].name}</p>
-      <p>{house.tenants[0].phone}</p>
+      {!paymentRouteOn && (
+        <>
+          <h3 className="text-2xl font-bold">{house.houseFriendlyName}</h3>
+          <p className="py-6">{house.details}</p>
+          <h3 className="text-1xl font-bold">Propietario</h3>
+          <p>{house.landlords[0].name}</p>
+          <p>{house.landlords[0].phone}</p>
+          <h3 className="text-1xl pt-6 font-bold">Arrendatario</h3>
+          <p>{house.tenants[0].name}</p>
+          <p>{house.tenants[0].phone}</p>
 
-      <hr className="my-4" />
-      {house.leaseStatus === "AVAILABLE" && (
-        <Link
-          to="startLease"
-          className="rounded-none bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
-        >
-          Arrendar la casa
-        </Link>
+          <hr className="my-4" />
+          {house.leaseStatus === "AVAILABLE" && (
+            <Link
+              to="startLease"
+              className="rounded-none bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
+            >
+              Arrendar la casa
+            </Link>
+          )}
+        </>
       )}
-      {house.leaseStatus === "LEASED" && (
+      {house.leaseStatus === "LEASED" && !paymentRouteOn && (
         <>
           <h3 className="pt-4 text-2xl font-bold">Pagos</h3>
           <div className="payments">
@@ -102,11 +120,19 @@ export default function HouseDetailsPage() {
                   </div>
                   <div className="">
                     {payment.status === "DUE" ? (
-                      <button className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
-                        Pagar
-                      </button>
+                      <Form method="POST">
+                        <input type="hidden" value={payment["pk"]} name="pk" />
+                        <input type="hidden" value={payment["st"]} name="st" />
+                        <button className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
+                          Pagar
+                        </button>
+                      </Form>
                     ) : (
-                      <button className="cursor-not-allowed rounded bg-blue-500 px-4 py-2 font-bold text-white opacity-50">
+                      <button
+                        disabled
+                        type="submit"
+                        className="cursor-not-allowed rounded bg-blue-500 px-4 py-2 font-bold text-white opacity-50"
+                      >
                         Pagar
                       </button>
                     )}
