@@ -1,29 +1,55 @@
+import { useCallback } from "react";
 import type { V2_MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
+import { Breakpoints, UiViewport } from "@uireact/foundation";
 import { UiHeader } from "@uireact/header";
 import { UiHeading, UiText } from "@uireact/text";
-import { UiViewRow } from "@uireact/view";
+import { UiButton } from '@uireact/button';
+import { UiDialog, useDialog } from '@uireact/dialog';
+import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
 
 import { useOptionalUser } from "~/utils";
-
 import InitialImage from '../../public/initial-image.jpeg';
-import { UiViewport } from "@uireact/foundation";
+
+
 
 export const meta: V2_MetaFunction = () => [{ title: "MaxFrise" }];
 
 export default function Index() { 
+  const { actions } = useDialog('test-dialog');
+
+  const handleOpenDialog = useCallback(() => {
+    actions.openDialog();
+  }, [actions]);
 
   return (
     <>
       <UiHeader centered>
-        <UiHeading>Maxfrise</UiHeading>
+        <UiFlexGrid>
+          <UiFlexGridItem grow={1}>
+            <UiHeading>Maxfrise</UiHeading>
+          </UiFlexGridItem>
+          <UiButton onClick={handleOpenDialog} theme="tertiary">Open dialog</UiButton>
+        </UiFlexGrid>
       </UiHeader>
-      <UiViewport criteria='l|xl'>
-        <figure style={{ height: '300px', overflow: 'hidden', position: 'relative' }}>
-          <img src={InitialImage} alt="Apartment house" style={{ position: 'absolute', bottom: '-130px', right: 0 }} />
-        </figure>
+      <UiViewport criteria={Breakpoints.XLARGE}>
+        <p>XLarge</p>
       </UiViewport>
+      <UiViewport criteria={Breakpoints.LARGE}>
+        <p>Large</p>
+      </UiViewport>
+      <UiViewport criteria={Breakpoints.MEDIUM}>
+        <p>Medium</p>
+      </UiViewport>
+      <UiViewport criteria={Breakpoints.SMALL}>
+        <p>Small</p>
+      </UiViewport>
+      <div>
+        <UiDialog title="Some dialog" dialogId="test-dialog">
+          <UiText>Some text</UiText>
+        </UiDialog>
+      </div>
     </>
   )
 }

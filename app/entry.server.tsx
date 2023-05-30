@@ -9,7 +9,8 @@ import type { EntryContext } from "@remix-run/node";
 import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import isbot from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
+import { renderToPipeableStream, renderToString } from "react-dom/server";
+import { ServerStyleSheet } from "styled-components";
 
 const ABORT_DELAY = 5_000;
 
@@ -82,38 +83,24 @@ function handleBrowserRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  return new Promise((resolve, reject) => {
-    const { pipe, abort } = renderToPipeableStream(
+  const sheet = new ServerStyleSheet();
+
+  let markup = renderToString(
+    sheet.collectStyles(
       <RemixServer
         context={remixContext}
         url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
-      {
-        onShellReady() {
-          const body = new PassThrough();
+      />
+    )
+  );
 
-          responseHeaders.set("Content-Type", "text/html");
+  const styles = sheet.getStyleTags();
+  markup = markup.replace("__STYLES__", styles);
 
-          resolve(
-            new Response(body, {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            })
-          );
+  responseHeaders.set("Content-Type", "text/html");
 
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          console.error(error);
-          responseStatusCode = 500;
-        },
-      }
-    );
-
-    setTimeout(abort, ABORT_DELAY);
+  return new Response("<!DOCTYPE html>" + markup, {
+    status: responseStatusCode,
+    headers: responseHeaders,
   });
 }
