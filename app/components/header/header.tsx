@@ -11,7 +11,7 @@ type HeaderProps = {
 }
 
 export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => (
-  <UiHeader centered>
+  <UiHeader>
     <UiFlexGrid>
       <UiFlexGridItem grow={1}>
         <UiHeading>Maxfrise</UiHeading>
