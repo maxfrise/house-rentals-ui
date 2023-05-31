@@ -9,6 +9,9 @@ describe("smoke tests", () => {
     cy.then(() => ({ email: loginForm.email })).as("user");
 
     cy.visitAndCheck("/");
+
+    cy.findByTestId('UiHeader').should('be.visible');
+
     cy.findByRole("link", { name: /sign up/i }).click();
 
     cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);
@@ -35,6 +38,9 @@ describe("smoke tests", () => {
     cy.visitAndCheck("/");
 
     cy.findByRole("link", { name: /casas/i }).click();
+
+    cy.findByTestId('UiHeader').should('be.visible');
+
     cy.findByText("todavia no hay casas");
 
     cy.findByRole("link", { name: /\+ Nueva casa/i }).click();
@@ -109,6 +115,8 @@ describe("smoke tests", () => {
     );
 
     cy.findByRole("button", { name: /guardar/i }).click();
+
+    cy.findByTestId('UiHeader').should('be.visible');
 
     cy.get("#houseFriendlyName-error").contains(
       "El campo tiene que tener maximo 40 caracteres"

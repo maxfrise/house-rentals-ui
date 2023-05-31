@@ -1,6 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { mount } from "cypress/react18";
 
+import '@testing-library/cypress/add-commands'
+
 declare global {
   namespace Cypress {
     interface Chainable {

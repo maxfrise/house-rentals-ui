@@ -1,65 +1,10 @@
-import { useCallback } from "react";
 import type { V2_MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
-import { Breakpoints, UiViewport } from "@uireact/foundation";
-import { UiHeader } from "@uireact/header";
-import { UiHeading, UiText } from "@uireact/text";
-import { UiButton } from '@uireact/button';
-import { UiDialog, useDialog } from '@uireact/dialog';
-import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
-
 import { useOptionalUser } from "~/utils";
-import InitialImage from '../../public/initial-image.jpeg';
 
 export const meta: V2_MetaFunction = () => [{ title: "MaxFrise" }];
 
-export default function Index() { 
-  const { actions } = useDialog('test-dialog');
-
-  const handleOpenDialog = useCallback(() => {
-    actions.openDialog();
-  }, [actions]);
-
-  return (
-    <>
-      <UiHeader>
-        <UiViewport criteria='s|m' skipSSr>
-          <UiHeading>Maxfrise</UiHeading>
-        </UiViewport>
-        <UiViewport criteria='l|xl' skipSSr>
-          <UiFlexGrid>
-            <UiFlexGridItem grow={1}>
-              <UiHeading>Maxfrise</UiHeading>
-            </UiFlexGridItem>
-            <UiFlexGridItem>
-              <UiButton onClick={handleOpenDialog} theme="tertiary">Open dialog</UiButton>
-            </UiFlexGridItem>
-          </UiFlexGrid>
-        </UiViewport>
-      </UiHeader>
-      <UiViewport criteria={Breakpoints.XLARGE} skipSSr>
-        <p>XLarge</p>
-      </UiViewport>
-      <UiViewport criteria={Breakpoints.LARGE} skipSSr>
-        <p>Large</p>
-      </UiViewport>
-      <UiViewport criteria={Breakpoints.MEDIUM} skipSSr>
-        <p>Medium</p>
-      </UiViewport>
-      <UiViewport criteria={Breakpoints.SMALL} skipSSr>
-        <p>Small</p>
-      </UiViewport>
-      <div>
-        <UiDialog title="Some dialog" dialogId="test-dialog">
-          <UiText>Some text</UiText>
-        </UiDialog>
-      </div>
-    </>
-  )
-}
-
-/*
 export default function Index() {
   const user = useOptionalUser();
   return (
@@ -116,4 +61,3 @@ export default function Index() {
     </main>
   );
 }
-*/
