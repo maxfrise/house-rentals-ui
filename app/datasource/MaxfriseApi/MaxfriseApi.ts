@@ -46,7 +46,7 @@ export class MaxfriseApi extends DataSource {
     });
   }
 
-  async payHouse(payHouse: PayHouseRequest): Promise<void> {
+  async payHouse(payHouse: PayHouseRequest): Promise<{ statusCode: string, message: string } | undefined> {
     return await this.fetch("/collectpayment", {
       method: "PUT",
       body: {

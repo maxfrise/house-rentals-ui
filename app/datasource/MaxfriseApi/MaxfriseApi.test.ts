@@ -241,4 +241,26 @@ describe("MaxfriseApi", () => {
 
     expect(result?.statusCode).toBe(200);
   });
+
+  test("payHouse", async () => {
+    nock(apiUrl).put("/collectpayment").reply(
+      200,
+      {
+        statusCode: 200,
+        "message": "Rent collected successfully"
+      },
+      { "Content-Type": "application/json" }
+    );
+
+    const result = await api.payHouse({
+      pk: `123`,
+      st: `234`,
+      method: `bank`,
+      details: `the details`,
+      amount: `2000`,
+    });
+
+    expect(result?.statusCode).toBe(200);
+    expect(result?.message).toBe("Rent collected successfully");
+  });
 });
