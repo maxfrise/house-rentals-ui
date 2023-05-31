@@ -18,7 +18,7 @@ describe("<Header />", () => {
     cy.findByRole('button').as('toggleButton').should('be.visible');
     cy.findByTestId('Icon').should('be.visible');
 
-    cy.get('@toggleButton').click();
+    cy.findByRole('button').click();
 
     cy.get('@toggleThemeFn').should('have.been.calledOnce');
   });
