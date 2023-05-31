@@ -16,10 +16,14 @@ export const LoginDialog: React.FC = () => {
     actions.closeDialog();
   }, [actions]);
 
+  const handleSuccessLogin = useCallback(() => { 
+    actions.closeDialog();
+  }, [actions])
+
   return (
     <UiDialog dialogId={dialogId} title='Inicia sesion'>
       <UiSpacing margin={formSpacing}>
-        <LoginForm onBackClick={handleBackClick} />
+        <LoginForm onBackClick={handleBackClick} onLoginSuccess={handleSuccessLogin} />
       </UiSpacing>
     </UiDialog>
   )

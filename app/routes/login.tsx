@@ -22,21 +22,21 @@ export const action = async ({ request }: ActionArgs) => {
 
   if (!validateEmail(email)) {
     return json(
-      { errors: { email: "Email invalido", password: null } },
+      { errors: { email: "Email invalido", password: null }, userId: null },
       { status: 400 }
     );
   }
 
   if (typeof password !== "string" || password.length === 0) {
     return json(
-      { errors: { email: null, password: "Password is required" } },
+      { errors: { email: null, password: "Password is required" }, userId: null },
       { status: 400 }
     );
   }
 
   if (password.length < 8) {
     return json(
-      { errors: { email: null, password: "El password es muy corto" } },
+      { errors: { email: null, password: "El password es muy corto" }, userId: null },
       { status: 400 }
     );
   }
@@ -45,7 +45,7 @@ export const action = async ({ request }: ActionArgs) => {
 
   if (!user) {
     return json(
-      { errors: { email: "Email o password invalido", password: null } },
+      { errors: { email: "Email o password invalido", password: null }, userId: null },
       { status: 400 }
     );
   }
