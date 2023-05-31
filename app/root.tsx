@@ -8,6 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { useCallback, useState } from "react";
 import { setLocale } from "yup";
 
 import { ThemeColor } from "@uireact/foundation";
@@ -16,6 +17,8 @@ import { UiView } from '@uireact/view';
 import tailwindStylesheetUrl from "~/styles/tailwind.css";
 import { getUser } from "~/session.server";
 import { MaxfriseTheme } from './theme';
+import { Header } from './components/header';
+
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
@@ -26,8 +29,6 @@ export const links: LinksFunction = () => [
 export const loader = async ({ request }: LoaderArgs) => {
   return json({ user: await getUser(request) });
 };
-
-const noOpFn = () => {};
 
 setLocale({
   mixed: {
@@ -44,6 +45,12 @@ setLocale({
 });
 
 export default function App() {
+  const [selectedTheme, setSelectedTheme] = useState<ThemeColor>(ThemeColor.light);
+
+  const toggleTheme = useCallback(() => {
+    setSelectedTheme(selectedTheme => selectedTheme === ThemeColor.light ? ThemeColor.dark : ThemeColor.light);
+  }, [setSelectedTheme]);
+
   return (
     <html lang="en" className="h-full">
       <head>
@@ -51,9 +58,13 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        {typeof document === "undefined"
+          ? "__STYLES__"
+          : null}
       </head>
-      <body className="h-full">
-        <UiView theme={MaxfriseTheme} selectedTheme={ThemeColor.light}>
+      <body className="">
+        <UiView theme={MaxfriseTheme} selectedTheme={selectedTheme}>
+          <Header toggleTheme={toggleTheme} />
           <Outlet />
           <ScrollRestoration />
           <Scripts />

@@ -45,7 +45,7 @@ export default defineConfig({
         logLevel: "error",
       },
     },
-    specPattern: "./cypress/components/*.spec.tsx",
+    specPattern: "./cypress/components/**/*.spec.tsx",
     supportFile: "./cypress/support/component.ts",
     excludeSpecPattern: "**/node_modules/**",
   },
