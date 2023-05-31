@@ -11,12 +11,12 @@ describe("<Header />", () => {
   });
 
   it("Should render button to toggle theme", () => {
-    const fn = cy.stub().as('toggleThemeFn')
+    const fn = cy.stub().as('toggleThemeFn');
     render(<Header toggleTheme={fn}/>);
 
     cy.findByRole('heading', { name: 'Maxfrise' }).should('be.visible');
-    cy.findByRole('button').as('toggleButton').should('be.visible');
     cy.findByTestId('Icon').should('be.visible');
+    cy.findByRole('button').as('toggleButton').should('be.visible');
 
     cy.findByRole('button').click();
 
