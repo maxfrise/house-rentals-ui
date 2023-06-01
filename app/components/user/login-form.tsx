@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useFetcher, useNavigate } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
@@ -7,9 +9,9 @@ import { UiButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
+import { UiText } from "@uireact/text";
 
 import type { action } from '../../routes/login';
-import { UiText } from "@uireact/text";
 
 const submitButtonMargin: UiSpacingProps['margin'] = {block: 'four'};
 
@@ -34,13 +36,27 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
       onLoginSuccess?.();
       navigate("/houses");
     }
-  }, [fetcher, onLoginSuccess]);
+  }, [fetcher, navigate, onLoginSuccess]);
 
   return (
     <FormDiv>
-      <fetcher.Form method="post" action="/login">
-        <UiInput label="Correo electronico" labelOnTop type="email" name="email" error={fetcher.data?.errors?.email || undefined} theme={fetcher.data?.errors?.email ? 'error' : undefined} />
-        <UiInput label="Contraseña" labelOnTop type="password" name="password" error={fetcher.data?.errors?.password || undefined} theme={fetcher.data?.errors?.password ? 'error' : undefined} />
+      <fetcher.Form method="post" action="/login" role="form">
+        <UiInput
+          label="Correo electronico"
+          labelOnTop
+          type="email"
+          name="email"
+          error={fetcher.data?.errors?.email || undefined}
+          theme={fetcher.data?.errors?.email ? 'error' : undefined}
+        />
+        <UiInput
+          label="Contraseña"
+          labelOnTop
+          type="pass"
+          name="pass"
+          error={fetcher.data?.errors?.password || undefined}
+          theme={fetcher.data?.errors?.password ? 'error' : undefined}
+        />
         <input type="hidden" name="redirectTo" value={'/houses'} />
         {fetcher.state === 'loading' && <UiText>Loading...</UiText>}
         {fetcher.state === 'submitting' && <UiText>Submitting...</UiText>}

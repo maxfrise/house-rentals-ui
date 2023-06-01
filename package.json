@@ -38,7 +38,7 @@
     "@uireact/button": "^1.0.2",
     "@uireact/dialog": "^1.0.5",
     "@uireact/flex-grid": "^1.0.2",
-    "@uireact/form": "^1.0.5",
+    "@uireact/form": "^1.0.6",
     "@uireact/foundation": "^1.1.0",
     "@uireact/header": "^1.0.3",
     "@uireact/icons": "^1.0.5",

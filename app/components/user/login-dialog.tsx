@@ -16,9 +16,9 @@ export const LoginDialog: React.FC = () => {
     actions.closeDialog();
   }, [actions]);
 
-  const handleSuccessLogin = useCallback(() => { 
+  const handleSuccessLogin = useCallback(() => {
     actions.closeDialog();
-  }, [actions])
+  }, [actions]);
 
   return (
     <UiDialog dialogId={dialogId} title='Inicia sesion'>
