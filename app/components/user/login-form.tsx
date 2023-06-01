@@ -52,8 +52,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
         <UiInput
           label="Contraseña"
           labelOnTop
-          type="pass"
-          name="pass"
+          type="password"
+          name="password"
           error={fetcher.data?.errors?.password || undefined}
           theme={fetcher.data?.errors?.password ? 'error' : undefined}
         />

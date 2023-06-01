@@ -9,7 +9,7 @@ describe("<LoginForm />", () => {
 
     cy.findByRole('form').should('be.visible');
     cy.findByRole('textbox', { name: 'Correo electronico' }).should('be.visible');
-    cy.findByRole('textbox', { name: 'Contraseña' }).should('be.visible');
+    cy.findByLabelText('Contraseña').should('be.visible');
     cy.findByRole('button', { name: 'Iniciar sesion' }).should('be.visible');
   });
 
@@ -19,7 +19,7 @@ describe("<LoginForm />", () => {
 
     cy.findByRole('form').should('be.visible');
     cy.findByRole('textbox', { name: 'Correo electronico' }).should('be.visible');
-    cy.findByRole('textbox', { name: 'Contraseña' }).should('be.visible');
+    cy.findByLabelText('Contraseña').should('be.visible');
     cy.findByRole('button', { name: 'Iniciar sesion' }).should('be.visible');
 
     cy.findByRole('button', { name: 'Regresar' }).as('backBtn').should('be.visible');
