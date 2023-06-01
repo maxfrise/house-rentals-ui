@@ -10,7 +10,7 @@ import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
 import { UiHeading } from '@uireact/text';
 import { UiIcon } from '@uireact/icons';
 
-import { useOptionalUser } from '~/utils';
+import { useOptionalUser } from '../../utils';
 import { LoginDialog } from '../user';
 import { useDialog } from '@uireact/dialog';
 
