@@ -7,7 +7,14 @@ import { ThemeColor } from '@uireact/foundation';
 
 import { MaxfriseTheme } from '../../app/theme';
 
-export const render = (component: React.ReactElement, stubedPaths: any = []) => {
+type StubbedPath = {
+  path: string,
+  action: () => any,
+  loader: () => any,
+  element: React.ReactElement
+}
+
+export const render = (component: React.ReactElement, stubedPaths: StubbedPath[] = []) => {
   const RemixStub = unstable_createRemixStub([
     {
       path: '/',
