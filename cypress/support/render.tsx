@@ -7,7 +7,7 @@ import { ThemeColor } from '@uireact/foundation';
 
 import { MaxfriseTheme } from '../../app/theme';
 
-export const render = (component: React.ReactElement) => {
+export const render = (component: React.ReactElement, stubedPaths: any = []) => {
   const RemixStub = unstable_createRemixStub([
     {
       path: '/',
@@ -15,22 +15,7 @@ export const render = (component: React.ReactElement) => {
         <>{component}</>
       </UiView>,
     },
-    {
-      path: '/login',
-      action: async () => {
-        return {
-          errors: null,
-          userId: 'xxxxx'
-        } },
-      loader: async () => { return { ok: true } },
-      element: <p>Login route</p>
-    },
-    {
-      path: '/houses',
-      action: async () => { return { ok: true } },
-      loader: async () => { return { ok: true } },
-      element: <p>Houses route</p>
-    }
+    ...stubedPaths
   ]);
   
   cy.mount(<RemixStub />);

@@ -29,8 +29,26 @@ describe("<LoginForm />", () => {
     cy.get('@backClickSpy').should('have.been.calledOnce');
   });
 
-  it("Should submit login form", () => {
-    render(<LoginForm />);
+  it("Should redirect to Houses when login is correct", () => {
+    render(<LoginForm />, [
+      {
+        path: '/login',
+        action: async () => {
+          return {
+            errors: null,
+            userId: 'xxxxx'
+          }
+        },
+        loader: async () => { return { ok: true } },
+        element: <p>Login route</p>
+      },
+      {
+        path: '/houses',
+        action: async () => { return { ok: true } },
+        loader: async () => { return { ok: true } },
+        element: <p>Houses route</p>
+      }
+    ]);
 
     cy.findByRole('form').should('be.visible');
     cy.findByRole('textbox', { name: 'Correo electronico' }).type('dev@dev.com');
@@ -38,6 +56,26 @@ describe("<LoginForm />", () => {
     cy.findByRole('button', { name: 'Iniciar sesion' }).click();
 
     cy.findByText('Houses route').should('be.visible');
+  });
+
+  it("Should show error message when login is NOT correct", () => {
+    render(<LoginForm />, [
+      {
+        path: '/login',
+        action: async () => {
+          return { errors: { email: "Email o password invalido", password: null }, userId: null }
+        },
+        loader: async () => { return { ok: true } },
+        element: <p>Login route</p>
+      },
+    ]);
+
+    cy.findByRole('form').should('be.visible');
+    cy.findByRole('textbox', { name: 'Correo electronico' }).type('dev@dev.com');
+    cy.findByLabelText('Contraseña').type('123456');
+    cy.findByRole('button', { name: 'Iniciar sesion' }).click();
+
+    cy.findByText('Email o password invalido').should('be.visible');
   });
 
 });
