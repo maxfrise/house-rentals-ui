@@ -8,7 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { setLocale } from "yup";
 
 import { ThemeColor } from "@uireact/foundation";
@@ -18,6 +18,7 @@ import tailwindStylesheetUrl from "~/styles/tailwind.css";
 import { getUser } from "~/session.server";
 import { MaxfriseTheme } from './theme';
 import { Header } from './components/header';
+import { useThemeDetector } from "./hooks";
 
 
 export const links: LinksFunction = () => [
@@ -45,12 +46,16 @@ setLocale({
 });
 
 export default function App() {
-  const [selectedTheme, setSelectedTheme] = useState<ThemeColor>(ThemeColor.light);
+  const isDarkTheme = useThemeDetector();
+  const [selectedTheme, setSelectedTheme] = useState<ThemeColor>(isDarkTheme ? ThemeColor.dark : ThemeColor.light);
 
   const toggleTheme = useCallback(() => {
     setSelectedTheme(selectedTheme => selectedTheme === ThemeColor.light ? ThemeColor.dark : ThemeColor.light);
   }, [setSelectedTheme]);
 
+  useEffect(() => { 
+    setSelectedTheme(isDarkTheme ? ThemeColor.dark : ThemeColor.light);
+  }, [isDarkTheme])
   return (
     <html lang="en" className="h-full">
       <head>
