@@ -50,8 +50,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                 </UiButton>
               )}
             {toggleTheme && (
-              <UiButton onClick={toggleTheme}>
-                
+              <UiButton onClick={toggleTheme} testId='theme-toggle'>
                 <UiIcon icon='ColorDrop' />
               </UiButton>
             )}

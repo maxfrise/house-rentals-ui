@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-  createMemoryRouter,
-} from "react-router-dom";
+import { unstable_createRemixStub } from '@remix-run/testing';
 
 import { UiView } from '@uireact/view';
 import { ThemeColor } from '@uireact/foundation';
@@ -13,22 +8,30 @@ import { ThemeColor } from '@uireact/foundation';
 import { MaxfriseTheme } from '../../app/theme';
 
 export const render = (component: React.ReactElement) => {
-  const router = createMemoryRouter(
-    createRoutesFromElements(
-      <Route
-        path="/"
-        element={
-          <UiView selectedTheme={ThemeColor.light} theme={MaxfriseTheme}>
-            <>{component}</>
-          </UiView>
-        }
-      />
-    ),
+  const RemixStub = unstable_createRemixStub([
     {
-      basename: "/",
-      initialEntries: ["/"],
+      path: '/',
+      element: <UiView selectedTheme={ThemeColor.light} theme={MaxfriseTheme}>
+        <>{component}</>
+      </UiView>,
+    },
+    {
+      path: '/login',
+      action: async () => {
+        return {
+          errors: null,
+          userId: 'xxxxx'
+        } },
+      loader: async () => { return { ok: true } },
+      element: <p>Login route</p>
+    },
+    {
+      path: '/houses',
+      action: async () => { return { ok: true } },
+      loader: async () => { return { ok: true } },
+      element: <p>Houses route</p>
     }
-  );
+  ]);
   
-  cy.mount(<RouterProvider router={router} />);
+  cy.mount(<RemixStub />);
 };

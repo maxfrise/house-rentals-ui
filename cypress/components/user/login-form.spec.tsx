@@ -28,4 +28,16 @@ describe("<LoginForm />", () => {
 
     cy.get('@backClickSpy').should('have.been.calledOnce');
   });
+
+  it("Should submit login form", () => {
+    render(<LoginForm />);
+
+    cy.findByRole('form').should('be.visible');
+    cy.findByRole('textbox', { name: 'Correo electronico' }).type('dev@dev.com');
+    cy.findByLabelText('Contraseña').type('123456');
+    cy.findByRole('button', { name: 'Iniciar sesion' }).click();
+
+    cy.findByText('Houses route').should('be.visible');
+  });
+
 });
