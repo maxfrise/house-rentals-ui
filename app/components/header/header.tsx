@@ -59,12 +59,11 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
         </CenteredDiv>
       </UiViewport>
       <UiViewport criteria='s|m'>
-          <UiFlexGrid>
-            <UiFlexGridItem grow={1}>
-              <UiHeading>Maxfrise</UiHeading>
-            </UiFlexGridItem>
-            {user ? <p>Log out</p> : <p> Log in</p>}
-          </UiFlexGrid>
+        <UiFlexGrid>
+          <UiFlexGridItem grow={1}>
+            <UiHeading>Maxfrise</UiHeading>
+          </UiFlexGridItem>
+        </UiFlexGrid>
       </UiViewport>
       </UiHeader>
       <LoginDialog />

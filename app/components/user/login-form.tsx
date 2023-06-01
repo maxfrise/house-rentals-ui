@@ -58,8 +58,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
           theme={fetcher.data?.errors?.password ? 'error' : undefined}
         />
         <input type="hidden" name="redirectTo" value={'/houses'} />
-        {fetcher.state === 'loading' && <UiText>Loading...</UiText>}
-        {fetcher.state === 'submitting' && <UiText>Submitting...</UiText>}
+        {fetcher.state !== 'idle' && <UiText>Authenticating...</UiText>}
         <UiSpacing margin={submitButtonMargin}>
           <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Iniciar sesion</UiButton>
         </UiSpacing>
