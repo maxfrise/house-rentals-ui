@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useFetcher, useNavigate, useSearchParams } from "@remix-run/react";
+import { useFetcher, useSearchParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
 import styled from 'styled-components';
