@@ -8,7 +8,7 @@ import type { UiSpacingProps} from '@uireact/foundation';
 import { UiSpacing, UiViewport } from '@uireact/foundation';
 import { UiHeader } from '@uireact/header';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
-import { UiHeading, UiText } from '@uireact/text';
+import { UiHeading } from '@uireact/text';
 import { UiIcon } from '@uireact/icons';
 import { UiMenu } from '@uireact/menu';
 

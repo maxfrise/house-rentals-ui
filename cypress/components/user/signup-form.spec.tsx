@@ -1,5 +1,7 @@
 import React from "react";
 
+import { redirect } from "@remix-run/server-runtime";
+
 import { SignUpForm } from "../../../app/components/user/";
 import { render } from '../../../cypress/support/render';
 
@@ -31,12 +33,7 @@ describe("<SignUpForm />", () => {
     render(<SignUpForm />, [
       {
         path: '/join',
-        action: async () => {
-          return {
-            errors: null,
-            userId: 'xxxxx'
-          }
-        },
+        action: async () => { return redirect('/houses') },
         loader: async () => { return { ok: true } },
         element: <p>Sign up route</p>
       },
