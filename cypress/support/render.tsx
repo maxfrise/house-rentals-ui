@@ -14,10 +14,10 @@ type StubbedPath = {
   element: React.ReactElement
 }
 
-export const render = (component: React.ReactElement, stubedPaths: StubbedPath[] = []) => {
+export const render = (component: React.ReactElement, stubedPaths: StubbedPath[] = [], currentPath: string = '/') => {
   const RemixStub = unstable_createRemixStub([
     {
-      path: '/',
+      path: currentPath,
       element: <UiView selectedTheme={ThemeColor.light} theme={MaxfriseTheme}>
         <>{component}</>
       </UiView>,

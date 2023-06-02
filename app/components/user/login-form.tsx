@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useFetcher, useNavigate } from "@remix-run/react";
+import { useFetcher, useNavigate, useSearchParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
 import styled from 'styled-components';
@@ -12,6 +12,7 @@ import { UiSpacing } from "@uireact/foundation";
 import { UiText } from "@uireact/text";
 
 import type { action } from '../../routes/login';
+import { useOptionalUser } from '../../utils';
 
 const submitButtonMargin: UiSpacingProps['margin'] = {block: 'four'};
 
@@ -25,18 +26,19 @@ const FormDiv = styled.div`
 `
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSuccess }: LoginFormProps) => {
-  const navigate = useNavigate();
   const fetcher = useFetcher<typeof action>();
+  const user = useOptionalUser();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") || "/houses";
   const handleBackClick = useCallback(() => {
     onBackClick?.();
   }, [onBackClick]);
 
   useEffect(() => {
-    if (fetcher.data?.errors === null && fetcher.data?.userId !== '') { 
+    if (user) { 
       onLoginSuccess?.();
-      navigate("/houses");
     }
-  }, [fetcher, navigate, onLoginSuccess]);
+  }, [onLoginSuccess, user]);
 
   return (
     <FormDiv>
@@ -57,7 +59,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
           error={fetcher.data?.errors?.password || undefined}
           theme={fetcher.data?.errors?.password ? 'error' : undefined}
         />
-        <input type="hidden" name="redirectTo" value={'/houses'} />
+        <input type="hidden" name="redirectTo" value={redirectTo} />
         {fetcher.state !== 'idle' && <UiText>Authenticating...</UiText>}
         <UiSpacing margin={submitButtonMargin}>
           <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Iniciar sesion</UiButton>

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { redirect } from "@remix-run/server-runtime";
+
 import { LoginForm } from "../../../app/components/user/";
 import { render } from '../../../cypress/support/render';
 
@@ -29,16 +31,11 @@ describe("<LoginForm />", () => {
     cy.get('@backClickSpy').should('have.been.calledOnce');
   });
 
-  it("Should redirect to Houses when login is correct", () => {
+  it("Should redirect to Houses when login is correct and no redirectTo param is present", () => {
     render(<LoginForm />, [
       {
         path: '/login',
-        action: async () => {
-          return {
-            errors: null,
-            userId: 'xxxxx'
-          }
-        },
+        action: async () => { return redirect('/houses') },
         loader: async () => { return { ok: true } },
         element: <p>Login route</p>
       },
@@ -77,5 +74,4 @@ describe("<LoginForm />", () => {
 
     cy.findByText('Email o password invalido').should('be.visible');
   });
-
 });
