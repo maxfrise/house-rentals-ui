@@ -1,18 +1,21 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import styled from 'styled-components';
 
 import { UiButton } from '@uireact/button';
+import { useDialog } from '@uireact/dialog';
 import type { UiSpacingProps} from '@uireact/foundation';
 import { UiSpacing, UiViewport } from '@uireact/foundation';
 import { UiHeader } from '@uireact/header';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
 import { UiHeading } from '@uireact/text';
 import { UiIcon } from '@uireact/icons';
+import { UiMenu } from '@uireact/menu';
 
 import { useOptionalUser } from '../../utils';
 import { LoginDialog, SignUpDialog } from '../user';
-import { useDialog } from '@uireact/dialog';
+import { HeaderMenu } from './menu';
+
 
 type HeaderProps = {
   toggleTheme?: () => void;
@@ -25,19 +28,33 @@ const CenteredDiv = styled.div`
 
 const headerButtonsTextSpacing: UiSpacingProps['padding'] = { inline: 'three' };
 const registerButtonSpacing: UiSpacingProps['margin'] = { inline: 'three' };
+const headerSmallSpacing: UiSpacingProps['padding'] = { inline: 'four' };
 
 export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
   const loginDialog = useDialog('login-dialog');
   const signUpDialog = useDialog('sign-up-dialog');
+  const [menuVisible, setMenuVisible] = useState(false);
   const user = useOptionalUser();
 
   const openLoginDialog = useCallback(() => {
+    if (menuVisible) {
+      setMenuVisible(false);
+    }
+
     loginDialog.actions.openDialog();
-  }, [loginDialog]);
+  }, [loginDialog.actions, menuVisible]);
 
   const openSignUpDialog = useCallback(() => {
+    if (menuVisible) { 
+      setMenuVisible(false);
+    }
+
     signUpDialog.actions.openDialog();
-  }, [signUpDialog]);
+  }, [menuVisible, signUpDialog.actions]);
+
+  const toggleMenu = useCallback(() => {
+    setMenuVisible(!menuVisible);
+  }, [menuVisible]);
 
   return (
     <>
@@ -72,12 +89,25 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
           </UiFlexGrid>
         </CenteredDiv>
       </UiViewport>
-      <UiViewport criteria='s|m'>
-        <UiFlexGrid>
-          <UiFlexGridItem grow={1}>
-            <UiHeading>Maxfrise</UiHeading>
-          </UiFlexGridItem>
-        </UiFlexGrid>
+        <UiViewport criteria='s|m'>
+          <UiSpacing padding={headerSmallSpacing}>
+            <UiFlexGrid>
+              <UiFlexGridItem grow={1}>
+                <UiHeading>Maxfrise</UiHeading>
+              </UiFlexGridItem>
+              <UiFlexGridItem align='auto'>
+                <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle'>
+                    <UiIcon icon='Discord' />  
+                </UiButton>
+                <UiMenu visible={menuVisible} closeMenuCB={toggleMenu}>
+                  <HeaderMenu
+                    openLoginDialog={openLoginDialog}
+                    openSignUiDialog={openSignUpDialog}
+                  />
+                </UiMenu>
+              </UiFlexGridItem>  
+            </UiFlexGrid>
+          </UiSpacing>
       </UiViewport>
       </UiHeader>
       <LoginDialog />

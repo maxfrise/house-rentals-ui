@@ -24,4 +24,16 @@ describe("<Header />", () => {
 
     cy.get('@toggleThemeFn').should('have.been.calledOnce');
   });
+
+  it("Should render menu button", () => {
+    cy.viewport('iphone-x');
+    render(<Header />);
+
+    cy.findByRole('heading', { name: 'Maxfrise' }).should('be.visible');
+    cy.findByTestId('header-menu-toogle').as('menuToggleBtn').should('be.visible');
+
+    cy.get('@menuToggleBtn').click();
+
+    cy.findByRole('menu').should('be.visible');
+  });
 });
