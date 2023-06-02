@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useFetcher, useNavigate } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
 import styled from 'styled-components';
@@ -12,6 +12,7 @@ import { UiSpacing } from "@uireact/foundation";
 import { UiText } from "@uireact/text";
 
 import type { action } from '../../routes/login';
+import { useOptionalUser } from '../../utils';
 
 const submitButtonMargin: UiSpacingProps['margin'] = { block: 'four' };
 
@@ -25,18 +26,17 @@ const FormDiv = styled.div`
 `
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuccess }: SignUpFormProps) => {
-  const navigate = useNavigate();
   const fetcher = useFetcher<typeof action>();
+  const user = useOptionalUser();
   const handleBackClick = useCallback(() => {
     onBackClick?.();
   }, [onBackClick]);
 
   useEffect(() => {
-    if (fetcher.data?.errors === null && fetcher.data?.userId !== '') {
+    if (user) {
       onSignUpSuccess?.();
-      navigate("/houses");
     }
-  }, [fetcher, navigate, onSignUpSuccess]);
+  }, [onSignUpSuccess, user]);
 
   return (
     <FormDiv>
