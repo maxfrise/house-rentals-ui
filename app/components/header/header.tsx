@@ -11,7 +11,7 @@ import { UiHeading } from '@uireact/text';
 import { UiIcon } from '@uireact/icons';
 
 import { useOptionalUser } from '../../utils';
-import { LoginDialog } from '../user';
+import { LoginDialog, SignUpDialog } from '../user';
 import { useDialog } from '@uireact/dialog';
 
 type HeaderProps = {
@@ -23,15 +23,21 @@ const CenteredDiv = styled.div`
   margin: 0 auto;
 `;
 
-const signInButtonSpacing: UiSpacingProps['padding'] = { inline: 'three' };
+const headerButtonsTextSpacing: UiSpacingProps['padding'] = { inline: 'three' };
+const registerButtonSpacing: UiSpacingProps['margin'] = { inline: 'three' };
 
 export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
-  const { actions } = useDialog('login-dialog');
+  const loginDialog = useDialog('login-dialog');
+  const signUpDialog = useDialog('sign-up-dialog');
   const user = useOptionalUser();
 
-  const openDialog = useCallback(() => {
-    actions.openDialog();
-  }, [actions]);
+  const openLoginDialog = useCallback(() => {
+    loginDialog.actions.openDialog();
+  }, [loginDialog]);
+
+  const openSignUpDialog = useCallback(() => {
+    signUpDialog.actions.openDialog();
+  }, [signUpDialog]);
 
   return (
     <>
@@ -43,11 +49,20 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
               <UiHeading>Maxfrise</UiHeading>
             </UiFlexGridItem>
               {!user && (
-                <UiButton theme='positive' onClick={openDialog}>
-                  <UiSpacing padding={signInButtonSpacing}>
-                    Log in
+                <UiFlexGridItem>
+                  <UiButton theme='primary' onClick={openLoginDialog}>
+                    <UiSpacing padding={headerButtonsTextSpacing}>
+                      Iniciar Sesion
+                    </UiSpacing>
+                  </UiButton>
+                  <UiSpacing margin={registerButtonSpacing} inline>
+                    <UiButton theme='positive' onClick={openSignUpDialog}>
+                      <UiSpacing padding={headerButtonsTextSpacing}>
+                        Registrate
+                      </UiSpacing>
+                    </UiButton>
                   </UiSpacing>
-                </UiButton>
+                </UiFlexGridItem>
               )}
             {toggleTheme && (
               <UiButton onClick={toggleTheme} testId='theme-toggle'>
@@ -66,6 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
       </UiViewport>
       </UiHeader>
       <LoginDialog />
+      <SignUpDialog />
     </>
   );
 };
