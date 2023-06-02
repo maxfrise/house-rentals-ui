@@ -36,4 +36,16 @@ describe("<Header />", () => {
 
     cy.findByRole('menu').should('be.visible');
   });
+
+  it("Should log out session button in desktop and user is signed in", () => {
+    cy.viewport('macbook-16');
+
+    render(<Header />, undefined, {
+      id: 'root',
+      loader: () => { return { user: { email: 'xxxx', userId: 'xxxx' } } },
+      path: '/'
+    });
+
+    cy.findByRole('button', { name: 'Cerrar sesion' }).should('be.visible');
+  });  
 });

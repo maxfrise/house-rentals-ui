@@ -13,9 +13,8 @@ import { UiIcon } from '@uireact/icons';
 import { UiMenu } from '@uireact/menu';
 
 import { useOptionalUser } from '../../utils';
-import { LoginDialog, SignUpDialog } from '../user';
+import { LoginDialog, LogoutForm, SignUpDialog } from '../user';
 import { HeaderMenu } from './menu';
-
 
 type HeaderProps = {
   toggleTheme?: () => void;
@@ -56,6 +55,10 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
     setMenuVisible(!menuVisible);
   }, [menuVisible]);
 
+  const onLogoutCB = useCallback(() => {
+    setMenuVisible(!menuVisible);
+  }, [menuVisible]);
+
   return (
     <>
     <UiHeader>
@@ -65,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
             <UiFlexGridItem grow={1}>
               <UiHeading>Maxfrise</UiHeading>
             </UiFlexGridItem>
-              {!user && (
+              {!user ? (
                 <UiFlexGridItem>
                   <UiButton theme='primary' onClick={openLoginDialog}>
                     <UiSpacing padding={headerButtonsTextSpacing}>
@@ -80,6 +83,9 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                     </UiButton>
                   </UiSpacing>
                 </UiFlexGridItem>
+              ) :
+              (
+                <LogoutForm />
               )}
             {toggleTheme && (
               <UiButton onClick={toggleTheme} testId='theme-toggle'>
@@ -103,6 +109,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                   <HeaderMenu
                     openLoginDialog={openLoginDialog}
                     openSignUiDialog={openSignUpDialog}
+                    onLogoutCB={onLogoutCB}
                   />
                 </UiMenu>
               </UiFlexGridItem>  
