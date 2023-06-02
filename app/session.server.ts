@@ -1,4 +1,4 @@
-import { createCookieSessionStorage, json, redirect } from "@remix-run/node";
+import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
 import type { User } from "~/models/user.server";
@@ -76,11 +76,7 @@ export async function createUserSession({
 }) {
   const session = await getSession(request);
   session.set(USER_SESSION_KEY, userId);
-
-  return json({
-    errors: null,
-    userId: userId
-  }, {
+  return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(session, {
         maxAge: remember
@@ -88,7 +84,6 @@ export async function createUserSession({
           : undefined,
       }),
     },
-    status: 200
   });
 }
 
