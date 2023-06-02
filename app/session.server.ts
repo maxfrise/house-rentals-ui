@@ -1,4 +1,4 @@
-import { createCookieSessionStorage, json, redirect } from "@remix-run/node";
+import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
 import type { User } from "~/models/user.server";
@@ -84,7 +84,7 @@ export async function createUserSession({
           ? 60 * 60 * 24 * 7 // 7 days
           : undefined,
       }),
-    }
+    },
   });
 }
 
