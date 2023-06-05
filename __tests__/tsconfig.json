@@ -5,11 +5,11 @@
   ],
   "include": [
     "e2e/**/*",
+    "component/**/*",
+    "utils/**/*",
     "../cypress/support/**/*",
     "../node_modules/cypress",
     "../node_modules/@testing-library/cypress",
-    "component/**/*",
-    "utils/**/*"
   ],
   "compilerOptions": {
     "baseUrl": ".",
