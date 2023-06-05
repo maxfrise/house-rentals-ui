@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
         <CenteredDiv>
             <UiFlexGrid gap='three'>
             <UiFlexGridItem grow={1}>
-              <UiHeading>Maxfrise</UiHeading>
+                <a href='/'><UiHeading>Maxfrise</UiHeading></a>
             </UiFlexGridItem>
               {!user ? (
                 <>
