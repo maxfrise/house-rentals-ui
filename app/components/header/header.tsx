@@ -69,20 +69,22 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
               <UiHeading>Maxfrise</UiHeading>
             </UiFlexGridItem>
               {!user ? (
+                <>
                 <UiFlexGridItem>
-                  <UiButton theme='primary' onClick={openLoginDialog}>
+                  <UiButton theme='primary' onClick={openLoginDialog} fullHeight>
                     <UiSpacing padding={headerButtonsTextSpacing}>
                       Iniciar Sesion
                     </UiSpacing>
                   </UiButton>
-                  <UiSpacing margin={registerButtonSpacing} inline>
-                    <UiButton theme='positive' onClick={openSignUpDialog}>
+                  </UiFlexGridItem>
+                  <UiFlexGridItem>
+                    <UiButton theme='positive' onClick={openSignUpDialog} fullHeight>
                       <UiSpacing padding={headerButtonsTextSpacing}>
                         Registrate
                       </UiSpacing>
                     </UiButton>
-                  </UiSpacing>
-                </UiFlexGridItem>
+                  </UiFlexGridItem>
+                </>
               ) :
               (
                 <LogoutForm />
