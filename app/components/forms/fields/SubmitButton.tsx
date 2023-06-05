@@ -1,8 +1,12 @@
+import React from "react";
+
 interface SubmitButtonProps {
   onFormSubmit?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const SubmitButton: React.FC<SubmitButtonProps> = ({ onFormSubmit }) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = ({
+  onFormSubmit
+}) => {
   return (
     <div className="text-right">
       <button
