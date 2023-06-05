@@ -32,7 +32,7 @@ describe("<PayHouseform />", () => {
     cy.findByRole('button', { name: 'Pagar' }).should('be.visible');
   });
 
-  it.only('should render errors on invalid form submission', () => {
+  it('should render errors on invalid form submission', () => {
     render(<PayHouseform payment={paymentMock} />, [
       {
         path: '/payjob',
