@@ -9,7 +9,7 @@ import { UiButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
-import { UiText } from "@uireact/text";
+import { UiIcon } from '@uireact/icons';
 
 import type { action } from '../../routes/login';
 import { useOptionalUser } from '../../utils';
@@ -23,6 +23,10 @@ export type SignUpFormProps = {
 
 const FormDiv = styled.div`
   width: 300px;
+
+  svg {
+    display: inline-block;
+  }
 `
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuccess }: SignUpFormProps) => {
@@ -58,9 +62,8 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuc
           theme={fetcher.data?.errors?.password ? 'error' : undefined}
         />
         <input type="hidden" name="redirectTo" value={'/houses'} />
-        {fetcher.state !== 'idle' && <UiText>Creating account...</UiText>}
         <UiSpacing margin={submitButtonMargin}>
-          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Crear cuenta</UiButton>
+          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}</UiButton>
         </UiSpacing>
         {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick}>Regresar</UiButton>}
       </fetcher.Form>

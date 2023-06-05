@@ -4,6 +4,7 @@ import { redirect } from "@remix-run/server-runtime";
 
 import { LoginForm } from "../../../app/components/user/";
 import { render } from '../../../cypress/support/render';
+import { delay } from '../../support/delay';
 
 describe("<LoginForm />", () => {
   it("Should render LoginForm", () => {
@@ -73,5 +74,26 @@ describe("<LoginForm />", () => {
     cy.findByRole('button', { name: 'Iniciar sesion' }).click();
 
     cy.findByText('Email o password invalido').should('be.visible');
+  });
+
+  it("Should render loading icon when is logging in", () => {
+    render(<LoginForm />, [
+      {
+        path: '/login',
+        action: async () => {
+          await delay(1000);
+          return { errors: { email: "Email o password invalido", password: null }, userId: null };
+        },
+        loader: async () => { return { ok: true } },
+        element: <p>Login route</p>
+      }
+    ]);
+
+    cy.findByRole('form').should('be.visible');
+    cy.findByRole('textbox', { name: 'Correo electronico' }).type('dev@dev.com');
+    cy.findByLabelText('Contraseña').type('123456');
+    cy.findByRole('button', { name: 'Iniciar sesion' }).click();
+
+    cy.findByTestId('Icon').should('be.visible');
   });
 });

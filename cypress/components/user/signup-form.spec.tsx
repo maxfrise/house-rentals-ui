@@ -4,6 +4,7 @@ import { redirect } from "@remix-run/server-runtime";
 
 import { SignUpForm } from "../../../app/components/user/";
 import { render } from '../../../cypress/support/render';
+import { delay } from '../../support/delay';
 
 describe("<SignUpForm />", () => {
   it("Should render SignUpForm", () => {
@@ -71,5 +72,32 @@ describe("<SignUpForm />", () => {
     cy.findByRole('button', { name: 'Crear cuenta' }).click();
 
     cy.findByText('El correo ya existe').should('be.visible');
+  });
+
+  it("Should render loading icon when is signin up", () => {
+    render(<SignUpForm />, [
+      {
+        path: '/join',
+        action: async () => {
+          await delay(1000);
+          return { errors: { email: "El correo ya existe", password: null }, userId: null };
+        },
+        loader: async () => { return { ok: true } },
+        element: <p>Login route</p>
+      },
+      {
+        path: '/houses',
+        action: async () => { return { ok: true } },
+        loader: async () => { return { ok: true } },
+        element: <p>Houses route</p>
+      }
+    ]);
+
+    cy.findByRole('form').should('be.visible');
+    cy.findByRole('textbox', { name: 'Correo electronico' }).type('dev@dev.com');
+    cy.findByLabelText('Contraseña').type('123456');
+    cy.findByRole('button', { name: 'Crear cuenta' }).click();
+
+    cy.findByTestId('Icon').should('be.visible');
   });
 });
