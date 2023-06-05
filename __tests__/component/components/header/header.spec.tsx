@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Header } from "../../../app/components/header/header";
-import { render } from '../../../cypress/support/render';
+import { Header } from "../../../../app/components/header/header";
+import { render } from '../../../utils/render';
 
 describe("<Header />", () => {
   it("Should render header", () => {;

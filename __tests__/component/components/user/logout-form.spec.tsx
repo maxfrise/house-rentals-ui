@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render } from '../../support/render';
+import { render } from '../../../utils/render';
 
-import { LogoutForm } from '../../../app/components/user';
+import { LogoutForm } from '../../../../app/components/user';
 
 describe('<LogoutForm />', () => {
   it('Should render fine', () => {

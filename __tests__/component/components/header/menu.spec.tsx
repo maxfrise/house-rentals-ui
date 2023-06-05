@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { HeaderMenu } from '../../../app/components/header/menu';
-import { render } from '../../support/render';
+import { HeaderMenu } from '../../../../app/components/header/menu';
+import { render } from '../../../utils/render';
 
 describe('<HeaderMenu />', () => {
   it('Should render fine', () => {
