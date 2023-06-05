@@ -10,6 +10,7 @@ import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
 import { UiText } from "@uireact/text";
+import { UiIcon } from '@uireact/icons';
 
 import type { action } from '../../routes/login';
 import { useOptionalUser } from '../../utils';
@@ -23,6 +24,10 @@ export type LoginFormProps = {
 
 const FormDiv = styled.div`
   width: 300px;
+
+  svg {
+    display: inline-block;
+  }
 `
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSuccess }: LoginFormProps) => {
@@ -60,9 +65,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
           theme={fetcher.data?.errors?.password ? 'error' : undefined}
         />
         <input type="hidden" name="redirectTo" value={redirectTo} />
-        {fetcher.state !== 'idle' && <UiText>Authenticating...</UiText>}
+        
         <UiSpacing margin={submitButtonMargin}>
-          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Iniciar sesion</UiButton>
+          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner'/>}</UiButton>
         </UiSpacing>
         {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick}>Regresar</UiButton>}
       </fetcher.Form>
