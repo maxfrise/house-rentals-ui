@@ -10,11 +10,9 @@ import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
 import { UiIcon } from '@uireact/icons';
-import { UiText } from "@uireact/text";
 
 import type { action } from '../../routes/login';
 import { useOptionalUser } from '../../utils';
-
 
 const submitButtonMargin: UiSpacingProps['margin'] = { block: 'four' };
 

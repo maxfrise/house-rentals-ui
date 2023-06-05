@@ -9,7 +9,6 @@ import { UiButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
-import { UiText } from "@uireact/text";
 import { UiIcon } from '@uireact/icons';
 
 import type { action } from '../../routes/login';
