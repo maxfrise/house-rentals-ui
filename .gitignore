@@ -13,7 +13,7 @@ sam.yaml
 
 /cypress/screenshots
 /cypress/videos
-
+coverage/
 /app/styles/tailwind.css
 
 .DS_Store
