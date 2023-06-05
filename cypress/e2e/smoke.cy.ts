@@ -12,15 +12,16 @@ describe("smoke tests", () => {
 
     cy.findByTestId('UiHeader').should('be.visible');
 
-    cy.findByRole("link", { name: /sign up/i }).click();
+    cy.findByRole("button", { name: /Registrate/i }).click();
 
-    cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);
-    cy.findByLabelText(/password/i).type(loginForm.password);
-    cy.findByRole("button", { name: /create account/i }).click();
+    cy.findByRole("textbox", { name: /Correo electronico/i }).type(loginForm.email);
+    cy.findByLabelText(/Contraseña/i).type(loginForm.password);
+    cy.findByRole("button", { name: /Crear cuenta/i }).click();
 
-    cy.findByRole("link", { name: /casas/i }).click();
-    cy.findByRole("button", { name: /logout/i }).click();
-    cy.findByRole("link", { name: /log in/i });
+    cy.findByRole('link', { name: '+ Nueva Casa' }).should('be.visible');
+
+    cy.findByRole("button", { name: /Cerrar sesion/i }).click();
+    cy.findByRole("button", { name: /Iniciar Sesion/i });
   });
 
   it("should allow you to create a house", () => {
