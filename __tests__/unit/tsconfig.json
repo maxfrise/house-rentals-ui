@@ -1,7 +1,8 @@
 {
   "exclude": [],
   "include": [
-    "*.ts"
+    "*.ts",
+    "**/*.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",
