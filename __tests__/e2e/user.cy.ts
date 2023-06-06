@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-describe("smoke tests", () => {
+describe("User tests", () => {
   it("should allow you to register and login", () => {
     const loginForm = {
       email: `${faker.internet.userName()}@example.com`,
@@ -18,7 +18,7 @@ describe("smoke tests", () => {
     cy.findByLabelText(/Contraseña/i).type(loginForm.password);
     cy.findByRole("button", { name: /Crear cuenta/i }).click();
 
-    cy.findByRole('link', { name: '+ Nueva Casa' }).should('be.visible');
+    cy.findByRole('link', { name: 'Agregar casa' }).should('be.visible');
 
     cy.findByRole("button", { name: /Cerrar sesion/i }).click();
     cy.findByRole("button", { name: /Iniciar Sesion/i });
