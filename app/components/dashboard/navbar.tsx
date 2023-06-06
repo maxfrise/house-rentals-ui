@@ -11,7 +11,6 @@ import { UiIcon } from '@uireact/icons';
 import { UiBadge } from '@uireact/badge';
 
 import type { House } from '../../types';
-import { UiText } from '@uireact/text';
 
 type NavbarProps = {
   houses?: House[];

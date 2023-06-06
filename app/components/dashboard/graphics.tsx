@@ -4,10 +4,8 @@ import { Outlet } from "@remix-run/react";
 
 import { UiCard } from '@uireact/card';
 
-export const Graphics = () => {
-  return (
-    <UiCard>
-      <Outlet />
-    </UiCard>
-  );
-};
+export const Graphics = () => (
+  <UiCard>
+    <Outlet />
+  </UiCard>
+);
