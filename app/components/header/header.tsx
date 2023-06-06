@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
+import { Link } from '@remix-run/react';
+
 import styled from 'styled-components';
 
 import { UiButton } from '@uireact/button';
@@ -26,7 +28,6 @@ const CenteredDiv = styled.div`
 `;
 
 const headerButtonsTextSpacing: UiSpacingProps['padding'] = { inline: 'three' };
-const registerButtonSpacing: UiSpacingProps['margin'] = { inline: 'three' };
 const headerSmallSpacing: UiSpacingProps['padding'] = { inline: 'four' };
 
 export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
@@ -66,23 +67,25 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
         <CenteredDiv>
             <UiFlexGrid gap='three'>
             <UiFlexGridItem grow={1}>
-              <UiHeading>Maxfrise</UiHeading>
+                <Link to='/'><UiHeading>Maxfrise</UiHeading></Link>
             </UiFlexGridItem>
               {!user ? (
+                <>
                 <UiFlexGridItem>
-                  <UiButton theme='primary' onClick={openLoginDialog}>
+                  <UiButton theme='primary' onClick={openLoginDialog} fullHeight>
                     <UiSpacing padding={headerButtonsTextSpacing}>
                       Iniciar Sesion
                     </UiSpacing>
                   </UiButton>
-                  <UiSpacing margin={registerButtonSpacing} inline>
-                    <UiButton theme='positive' onClick={openSignUpDialog}>
+                  </UiFlexGridItem>
+                  <UiFlexGridItem>
+                    <UiButton theme='positive' onClick={openSignUpDialog} fullHeight>
                       <UiSpacing padding={headerButtonsTextSpacing}>
                         Registrate
                       </UiSpacing>
                     </UiButton>
-                  </UiSpacing>
-                </UiFlexGridItem>
+                  </UiFlexGridItem>
+                </>
               ) :
               (
                 <LogoutForm />
@@ -99,7 +102,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
           <UiSpacing padding={headerSmallSpacing}>
             <UiFlexGrid>
               <UiFlexGridItem grow={1}>
-                <UiHeading>Maxfrise</UiHeading>
+                <Link to='/'><UiHeading>Maxfrise</UiHeading></Link>
               </UiFlexGridItem>
               <UiFlexGridItem align='auto'>
                 <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle'>

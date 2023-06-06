@@ -12,12 +12,13 @@ type Detail = {
   amount: string;
 };
 
-type Payment = {
+export type Payment = {
   landlords: Landlord[];
   status: string;
   tenants: Tenant[];
   details: Detail[];
   pk: string;
+  st: string;
 };
 
 export type InitLeaseRequest = {
@@ -28,6 +29,14 @@ export type InitLeaseRequest = {
   rentAmount: string;
   landlords: Landlord[];
   tenants: Tenant[];
+};
+
+export type PayHouseRequest = {
+  pk: string;
+  st: string;
+  method: string;
+  details: string;
+  amount: string;
 };
 
 export type House = {

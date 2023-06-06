@@ -25,6 +25,9 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
   // NOTE: Architect deploys the public directory to /_static/
   { rel: "icon", href: "/_static/favicon.ico" },
+  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+  { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'use-credentials' },
+  { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap' }
 ];
 
 export const loader = async ({ request }: LoaderArgs) => {
