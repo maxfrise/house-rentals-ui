@@ -3,8 +3,8 @@ import React from "react";
 import { useDialog } from "@uireact/dialog";
 import { UiButton } from "@uireact/button";
 
-import { PayHouseDialog } from "../../app/components/payHouseDialog";
-import { render } from '../../cypress/support/render';
+import { PayHouseDialog } from "../../../app/components/payHouseDialog";
+import { render } from '../../utils/render';
 
 const MockedComponent: React.FC = () => {
   const { actions } = useDialog('pay-house-dialog');

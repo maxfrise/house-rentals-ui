@@ -1,4 +1,4 @@
-import { validate } from "./form-validator-yup";
+import { validate } from "../../../../../app/components/forms/validator/form-validator-yup";
 import {
   object,
   string,
