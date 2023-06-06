@@ -1,4 +1,4 @@
-import { MaxfriseApi } from "./MaxfriseApi";
+import { MaxfriseApi } from "../../../../app/datasource/MaxfriseApi/MaxfriseApi";
 import nock from "nock";
 
 describe("MaxfriseApi", () => {

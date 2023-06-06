@@ -1,5 +1,5 @@
 import React from "react";
-import { GenericInputField } from "../../app/components/forms/fields/GenericInputField";
+import { GenericInputField } from "../../../app/components/forms/fields/GenericInputField";
 
 describe("GenericInputField", () => {
   it("lets you type a name", () => {

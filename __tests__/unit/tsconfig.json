@@ -1,0 +1,29 @@
+{
+  "exclude": [],
+  "include": [
+    "*.ts",
+    "**/*.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "target": "es2019",
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "../../types"
+    ],
+    "types": [
+      "vitest/globals"
+    ],
+    "paths": {
+      "~/*": [
+        "../../app/*"
+      ]
+    }
+  }
+}
