@@ -11,6 +11,7 @@ import { UiIcon } from '@uireact/icons';
 import { UiBadge } from '@uireact/badge';
 
 import type { House } from '../../types';
+import { UiText } from '@uireact/text';
 
 type NavbarProps = {
   houses?: House[];
@@ -33,46 +34,46 @@ const StyledLink = styled(Link)`
 const navbarSpacing: UiSpacingProps['margin'] = { block: 'three' };
 const homeLinkSpacing: UiSpacingProps['margin'] = { left: 'four' };
 
-export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
-  return (
-    <Div>
-      <>
-        <UiCard>
-          <StyledLink to="/houses">
-            <UiSpacing margin={homeLinkSpacing}>
-              <UiIcon icon='Home' /> Inicio
-            </UiSpacing>
-          </StyledLink>
-        </UiCard>
-        {houses && houses.length > 0 && (
-          <UiSpacing margin={navbarSpacing}>
-            <UiCard>
-              <UiList>
-                {houses?.map((house, index) => (
-                  <UiListItem key={index}>
-                    {(index === houses.length - 1) && <hr />}
-                    <StyledLink to={house.houseId}>
-                      {`${house.houseFriendlyName} `}
-                      {house.leaseStatus === 'AVAILABLE' ? (
-                        <UiBadge category='primary' size={TextSize.xsmall}>Disponible</UiBadge>
-                      ): (
-                        <UiBadge category='positive' size={TextSize.xsmall}>Rentada</UiBadge>
-                      )}
-                    </StyledLink>
-                  </UiListItem>
-                ))}
-              </UiList>
-            </UiCard>
+export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => (
+  <Div>
+    <>
+      <UiCard>
+        <StyledLink to="/houses">
+          <UiSpacing margin={homeLinkSpacing}>
+            <UiIcon icon='Home' /> Inicio
           </UiSpacing>
-        )}
-        <UiCard>
-          <StyledLink to="./new">
-            <UiSpacing margin={homeLinkSpacing}>
-              <UiIcon icon='Pages' /> Agregar casa
-            </UiSpacing>
-          </StyledLink>
-        </UiCard>
-      </>
-    </Div>
-  );
-};
+        </StyledLink>
+      </UiCard>
+        <UiSpacing margin={navbarSpacing}>
+          <UiCard>
+          {houses && houses.length > 0 ? (
+            <UiList>
+              {houses?.map((house, index) => (
+                <UiListItem key={index}>
+                  {(index > 0 && index === houses.length - 1) && <hr />}
+                  <StyledLink to={house.houseId}>
+                    {`${house.houseFriendlyName} `}
+                    {house.leaseStatus === 'AVAILABLE' ? (
+                      <UiBadge category='primary' size={TextSize.xsmall}>Disponible</UiBadge>
+                    ) : (
+                      <UiBadge category='positive' size={TextSize.xsmall}>Rentada</UiBadge>
+                    )}
+                  </StyledLink>
+                </UiListItem>
+              ))}
+            </UiList>
+          ) : (
+           <UiText>Todavia no hay casas</UiText>   
+          )}
+          </UiCard>
+        </UiSpacing>
+      <UiCard>
+        <StyledLink to="./new">
+          <UiSpacing margin={homeLinkSpacing}>
+            <UiIcon icon='Pages' /> Agregar casa
+          </UiSpacing>
+        </StyledLink>
+      </UiCard>
+    </>
+  </Div>
+);
