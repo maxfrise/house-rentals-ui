@@ -8,24 +8,31 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { useCallback, useEffect, useState } from "react";
+import { setLocale } from "yup";
 
-import { ThemeContext, Themes } from "@uireact/foundation";
+import { ThemeColor } from "@uireact/foundation";
+import { UiView } from '@uireact/view';
 
 import tailwindStylesheetUrl from "~/styles/tailwind.css";
 import { getUser } from "~/session.server";
-import { setLocale } from "yup";
+import { MaxfriseTheme } from './theme';
+import { Header } from './components/header';
+import { useThemeDetector } from "./hooks";
+
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
   // NOTE: Architect deploys the public directory to /_static/
   { rel: "icon", href: "/_static/favicon.ico" },
+  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+  { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'use-credentials' },
+  { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap' }
 ];
 
 export const loader = async ({ request }: LoaderArgs) => {
   return json({ user: await getUser(request) });
 };
-
-const noOpFn = () => {};
 
 setLocale({
   mixed: {
@@ -42,6 +49,16 @@ setLocale({
 });
 
 export default function App() {
+  const isDarkTheme = useThemeDetector();
+  const [selectedTheme, setSelectedTheme] = useState<ThemeColor>(isDarkTheme ? ThemeColor.dark : ThemeColor.light);
+
+  const toggleTheme = useCallback(() => {
+    setSelectedTheme(selectedTheme => selectedTheme === ThemeColor.light ? ThemeColor.dark : ThemeColor.light);
+  }, [setSelectedTheme]);
+
+  useEffect(() => { 
+    setSelectedTheme(isDarkTheme ? ThemeColor.dark : ThemeColor.light);
+  }, [isDarkTheme])
   return (
     <html lang="en" className="h-full">
       <head>
@@ -49,16 +66,18 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        {typeof document === "undefined"
+          ? "__STYLES__"
+          : null}
       </head>
-      <body className="h-full">
-        <ThemeContext.Provider
-          value={{ theme: Themes.dark, toogleTheme: noOpFn }}
-        >
+      <body className="">
+        <UiView theme={MaxfriseTheme} selectedTheme={selectedTheme}>
+          <Header toggleTheme={toggleTheme} />
           <Outlet />
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
-        </ThemeContext.Provider>
+        </UiView>
       </body>
     </html>
   );

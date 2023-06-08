@@ -1,3 +1,4 @@
+import { useState } from "react"
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
@@ -9,8 +10,10 @@ import {
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
-
+import { useDialog } from '@uireact/dialog';
+import type { Payment } from "../datasource/MaxfriseApi/MaxfriseApiTypes"
 import { requireUserId } from "~/session.server";
+import { PayHouseDialog } from "../components/payHouseDialog"
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   const url = process.env.MAXFRISE_API;
@@ -60,7 +63,15 @@ const Badge: React.FC<{ status: string }> = ({ status }) => {
 
 export default function HouseDetailsPage() {
   const data = useLoaderData<typeof loader>();
+  const payHouseDialog = useDialog('pay-house-dialog'); // TODO: this should be a constant that can be exported
+  const [activePayment, setActivePayment] = useState<Payment>()
   const house = data.house;
+
+
+  const onPayButtonClick = (paymentJob: Payment) => {
+    setActivePayment(paymentJob)
+    payHouseDialog.actions.openDialog();
+  }
 
   return (
     <div>
@@ -102,7 +113,7 @@ export default function HouseDetailsPage() {
                   </div>
                   <div className="">
                     {payment.status === "DUE" ? (
-                      <button className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
+                      <button onClick={() => onPayButtonClick(payment)} className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
                         Pagar
                       </button>
                     ) : (
@@ -114,6 +125,7 @@ export default function HouseDetailsPage() {
                 </div>
               );
             })}
+            <PayHouseDialog payment={activePayment} />
           </div>
         </>
       )}

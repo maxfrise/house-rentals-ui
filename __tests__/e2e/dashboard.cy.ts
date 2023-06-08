@@ -1,25 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-describe("smoke tests", () => {
-  it("should allow you to register and login", () => {
-    const loginForm = {
-      email: `${faker.internet.userName()}@example.com`,
-      password: faker.internet.password(),
-    };
-    cy.then(() => ({ email: loginForm.email })).as("user");
-
-    cy.visitAndCheck("/");
-    cy.findByRole("link", { name: /sign up/i }).click();
-
-    cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);
-    cy.findByLabelText(/password/i).type(loginForm.password);
-    cy.findByRole("button", { name: /create account/i }).click();
-
-    cy.findByRole("link", { name: /casas/i }).click();
-    cy.findByRole("button", { name: /logout/i }).click();
-    cy.findByRole("link", { name: /log in/i });
-  });
-
+describe('Dashboard smokes', () => {
   it("should allow you to create a house", () => {
     const testHouse = {
       houseFriendlyName: faker.animal.rabbit(),
@@ -35,9 +16,12 @@ describe("smoke tests", () => {
     cy.visitAndCheck("/");
 
     cy.findByRole("link", { name: /casas/i }).click();
-    cy.findByText("todavia no hay casas");
 
-    cy.findByRole("link", { name: /\+ Nueva casa/i }).click();
+    cy.findByTestId('UiHeader').should('be.visible');
+
+    cy.findByText("Todavia no hay casas");
+
+    cy.findByRole("link", { name: /Agregar casa/i }).click();
 
     cy.findByRole("textbox", { name: /Nombre de la propiedad/i }).type(
       testHouse.houseFriendlyName
@@ -62,9 +46,9 @@ describe("smoke tests", () => {
     );
 
     cy.findByRole("button", { name: /guardar/i }).click();
+
     cy.location("pathname")
-      .should("match", /\/houses\/[a-zA-Z0-9]+\d+/)
-      .wait(1000);
+      .should("match", /\/houses\/[a-zA-Z0-9]+\d+/);
   });
 
   it("should display errors on invalid form submission", () => {
@@ -82,9 +66,9 @@ describe("smoke tests", () => {
     cy.visitAndCheck("/");
 
     cy.findByRole("link", { name: /casas/i }).click();
-    cy.findByText("todavia no hay casas");
+    cy.findByText("Todavia no hay casas");
 
-    cy.findByRole("link", { name: /\+ Nueva casa/i }).click();
+    cy.findByRole("link", { name: /Agregar casa/i }).click();
 
     cy.findByRole("textbox", { name: /Nombre de la propiedad/i }).type(
       testHouse.houseFriendlyName
@@ -109,6 +93,8 @@ describe("smoke tests", () => {
     );
 
     cy.findByRole("button", { name: /guardar/i }).click();
+
+    cy.findByTestId('UiHeader').should('be.visible');
 
     cy.get("#houseFriendlyName-error").contains(
       "El campo tiene que tener maximo 40 caracteres"
