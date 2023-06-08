@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams, useResolvedPath } from '@remix-run/react';
+import { Link, useParams } from '@remix-run/react';
 
 import styled from 'styled-components';
 
