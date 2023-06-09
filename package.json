@@ -46,6 +46,7 @@
     "@uireact/icons": "^1.1.0",
     "@uireact/list": "^1.0.4",
     "@uireact/menu": "^1.0.7",
+    "@uireact/navbar": "^1.1.0",
     "@uireact/text": "^1.0.1",
     "@uireact/view": "^1.0.3",
     "bcryptjs": "2.4.3",
