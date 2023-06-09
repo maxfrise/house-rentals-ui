@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
               {!user ? (
                 <>
                 <UiFlexGridItem>
-                  <UiButton theme='primary' onClick={openLoginDialog} fullHeight>
+                  <UiButton theme='primary' onClick={openLoginDialog} fullHeight cristal>
                     <UiSpacing padding={headerButtonsTextSpacing}>
                       Iniciar Sesion
                     </UiSpacing>
@@ -91,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                 <LogoutForm />
               )}
             {toggleTheme && (
-              <UiButton onClick={toggleTheme} testId='theme-toggle'>
+              <UiButton onClick={toggleTheme} testId='theme-toggle' cristal>
                 <UiIcon icon='ColorDrop' />
               </UiButton>
             )}
@@ -105,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                 <Link to='/'><UiHeading>Maxfrise</UiHeading></Link>
               </UiFlexGridItem>
               <UiFlexGridItem align='auto'>
-                <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle'>
+                <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle' cristal>
                     <UiIcon icon='Discord' />  
                 </UiButton>
                 <UiMenu visible={menuVisible} closeMenuCB={toggleMenu}>

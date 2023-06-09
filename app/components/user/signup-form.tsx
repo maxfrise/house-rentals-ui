@@ -65,7 +65,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuc
         <UiSpacing margin={submitButtonMargin}>
           <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}</UiButton>
         </UiSpacing>
-        {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick}>Regresar</UiButton>}
+        {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick} cristal>Regresar</UiButton>}
       </fetcher.Form>
     </FormDiv>
   );
