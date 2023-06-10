@@ -19,7 +19,7 @@ export const FooterActions = () => (
   <UiViewport criteria={'s|m'}>
     <Div>
       <UiCard weight={ColorTokens.token_200}>
-        <UiNavbar align='center' stretchItems testId='footer-actions'>
+        <UiNavbar stretchItems testId='footer-actions'>
           <UiNavbarItem>
             <HomeButton />
           </UiNavbarItem>

@@ -18,11 +18,11 @@ const StyledLink = styled(Link)`
     vertical-align: unset;
   }
 `;
-const linkSpacing: UiSpacingProps['margin'] = { left: 'four' };
+const linkSpacing: UiSpacingProps['padding'] = { block: 'four' };
 
 export const AddHouseButton = () => (
   <StyledLink to="./new">
-    <UiSpacing margin={linkSpacing}>
+    <UiSpacing padding={linkSpacing}>
       <UiIcon icon='Pages' /> Agregar casa
     </UiSpacing>
   </StyledLink>

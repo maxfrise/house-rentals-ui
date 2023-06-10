@@ -19,11 +19,11 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const linkSpacing: UiSpacingProps['margin'] = { left: 'four' };
+const linkSpacing: UiSpacingProps['padding'] = { block: 'four' };
 
 export const HomeButton = () => (
   <StyledLink to="/houses">
-    <UiSpacing margin={linkSpacing}>
+    <UiSpacing padding={linkSpacing}>
       <UiIcon icon='Home' /> Inicio
     </UiSpacing>
   </StyledLink>
