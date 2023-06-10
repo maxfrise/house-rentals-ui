@@ -1,12 +1,13 @@
-import { Link } from "@remix-run/react";
+import { UiCard } from "@uireact/card";
+import { UiLink } from "@uireact/text";
 
 export default function HouseIndexPage() {
   return (
-    <p>
-      Ninguna casa esta seleccionada. Selecciona una a la izquierda, o{" "}
-      <Link to="new" className="text-blue-500 underline">
-        agrega una nueva casa.
-      </Link>
-    </p>
+    <UiCard>
+      Information sobre las casas en renta.{' '}
+      <UiLink href="new/" useReactLink>
+        Agrega una nueva casa.
+      </UiLink>
+    </UiCard>
   );
 }
