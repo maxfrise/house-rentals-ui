@@ -4,15 +4,15 @@ import { Link, useParams } from '@remix-run/react';
 import styled from 'styled-components';
 
 import { UiCard } from '@uireact/card';
-import type { UiSpacingProps } from '@uireact/foundation';
-import { UiSpacing , TextSize} from '@uireact/foundation';
-import { UiIcon } from '@uireact/icons';
+import type { UiSpacingProps} from '@uireact/foundation';
+import { UiSpacing, TextSize, UiViewport } from '@uireact/foundation';
 import { UiBadge } from '@uireact/badge';
 import { UiText } from '@uireact/text';
 import { UiNavbar, UiNavbarItem } from '@uireact/navbar';
+import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
 
 import type { House } from '../../types';
-import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
+import { AddHouseButton, HomeButton } from './buttons';
 
 type NavbarProps = {
   houses?: House[];
@@ -31,10 +31,9 @@ const StyledLink = styled(Link)`
   display: inline-block;
   width: 100%;
   padding: 5px;
-`
+`;
 
 const navbarSpacing: UiSpacingProps['margin'] = { block: 'three' };
-const homeLinkSpacing: UiSpacingProps['margin'] = { left: 'four' };
 
 export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
   const { houseId } = useParams();
@@ -42,15 +41,13 @@ export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
   return (
     <Div>
       <>
-        <UiCard>
-          <StyledLink to="/houses">
-            <UiSpacing margin={homeLinkSpacing}>
-              <UiIcon icon='Home' /> Inicio
-            </UiSpacing>
-          </StyledLink>
-        </UiCard>
-          <UiSpacing margin={navbarSpacing}>
-            <UiCard noPadding>
+        <UiViewport criteria={'l|xl'}>
+          <UiCard>
+            <HomeButton />
+          </UiCard>
+        </UiViewport>
+        <UiSpacing margin={navbarSpacing}>
+          <UiCard noPadding>
             {houses && houses.length > 0 ? (
               <UiNavbar orientation='stacked' roundedCorners>
                 {houses?.map((house, index) => (
@@ -75,15 +72,13 @@ export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
             ) : (
             <UiText>Todavia no hay casas</UiText>   
             )}
-            </UiCard>
-          </UiSpacing>
-        <UiCard>
-          <StyledLink to="./new">
-            <UiSpacing margin={homeLinkSpacing}>
-              <UiIcon icon='Pages' /> Agregar casa
-            </UiSpacing>
-          </StyledLink>
-        </UiCard>
+          </UiCard>
+        </UiSpacing>
+        <UiViewport criteria={'l|xl'}>
+          <UiCard>
+            <AddHouseButton />
+          </UiCard>
+        </UiViewport>
       </>
     </Div>
   );
