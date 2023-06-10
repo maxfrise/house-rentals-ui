@@ -18,7 +18,7 @@ const Div = styled.div`
 export const FooterActions = () => (
   <UiViewport criteria={'s|m'}>
     <Div>
-      <UiCard weight={ColorTokens.token_200}>
+      <UiCard weight={ColorTokens.token_200} noPadding squared>
         <UiNavbar stretchItems testId='footer-actions'>
           <UiNavbarItem>
             <HomeButton />
