@@ -6,7 +6,6 @@ import {
   useLoaderData,
   useRouteError,
   Outlet,
-  Link,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
