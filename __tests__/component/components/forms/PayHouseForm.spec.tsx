@@ -1,6 +1,6 @@
 import React from "react";
 
-import PayHouseform from "../../../../app/components/forms/PayHouseForm";
+import PayHouseform from "../../../../app/components/dashboard/forms/PayHouseForm";
 import { render } from '../../../utils/render';
 
 describe("<PayHouseform />", () => {
