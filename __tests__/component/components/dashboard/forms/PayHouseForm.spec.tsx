@@ -1,7 +1,7 @@
 import React from "react";
 
-import PayHouseform from "../../../../app/components/dashboard/forms/PayHouseForm";
-import { render } from '../../../utils/render';
+import PayHouseform from "../../../../../app/components/dashboard/forms/PayHouseForm";
+import { render } from '../../../../utils/render';
 
 describe("<PayHouseform />", () => {
   const paymentMock = {
