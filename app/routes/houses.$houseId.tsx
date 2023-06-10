@@ -9,11 +9,16 @@ import {
   Link,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+
 import { useDialog } from '@uireact/dialog';
+import { UiBadge } from '@uireact/badge';
+
+import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 import type { Payment } from "../datasource/MaxfriseApi/MaxfriseApiTypes"
 import { requireUserId } from "~/session.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
+import { UiHeading, UiLink, UiText } from "@uireact/text";
+import { UiButton } from "@uireact/button";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   const url = process.env.MAXFRISE_API;
@@ -40,21 +45,15 @@ const Badge: React.FC<{ status: string }> = ({ status }) => {
   switch (status) {
     case "DUE":
       return (
-        <span className="mr-2 rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
-          Pendiente
-        </span>
+        <UiBadge category="warning">Pendiente</UiBadge>
       );
     case "NOT_DUE":
       return (
-        <span className="mr-2 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">
-          No pendiente
-        </span>
+        <UiBadge>No Pendiente</UiBadge>
       );
     case "PAID":
       return (
-        <span className="mr-2 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-          Pagado
-        </span>
+        <UiBadge category="positive">Pagado</UiBadge>
       );
     default:
       return null;
@@ -75,51 +74,49 @@ export default function HouseDetailsPage() {
 
   return (
     <div>
-      <h3 className="text-2xl font-bold">{house.houseFriendlyName}</h3>
-      <p className="py-6">{house.details}</p>
-      <h3 className="text-1xl font-bold">Propietario</h3>
-      <p>{house.landlords[0].name}</p>
-      <p>{house.landlords[0].phone}</p>
-      <h3 className="text-1xl pt-6 font-bold">Arrendatario</h3>
-      <p>{house.tenants[0].name}</p>
-      <p>{house.tenants[0].phone}</p>
+      <UiHeading>{house.houseFriendlyName}</UiHeading>
+      <UiText>{house.details}</UiText>
+      <UiHeading>Propietario</UiHeading>
+      <UiText>{house.landlords[0].name}</UiText>
+      <UiText>{house.landlords[0].phone}</UiText>
+      <UiHeading>Arrendatario</UiHeading>
+      <UiText>{house.tenants[0].name}</UiText>
+      <UiText>{house.tenants[0].phone}</UiText>
 
       <hr className="my-4" />
       {house.leaseStatus === "AVAILABLE" && (
-        <Link
-          to="startLease"
-          className="rounded-none bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
-        >
+        <UiLink href="./startLease" useReactLink>
           Arrendar la casa
-        </Link>
+        </UiLink>
       )}
       {house.leaseStatus === "LEASED" && (
         <>
-          <h3 className="pt-4 text-2xl font-bold">Pagos</h3>
+          <UiHeading>Pagos</UiHeading>
           <div className="payments">
             {data.payments?.map((payment, idx) => {
               const dateString = payment.pk.replace(/^p#/, "");
               const date = dateString.replace(/T.*$/, "");
+
               return (
                 <div key={`payment-${idx}`} className="flex p-2">
                   <div className="flex-auto">
-                    <p>{payment.details[0].amount}</p>
+                    <UiText>{payment.details[0].amount}</UiText>
                   </div>
                   <div className="flex-auto">
-                    <p>{date}</p>
+                    <UiText>{date}</UiText>
                   </div>
                   <div className="w-64">
                     <Badge status={payment.status} />
                   </div>
                   <div className="">
                     {payment.status === "DUE" ? (
-                      <button onClick={() => onPayButtonClick(payment)} className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
+                      <UiButton onClick={() => onPayButtonClick(payment)}>
                         Pagar
-                      </button>
+                      </UiButton>
                     ) : (
-                      <button className="cursor-not-allowed rounded bg-blue-500 px-4 py-2 font-bold text-white opacity-50">
+                      <UiButton disabled>
                         Pagar
-                      </button>
+                      </UiButton>
                     )}
                   </div>
                 </div>
