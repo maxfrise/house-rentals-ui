@@ -68,7 +68,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
         <UiSpacing margin={submitButtonMargin}>
           <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner'/>}</UiButton>
         </UiSpacing>
-        {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick}>Regresar</UiButton>}
+        {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick} cristal>Regresar</UiButton>}
       </fetcher.Form>
     </FormDiv>
   );

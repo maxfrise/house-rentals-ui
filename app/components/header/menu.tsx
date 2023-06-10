@@ -32,7 +32,7 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({ onLogoutCB, openLoginDia
         {!user ? (
           <>
             <UiSpacing margin={menuItemSpacing}>
-              <UiButton onClick={openLoginDialog} fullWidth theme='primary'>
+              <UiButton onClick={openLoginDialog} fullWidth theme='primary' cristal>
                 <UiSpacing padding={buttonSpacing}>
                   Iniciar sesion
                 </UiSpacing>

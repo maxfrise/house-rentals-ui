@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
           <UiSpacing margin={navbarSpacing}>
             <UiCard noPadding>
             {houses && houses.length > 0 ? (
-              <UiNavbar orientation='stacked'>
+              <UiNavbar orientation='stacked' roundedCorners>
                 {houses?.map((house, index) => (
                   <UiNavbarItem key={index} active={houseId === house.houseId}>
                     <StyledLink to={house.houseId}>
