@@ -36,7 +36,7 @@
     "@remix-run/server-runtime": "1.15.0",
     "@types/styled-components": "^5.1.26",
     "@uireact/badge": "^1.0.5",
-    "@uireact/button": "^1.1.0",
+    "@uireact/button": "^1.1.1",
     "@uireact/card": "^1.0.4",
     "@uireact/dialog": "^1.0.5",
     "@uireact/flex-grid": "^1.0.2",
