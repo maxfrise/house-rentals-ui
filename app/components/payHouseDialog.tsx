@@ -2,7 +2,7 @@ import React from 'react';
 
 import { UiDialog, useDialog } from '@uireact/dialog';
 
-import PayHouseform from "./forms/PayHouseForm"
+import PayHouseform from "./dashboard/forms/PayHouseForm"
 import type { UiSpacingProps } from '@uireact/foundation';
 import { UiSpacing } from '@uireact/foundation';
 import type { Payment } from '~/datasource/MaxfriseApi/MaxfriseApiTypes';

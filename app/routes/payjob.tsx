@@ -1,6 +1,6 @@
 import type { ActionArgs } from "@remix-run/node";
-import type { MaxfriseErrors } from "../components/forms/validator/form-validator-yup";
-import { validate } from "../components/forms/validator/form-validator-yup";
+import type { MaxfriseErrors } from "../components/dashboard/forms/validator/form-validator-yup";
+import { validate } from "../components/dashboard/forms/validator/form-validator-yup";
 import { object, string } from "yup";
 import { json, redirect } from "@remix-run/node";
 import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
