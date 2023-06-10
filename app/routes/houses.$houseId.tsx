@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
@@ -9,15 +10,17 @@ import {
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import { useDialog } from '@uireact/dialog';
 import { UiBadge } from '@uireact/badge';
+import { UiButton } from "@uireact/button";
+import { useDialog } from '@uireact/dialog';
+import { UiHeading, UiText } from "@uireact/text";
 
 import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 import type { Payment } from "../datasource/MaxfriseApi/MaxfriseApiTypes"
 import { requireUserId } from "~/session.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
-import { UiHeading, UiLink, UiText } from "@uireact/text";
-import { UiButton } from "@uireact/button";
+import type { UiSpacingProps } from "@uireact/foundation";
+import { UiSpacing } from "@uireact/foundation";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   const url = process.env.MAXFRISE_API;
@@ -59,34 +62,53 @@ const Badge: React.FC<{ status: string }> = ({ status }) => {
   }
 };
 
+const textSpacing: UiSpacingProps['margin'] = { block: 'three' };
+const headingSpacing: UiSpacingProps['margin'] = { block: 'four' };
+
 export default function HouseDetailsPage() {
   const data = useLoaderData<typeof loader>();
   const payHouseDialog = useDialog('pay-house-dialog'); // TODO: this should be a constant that can be exported
   const [activePayment, setActivePayment] = useState<Payment>()
   const house = data.house;
-
+  const navigate = useNavigate();
 
   const onPayButtonClick = (paymentJob: Payment) => {
     setActivePayment(paymentJob)
     payHouseDialog.actions.openDialog();
   }
 
+  const onLeaseClick = () => { 
+    navigate('./startLease');
+  }
+
   return (
     <div>
-      <UiHeading>{house.houseFriendlyName}</UiHeading>
-      <UiText>{house.details}</UiText>
-      <UiHeading>Propietario</UiHeading>
-      <UiText>{house.landlords[0].name}</UiText>
-      <UiText>{house.landlords[0].phone}</UiText>
-      <UiHeading>Arrendatario</UiHeading>
-      <UiText>{house.tenants[0].name}</UiText>
-      <UiText>{house.tenants[0].phone}</UiText>
+      <UiSpacing margin={headingSpacing}>
+        <UiHeading>{house.houseFriendlyName}</UiHeading>
+      </UiSpacing>
+      <UiSpacing margin={textSpacing}>
+        <UiText>{house.details}</UiText>
+      </UiSpacing>
+      <UiSpacing margin={headingSpacing}>
+        <UiHeading>Propietario</UiHeading>
+      </UiSpacing>
+      <UiSpacing margin={textSpacing}>
+        <UiText>{house.landlords[0].name}</UiText>
+        <UiText>{house.landlords[0].phone}</UiText>
+      </UiSpacing>
+      <UiSpacing margin={headingSpacing}>
+        <UiHeading>Arrendatario</UiHeading>
+      </UiSpacing>
+      <UiSpacing margin={textSpacing}>
+        <UiText>{house.tenants[0].name}</UiText>
+        <UiText>{house.tenants[0].phone}</UiText>
+      </UiSpacing>
 
       <hr className="my-4" />
       {house.leaseStatus === "AVAILABLE" && (
-        <UiLink href="./startLease" useReactLink>
+        <UiButton onClick={onLeaseClick}>
           Arrendar la casa
-        </UiLink>
+        </UiButton>
       )}
       {house.leaseStatus === "LEASED" && (
         <>
