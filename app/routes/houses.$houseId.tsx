@@ -13,7 +13,7 @@ import invariant from "tiny-invariant";
 import { UiBadge } from '@uireact/badge';
 import { UiButton } from "@uireact/button";
 import { useDialog } from '@uireact/dialog';
-import { UiHeading, UiLink, UiText } from "@uireact/text";
+import { UiHeading, UiText } from "@uireact/text";
 
 import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
 import type { Payment } from "../datasource/MaxfriseApi/MaxfriseApiTypes"
