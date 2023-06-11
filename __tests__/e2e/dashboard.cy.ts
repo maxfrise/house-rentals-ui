@@ -97,7 +97,7 @@ describe('Dashboard smokes', () => {
     cy.findByTestId('UiHeader').should('be.visible');
 
     cy.findByText("El campo tiene que tener maximo 500 caracteres").should('be.visible');
-    cy.findAllByText("El telefono tiene que ser de 10 digitos").should('be.visible');
-    cy.findAllByText("El campo tiene que tener maximo 40 caracteres").should('be.visible');
+    cy.findAllByText("El telefono tiene que ser de 10 digitos").should('be.visible').should('have.length', 2);
+    cy.findAllByText("El campo tiene que tener maximo 40 caracteres").should('be.visible').should('have.length', 4);
   });
 });
