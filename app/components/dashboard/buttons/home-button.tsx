@@ -19,11 +19,13 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const linkSpacing: UiSpacingProps['padding'] = { block: 'four' };
+type HomeButtonProps = {
+  padding: UiSpacingProps['padding']
+};
 
-export const HomeButton = () => (
+export const HomeButton = ({ padding }: HomeButtonProps) => (
   <StyledLink to="/houses">
-    <UiSpacing padding={linkSpacing}>
+    <UiSpacing padding={padding}>
       <UiIcon icon='Home' /> Inicio
     </UiSpacing>
   </StyledLink>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRef, useEffect } from "react";
-import type { FormState } from "../../../routes/houses.new";
+import type { FormState } from "../../../../routes/houses.new";
 
 export enum InputType {
   DATE = "date",

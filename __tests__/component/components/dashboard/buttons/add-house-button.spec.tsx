@@ -5,13 +5,13 @@ import { render } from '../../../../utils/render';
 
 describe('<AddHouseButton />', () => {
   it('Should render fine', () => {
-    render(<AddHouseButton />);
+    render(<AddHouseButton padding={{}}/>);
 
     cy.findByRole('link', { name: 'Agregar casa' }).should('be.visible');
   });
 
   it('Should redirect to new/ path', () => {
-    render(<AddHouseButton />, [
+    render(<AddHouseButton padding={{}} />, [
       {
         action: () => { },
         element: <p>New house path</p>,

@@ -1,4 +1,4 @@
-import LeaseHouseForm from "../components/forms/LeaseHouseForm";
+import LeaseHouseForm from "../components/dashboard/forms/LeaseHouseForm";
 import { requireUserId } from "~/session.server";
 
 import { redirect } from "@remix-run/node";

@@ -2,10 +2,10 @@ import { Form } from "@remix-run/react";
 import {
   GenericInputField,
   InputType,
-} from "../forms/fields/GenericInputField";
+} from "./fields/GenericInputField";
 import { SubmitButton } from "./fields/SubmitButton";
-import { useMatchesData } from "../../utils";
-import type { HouseOverview } from "../../datasource/MaxfriseApi/MaxfriseApiTypes";
+import { useMatchesData } from "../../../utils";
+import type { HouseOverview } from "../../../datasource/MaxfriseApi/MaxfriseApiTypes";
 
 export default function LeaseHouseForm() {
   const data = useMatchesData(

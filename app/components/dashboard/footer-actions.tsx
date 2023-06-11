@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { UiCard } from '@uireact/card';
+import type { UiSpacingProps} from '@uireact/foundation';
 import { ColorTokens, UiViewport } from '@uireact/foundation';
 import { UiNavbar, UiNavbarItem } from '@uireact/navbar';
 
@@ -15,16 +16,18 @@ const Div = styled.div`
   text-align: center;
 `;
 
+const actionsPadding: UiSpacingProps['padding'] = { block: 'four' };
+
 export const FooterActions = () => (
   <UiViewport criteria={'s|m'}>
     <Div>
       <UiCard weight={ColorTokens.token_200} noPadding squared>
         <UiNavbar stretchItems testId='footer-actions'>
           <UiNavbarItem>
-            <HomeButton />
+            <HomeButton padding={actionsPadding} />
           </UiNavbarItem>
           <UiNavbarItem>
-            <AddHouseButton />
+            <AddHouseButton padding={actionsPadding} />
           </UiNavbarItem>
         </UiNavbar>
       </UiCard>

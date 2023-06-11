@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import type { FormState } from "../../../routes/houses.new";
+import type { FormState } from "../../../../routes/houses.new";
 
 interface GenericTextAreaInterface {
   label: string;

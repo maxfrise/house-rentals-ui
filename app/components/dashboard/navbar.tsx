@@ -34,6 +34,7 @@ const StyledLink = styled(Link)`
 `;
 
 const navbarSpacing: UiSpacingProps['margin'] = { block: 'three' };
+const linkSpacing: UiSpacingProps['padding'] = { block: 'two' };
 
 export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
   const { houseId } = useParams();
@@ -43,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
       <>
         <UiViewport criteria={'l|xl'}>
           <UiCard>
-            <HomeButton />
+            <HomeButton padding={linkSpacing} />
           </UiCard>
         </UiViewport>
         <UiSpacing margin={navbarSpacing}>
@@ -76,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
         </UiSpacing>
         <UiViewport criteria={'l|xl'}>
           <UiCard>
-            <AddHouseButton />
+            <AddHouseButton padding={linkSpacing} />
           </UiCard>
         </UiViewport>
       </>

@@ -96,26 +96,8 @@ describe('Dashboard smokes', () => {
 
     cy.findByTestId('UiHeader').should('be.visible');
 
-    cy.get("#houseFriendlyName-error").contains(
-      "El campo tiene que tener maximo 40 caracteres"
-    );
-    cy.get("#details-error").contains(
-      "El campo tiene que tener maximo 500 caracteres"
-    );
-    cy.get("#landlordName-error").contains(
-      "El campo tiene que tener maximo 40 caracteres"
-    );
-    cy.get("#landlordPhone-error").contains(
-      "El telefono tiene que ser de 10 digitos"
-    );
-    cy.get("#address-error").contains(
-      "El campo tiene que tener maximo 40 caracteres"
-    );
-    cy.get("#tenantName-error").contains(
-      "El campo tiene que tener maximo 40 caracteres"
-    );
-    cy.get("#tenantPhone-error").contains(
-      "El telefono tiene que ser de 10 digitos"
-    );
+    cy.findByText("El campo tiene que tener maximo 500 caracteres").should('be.visible');
+    cy.findAllByText("El telefono tiene que ser de 10 digitos").should('be.visible').should('have.length', 2);
+    cy.findAllByText("El campo tiene que tener maximo 40 caracteres").should('be.visible').should('have.length', 4);
   });
 });

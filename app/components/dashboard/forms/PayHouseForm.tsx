@@ -5,7 +5,7 @@ import { UiInput, UiTextArea, } from "@uireact/form";
 import { UiButton } from "@uireact/button";
 import type { Payment } from "~/datasource/MaxfriseApi/MaxfriseApiTypes";
 import { useFetcher } from "@remix-run/react";
-import type { action } from "../../routes/payjob";
+import type { action } from "../../../routes/payjob";
 
 interface CreateHouseFormProps {
   payment?: Payment;
