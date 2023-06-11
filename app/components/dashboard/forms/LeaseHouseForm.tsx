@@ -3,8 +3,6 @@ import { Form } from "@remix-run/react";
 import { UiButton } from "@uireact/button";
 import { UiInput } from "@uireact/form";
 
-import { InputType } from "./fields/GenericInputField";
-
 import { useMatchesData } from "../../../utils";
 import type { HouseOverview } from "../../../datasource/MaxfriseApi/MaxfriseApiTypes";
 
@@ -29,20 +27,20 @@ export default function LeaseHouseForm() {
         label="Dia de inicio del arendamiento"
         labelOnTop
         name="startDate"
-        type={InputType.DATE}
+        type='date'
       />
       {/* TODO: This should probably be a fixed selection, 6 or 12 months maybe? */}
       <UiInput
         label="Duración del arrendamiento"
         labelOnTop
         name="term"
-        type={InputType.NUMBER}
+        type='number'
       />
       <UiInput
         label="Precio de la renta"
         labelOnTop
         name="rentAmount"
-        type={InputType.NUMBER}
+        type='number'
       />
       <input
         type="hidden"
