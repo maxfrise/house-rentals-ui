@@ -1,9 +1,8 @@
 import { Form } from "@remix-run/react";
-import {
-  GenericInputField,
-  InputType,
-} from "./fields/GenericInputField";
-import { SubmitButton } from "./fields/SubmitButton";
+
+import { UiButton } from "@uireact/button";
+import { UiInput } from "@uireact/form";
+
 import { useMatchesData } from "../../../utils";
 import type { HouseOverview } from "../../../datasource/MaxfriseApi/MaxfriseApiTypes";
 
@@ -24,26 +23,25 @@ export default function LeaseHouseForm() {
       }}
     >
       {/* TOOD: restrict the day to be selected */}
-      <GenericInputField
+      <UiInput
         label="Dia de inicio del arendamiento"
-        error={null}
+        labelOnTop
         name="startDate"
-        type={InputType.DATE}
+        type='date'
       />
       {/* TODO: This should probably be a fixed selection, 6 or 12 months maybe? */}
-      <GenericInputField
+      <UiInput
         label="Duración del arrendamiento"
-        error={null}
+        labelOnTop
         name="term"
-        type={InputType.NUMBER}
+        type='number'
       />
-      <GenericInputField
+      <UiInput
         label="Precio de la renta"
-        error={null}
+        labelOnTop
         name="rentAmount"
-        type={InputType.NUMBER}
+        type='number'
       />
-      <SubmitButton />
       <input
         type="hidden"
         name="tenants"
@@ -54,6 +52,9 @@ export default function LeaseHouseForm() {
         name="landlords"
         value={JSON.stringify(house.landlords)}
       />
+      <UiButton type="submit" theme="positive">
+        Guardar
+      </UiButton>
     </Form>
   );
 }
