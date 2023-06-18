@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from 'react';
 
-import { Link } from '@remix-run/react';
-
 import styled from 'styled-components';
 
 import { UiButton } from '@uireact/button';
@@ -10,13 +8,13 @@ import type { UiSpacingProps} from '@uireact/foundation';
 import { UiSpacing, UiViewport } from '@uireact/foundation';
 import { UiHeader } from '@uireact/header';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
-import { UiHeading } from '@uireact/text';
 import { UiIcon } from '@uireact/icons';
 import { UiMenu } from '@uireact/menu';
 
 import { useOptionalUser } from '../../utils';
 import { LoginDialog, LogoutForm, SignUpDialog } from '../user';
 import { HeaderMenu } from './menu';
+import { Logo } from '../branding';
 
 type HeaderProps = {
   toggleTheme?: () => void;
@@ -25,6 +23,10 @@ type HeaderProps = {
 const CenteredDiv = styled.div`
   width: 980px;
   margin: 0 auto;
+
+  .full-height {
+    height: 100%;
+  }
 `;
 
 const headerButtonsTextSpacing: UiSpacingProps['padding'] = { inline: 'three' };
@@ -65,36 +67,36 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
     <UiHeader>
       <UiViewport criteria='l|xl'>
         <CenteredDiv>
-            <UiFlexGrid gap='three'>
-            <UiFlexGridItem grow={1}>
-                <Link to='/'><UiHeading>Maxfrise</UiHeading></Link>
+          <UiFlexGrid gap='three' justifyContent='space-between'>
+            <UiFlexGridItem>
+              <Logo />
             </UiFlexGridItem>
-              {!user ? (
-                <>
-                <UiFlexGridItem>
-                  <UiButton theme='primary' onClick={openLoginDialog} fullHeight cristal>
-                    <UiSpacing padding={headerButtonsTextSpacing}>
-                      Iniciar Sesion
-                    </UiSpacing>
-                  </UiButton>
-                  </UiFlexGridItem>
-                  <UiFlexGridItem>
-                    <UiButton theme='positive' onClick={openSignUpDialog} fullHeight>
+            <UiFlexGridItem>
+                <UiFlexGrid className='full-height' columnGap={'four'}>
+                {!user ? (
+                  <>
+                    <UiButton theme='primary' onClick={openLoginDialog} fullHeight cristal>
                       <UiSpacing padding={headerButtonsTextSpacing}>
-                        Registrate
+                        Iniciar Sesion
                       </UiSpacing>
                     </UiButton>
-                  </UiFlexGridItem>
-                </>
-              ) :
-              (
-                <LogoutForm />
-              )}
-            {toggleTheme && (
-              <UiButton onClick={toggleTheme} testId='theme-toggle' cristal>
-                <UiIcon icon='ColorDrop' />
-              </UiButton>
-            )}
+                      <UiButton theme='positive' onClick={openSignUpDialog} fullHeight>
+                        <UiSpacing padding={headerButtonsTextSpacing}>
+                          Registrate
+                        </UiSpacing>
+                      </UiButton>
+                  </>
+                ) :
+                (
+                  <LogoutForm />
+                )}
+                {toggleTheme && (
+                  <UiButton onClick={toggleTheme} testId='theme-toggle' cristal>
+                    <UiIcon icon='ColorDrop' />
+                  </UiButton>
+                )}
+              </UiFlexGrid>
+            </UiFlexGridItem>
           </UiFlexGrid>
         </CenteredDiv>
       </UiViewport>
@@ -102,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
           <UiSpacing padding={headerSmallSpacing}>
             <UiFlexGrid>
               <UiFlexGridItem grow={1}>
-                <Link to='/'><UiHeading>Maxfrise</UiHeading></Link>
+                <Logo />
               </UiFlexGridItem>
               <UiFlexGridItem align='auto'>
                 <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle' cristal>
