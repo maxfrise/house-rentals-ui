@@ -13,6 +13,7 @@ describe("User tests", () => {
     cy.findByTestId('UiHeader').should('be.visible');
 
     cy.findByRole("button", { name: /Registrate/i }).click();
+    cy.findByRole('button', { name: 'Individual Cuenta para personas individuales que necesitan administrar sus propiedades.' }).click();
 
     cy.findByRole("textbox", { name: /Correo electronico/i }).type(loginForm.email);
     cy.findByLabelText(/Contraseña/i).type(loginForm.password);
