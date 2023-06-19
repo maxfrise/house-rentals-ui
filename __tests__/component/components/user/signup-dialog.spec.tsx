@@ -17,13 +17,14 @@ const MockedComponent: React.FC = () => {
   )
 }
 
-describe("<LoginDialog />", () => {
-  it("Should render Sign up dialog", () => {
+describe("<SignUpDialog />", () => {
+  it("Should render Sign up selector inside dialog", () => {
     render(<MockedComponent />);
 
     cy.findByRole('dialog').should('not.exist');
     cy.findByRole('button', { name: 'Open' }).click();
     cy.findByRole('dialog').should('be.visible');
     cy.findByRole('heading', { name: 'Registrate' }).should('be.visible');
+    cy.findByRole('button', { name: 'Individual Cuenta para personas individuales que necesitan administrar sus propiedades.' }).should('be.visible');
   });
 });
