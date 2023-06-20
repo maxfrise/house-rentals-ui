@@ -13,6 +13,8 @@ import { UiIcon } from '@uireact/icons';
 
 import type { action } from '../../../routes/join';
 import { useOptionalUser } from '../../../utils';
+import { MaxfriseErrors } from '~/components/dashboard/forms/validator/form-validator-yup';
+import { UserFormFields } from '~/api/schemas/user.schema';
 
 const submitButtonMargin: UiSpacingProps['margin'] = { block: 'four' };
 const submitButtonPadding: UiSpacingProps['padding'] = { block: 'four' };

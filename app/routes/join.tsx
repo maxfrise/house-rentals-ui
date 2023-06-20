@@ -22,19 +22,11 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 export const action = async ({ request }: ActionArgs) => {
-  const formData = await request.formData();
-  const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
-  const email = formData.get('email')?.toString();
-  const name = formData.get('name')?.toString();
-  const phone = formData.get('phone')?.toString();
-  const password = formData.get('password')?.toString();
+  //const formData = await request.formData();
+  const formData = Object.fromEntries(await request.formData());
+  const redirectTo = safeRedirect(formData.redirectTo, "/");
   const errors: MaxfriseErrors<UserFormFields> = await validate(
-    {
-      email,
-      name,
-      phone,
-      password,
-    },
+    formData,
     UserSchema
   );
 
@@ -42,18 +34,19 @@ export const action = async ({ request }: ActionArgs) => {
     return json({ errors }, { status: 400 });
   }
 
-  if (email && name && phone && password) {
-    const user = await createUser(email, password, name, phone);
-    
+  const user = await createUser(
+    formData.email.toString(),
+    formData.password.toString(),
+    formData.name.toString(),
+    formData.phone.toString()
+  );
+  
     return createUserSession({
-      redirectTo,
-      remember: false,
-      request,
-      userId: user.id,
-    });
-  }
-
-  return null;
+    redirectTo,
+    remember: false,
+    request,
+    userId: user.id,
+  });
 };
 
 export const meta: V2_MetaFunction = () => [{ title: "Crear cuenta" }];
