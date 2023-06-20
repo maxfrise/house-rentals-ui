@@ -14,7 +14,6 @@ import { SignUpProgressIndicator } from '../components/user/sign-up-progress-ind
 import { useOptionalUser } from '../utils';
 import emailImage from '../assets/email.png';
 
-
 const cardSpacing: UiSpacingProps['margin'] = { top: 'five' };
 const listSpacing: UiSpacingProps['padding'] = { left: 'five' };
 
