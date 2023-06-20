@@ -11,8 +11,10 @@ describe("<IndividualSignUpForm />", () => {
     render(<IndividualSignUpForm />);
 
     cy.findByRole('form').should('be.visible');
+    cy.findByRole('textbox', { name: 'Nombre completo' }).should('be.visible');
     cy.findByRole('textbox', { name: 'Correo electronico' }).should('be.visible');
     cy.findByLabelText('Contraseña').should('be.visible');
+    cy.findByRole('textbox', { name: 'Telefono' }).should('be.visible');
     cy.findByRole('button', { name: 'Crear cuenta' }).should('be.visible');
   });
 
@@ -47,8 +49,10 @@ describe("<IndividualSignUpForm />", () => {
     ]);
 
     cy.findByRole('form').should('be.visible');
+    cy.findByRole('textbox', { name: 'Nombre completo' }).type('Some name');
     cy.findByRole('textbox', { name: 'Correo electronico' }).type('dev@dev.com');
     cy.findByLabelText('Contraseña').type('123456');
+    cy.findByRole('textbox', { name: 'Telefono' }).type('3121212312');
     cy.findByRole('button', { name: 'Crear cuenta' }).click();
 
     cy.findByText('Houses route').should('be.visible');
