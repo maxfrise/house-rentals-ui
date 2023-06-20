@@ -2,13 +2,13 @@ import React from "react";
 
 import { redirect } from "@remix-run/server-runtime";
 
-import { SignUpForm } from "../../../../app/components/user";
-import { render } from '../../../utils/render';
-import { delay } from '../../../utils/delay';
+import { IndividualSignUpForm } from "../../../../../app/components/user/sign-up-forms";
+import { render } from '../../../../utils/render';
+import { delay } from '../../../../utils/delay';
 
-describe("<SignUpForm />", () => {
-  it("Should render SignUpForm", () => {
-    render(<SignUpForm />);
+describe("<IndividualSignUpForm />", () => {
+  it("Should render IndividualSignUpForm", () => {
+    render(<IndividualSignUpForm />);
 
     cy.findByRole('form').should('be.visible');
     cy.findByRole('textbox', { name: 'Correo electronico' }).should('be.visible');
@@ -18,7 +18,7 @@ describe("<SignUpForm />", () => {
 
   it("Should render back button", () => {
     const mockedFn = cy.stub().as('backFn');
-    render(<SignUpForm onBackClick={mockedFn} />);
+    render(<IndividualSignUpForm onBackClick={mockedFn} />);
 
     cy.findByRole('form').should('be.visible');
     cy.findByRole('textbox', { name: 'Correo electronico' }).should('be.visible');
@@ -31,7 +31,7 @@ describe("<SignUpForm />", () => {
   });
 
   it("Should redirect to Houses when sign up is correct", () => {
-    render(<SignUpForm />, [
+    render(<IndividualSignUpForm />, [
       {
         path: '/join',
         action: async () => { return redirect('/houses') },
@@ -55,7 +55,7 @@ describe("<SignUpForm />", () => {
   });
 
   it("Should show error message when sign up is NOT correct", () => {
-    render(<SignUpForm />, [
+    render(<IndividualSignUpForm />, [
       {
         path: '/join',
         action: async () => {
@@ -75,7 +75,7 @@ describe("<SignUpForm />", () => {
   });
 
   it("Should render loading icon when is signin up", () => {
-    render(<SignUpForm />, [
+    render(<IndividualSignUpForm />, [
       {
         path: '/join',
         action: async () => {

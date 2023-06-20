@@ -12,9 +12,10 @@ import { UiIcon } from '@uireact/icons';
 import { UiMenu } from '@uireact/menu';
 
 import { useOptionalUser } from '../../utils';
-import { LoginDialog, LogoutForm, SignUpDialog } from '../user';
+import { LoginDialog, LogoutForm } from '../user';
 import { HeaderMenu } from './menu';
 import { Logo } from '../branding';
+import { useNavigate } from '@remix-run/react';
 
 type HeaderProps = {
   toggleTheme?: () => void;
@@ -30,8 +31,8 @@ const headerSmallSpacing: UiSpacingProps['padding'] = { inline: 'four' };
 
 export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
   const loginDialog = useDialog('login-dialog');
-  const signUpDialog = useDialog('sign-up-dialog');
   const [menuVisible, setMenuVisible] = useState(false);
+  const navigate = useNavigate();
   const user = useOptionalUser();
 
   const openLoginDialog = useCallback(() => {
@@ -42,13 +43,13 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
     loginDialog.actions.openDialog();
   }, [loginDialog.actions, menuVisible]);
 
-  const openSignUpDialog = useCallback(() => {
+  const navigateToSignUpFlow = useCallback(() => {
     if (menuVisible) { 
       setMenuVisible(false);
     }
 
-    signUpDialog.actions.openDialog();
-  }, [menuVisible, signUpDialog.actions]);
+    navigate('join/');
+  }, [menuVisible, navigate]);
 
   const toggleMenu = useCallback(() => {
     setMenuVisible(!menuVisible);
@@ -76,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                         Iniciar Sesion
                       </UiSpacing>
                     </UiButton>
-                      <UiButton theme='positive' onClick={openSignUpDialog} fullHeight>
+                      <UiButton theme='positive' onClick={navigateToSignUpFlow} fullHeight>
                         <UiSpacing padding={headerButtonsTextSpacing}>
                           Registrate
                         </UiSpacing>
@@ -109,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                 <UiMenu visible={menuVisible} closeMenuCB={toggleMenu}>
                   <HeaderMenu
                     openLoginDialog={openLoginDialog}
-                    openSignUiDialog={openSignUpDialog}
+                    openSignUiDialog={navigateToSignUpFlow}
                     onLogoutCB={onLogoutCB}
                   />
                 </UiMenu>
@@ -119,7 +120,6 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
       </UiViewport>
       </UiHeader>
       <LoginDialog />
-      <SignUpDialog />
     </>
   );
 };
