@@ -5,6 +5,8 @@ describe("User tests", () => {
     const loginForm = {
       email: `${faker.internet.userName()}@example.com`,
       password: faker.internet.password(),
+      name: 'Some name',
+      phone: '1234567890'
     };
     cy.then(() => ({ email: loginForm.email })).as("user");
 
@@ -16,6 +18,8 @@ describe("User tests", () => {
     cy.findByRole('button', { name: 'Individual Cuenta para personas individuales que necesitan administrar sus propiedades.' }).click();
 
     cy.findByRole("textbox", { name: /Correo electronico/i }).type(loginForm.email);
+    cy.findByRole("textbox", { name: /Nombre/i }).type(loginForm.name);
+    cy.findByRole("textbox", { name: /Telefono/i }).type(loginForm.phone);
     cy.findByLabelText(/Contraseña/i).type(loginForm.password);
     cy.findByRole("button", { name: /Crear cuenta/i }).click();
 

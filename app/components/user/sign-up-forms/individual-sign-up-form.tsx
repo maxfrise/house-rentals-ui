@@ -11,7 +11,7 @@ import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
 import { UiIcon } from '@uireact/icons';
 
-import type { action } from '../../../routes/login';
+import type { action } from '../../../routes/join';
 import { useOptionalUser } from '../../../utils';
 
 const submitButtonMargin: UiSpacingProps['margin'] = { block: 'four' };
@@ -24,7 +24,7 @@ export type IndividualSignUpFormProps = {
 
 const FormDiv = styled.div`
   width: 100%;
-`
+`;
 
 export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBackClick, onSignUpSuccess }: IndividualSignUpFormProps) => {
   const fetcher = useFetcher<typeof action>();
@@ -43,6 +43,13 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
     <FormDiv>
       <fetcher.Form method="post" action="/join" role="form">
         <UiInput
+          label="Nombre"
+          labelOnTop
+          name="name"
+          error={fetcher.data?.errors?.name || undefined}
+          theme={fetcher.data?.errors?.name ? 'error' : undefined}
+        />
+        <UiInput
           label="Correo electronico"
           labelOnTop
           type="email"
@@ -57,6 +64,13 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           name="password"
           error={fetcher.data?.errors?.password || undefined}
           theme={fetcher.data?.errors?.password ? 'error' : undefined}
+        />
+        <UiInput
+          label="Telefono"
+          labelOnTop
+          name="phone"
+          error={fetcher.data?.errors?.phone || undefined}
+          theme={fetcher.data?.errors?.phone ? 'error' : undefined}
         />
         <input type="hidden" name="redirectTo" value={'/houses'} />
         <UiSpacing margin={submitButtonMargin}>

@@ -6,10 +6,14 @@ import { Breakpoints, UiSpacing, UiViewport } from "@uireact/foundation";
 import { UiViewRow } from "@uireact/view";
 
 import styled from 'styled-components';
+import type { UserFormFields} from "~/api/schemas/user.schema";
+import { UserSchema } from "~/api/schemas/user.schema";
+import type { MaxfriseErrors} from "~/components/dashboard/forms/validator/form-validator-yup";
+import { validate } from "~/components/dashboard/forms/validator/form-validator-yup";
 
-import { createUser, getUserByEmail } from "~/models/user.server";
+import { createUser } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
-import { safeRedirect, validateEmail } from "~/utils";
+import { safeRedirect } from "~/utils";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await getUserId(request);
@@ -18,48 +22,25 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 export const action = async ({ request }: ActionArgs) => {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
+  const formData = Object.fromEntries(await request.formData());
+  const redirectTo = safeRedirect(formData.redirectTo, "/");
+  const errors: MaxfriseErrors<UserFormFields> = await validate(
+    formData,
+    UserSchema
+  );
 
-  if (!validateEmail(email)) {
-    return json(
-      { errors: { email: "Email is invalid", password: null } },
-      { status: 400 }
-    );
+  if (Object.keys(errors).length > 0) {
+    return json({ errors }, { status: 400 });
   }
 
-  if (typeof password !== "string" || password.length === 0) {
-    return json(
-      { errors: { email: null, password: "Password is required" } },
-      { status: 400 }
-    );
-  }
-
-  if (password.length < 8) {
-    return json(
-      { errors: { email: null, password: "Password is too short" } },
-      { status: 400 }
-    );
-  }
-
-  const existingUser = await getUserByEmail(email);
-  if (existingUser) {
-    return json(
-      {
-        errors: {
-          email: "A user already exists with this email",
-          password: null,
-        },
-      },
-      { status: 400 }
-    );
-  }
-
-  const user = await createUser(email, password);
-
-  return createUserSession({
+  const user = await createUser(
+    formData.email.toString(),
+    formData.password.toString(),
+    formData.name.toString(),
+    formData.phone.toString()
+  );
+  
+    return createUserSession({
     redirectTo,
     remember: false,
     request,
@@ -67,7 +48,7 @@ export const action = async ({ request }: ActionArgs) => {
   });
 };
 
-export const meta: V2_MetaFunction = () => [{ title: "Sign Up" }];
+export const meta: V2_MetaFunction = () => [{ title: "Crear cuenta" }];
 
 const selectorSpacing: UiSpacingProps['padding'] = { block: 'five' };
 const contentSpacing: UiSpacingProps['padding'] = { all: 'five' };
