@@ -12,7 +12,7 @@ import { UiIcon } from '@uireact/icons';
 import { UiMenu } from '@uireact/menu';
 
 import { useOptionalUser } from '../../utils';
-import { LoginDialog, LogoutForm, SignUpDialog } from '../user';
+import { LoginDialog, LogoutForm } from '../user';
 import { HeaderMenu } from './menu';
 import { Logo } from '../branding';
 import { useNavigate } from '@remix-run/react';
@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
     loginDialog.actions.openDialog();
   }, [loginDialog.actions, menuVisible]);
 
-  const openSignUpDialog = useCallback(() => {
+  const navigateToSignUpFlow = useCallback(() => {
     if (menuVisible) { 
       setMenuVisible(false);
     }
@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                         Iniciar Sesion
                       </UiSpacing>
                     </UiButton>
-                      <UiButton theme='positive' onClick={openSignUpDialog} fullHeight>
+                      <UiButton theme='positive' onClick={navigateToSignUpFlow} fullHeight>
                         <UiSpacing padding={headerButtonsTextSpacing}>
                           Registrate
                         </UiSpacing>
@@ -110,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
                 <UiMenu visible={menuVisible} closeMenuCB={toggleMenu}>
                   <HeaderMenu
                     openLoginDialog={openLoginDialog}
-                    openSignUiDialog={openSignUpDialog}
+                    openSignUiDialog={navigateToSignUpFlow}
                     onLogoutCB={onLogoutCB}
                   />
                 </UiMenu>
@@ -120,7 +120,6 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
       </UiViewport>
       </UiHeader>
       <LoginDialog />
-      <SignUpDialog />
     </>
   );
 };
