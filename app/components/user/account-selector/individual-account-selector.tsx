@@ -20,7 +20,7 @@ export const IndividualAccountSelector = ({ onClick }: IndividualAccountSelector
     <UiButton fullHeight fullWidth cristal className='no-padding rotate-imagery-on-hover' onClick={onClick}>
       <UiFlexGrid direction='column' className='full-height' justifyContent='center' alignItems='stretch'>
         <UiFlexGridItem grow={1}>
-          <UiSpacing padding={titlePadding} className='vertical-center'>
+          <UiSpacing padding={titlePadding}>
             <UiHeading centered>Individual</UiHeading>
           </UiSpacing>
         </UiFlexGridItem>
