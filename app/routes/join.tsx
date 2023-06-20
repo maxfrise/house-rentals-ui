@@ -6,10 +6,14 @@ import { Breakpoints, UiSpacing, UiViewport } from "@uireact/foundation";
 import { UiViewRow } from "@uireact/view";
 
 import styled from 'styled-components';
+import type { UserFormFields} from "~/api/schemas/user.schema";
+import { UserSchema } from "~/api/schemas/user.schema";
+import type { MaxfriseErrors} from "~/components/dashboard/forms/validator/form-validator-yup";
+import { validate } from "~/components/dashboard/forms/validator/form-validator-yup";
 
-import { createUser, getUserByEmail } from "~/models/user.server";
+import { createUser } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
-import { safeRedirect, validateEmail } from "~/utils";
+import { safeRedirect } from "~/utils";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await getUserId(request);
@@ -18,70 +22,38 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 export const action = async ({ request }: ActionArgs) => {
-  const errors = {
-    email: null,
-    password: null,
-    name: null,
-    phone: null
-  };
   const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const name = formData.get("name");
-  const phone = formData.get("phone");
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
+  const email = formData.get('email')?.toString();
+  const name = formData.get('name')?.toString();
+  const phone = formData.get('phone')?.toString();
+  const password = formData.get('password')?.toString();
+  const errors: MaxfriseErrors<UserFormFields> = await validate(
+    {
+      email,
+      name,
+      phone,
+      password,
+    },
+    UserSchema
+  );
 
-  if (typeof name !== 'string' || name.length === 0) {
-    return json(
-      { errors: { ...errors, name: "El nombre es requerido" } },
-      { status: 400 }
-    );
+  if (Object.keys(errors).length > 0) {
+    return json({ errors }, { status: 400 });
   }
 
-  if (!validateEmail(email)) {
-    return json(
-      { errors: { ...errors, email: "Correo electronico no es valido" } },
-      { status: 400 }
-    );
+  if (email && name && phone && password) {
+    const user = await createUser(email, password, name, phone);
+    
+    return createUserSession({
+      redirectTo,
+      remember: false,
+      request,
+      userId: user.id,
+    });
   }
 
-  const existingUser = await getUserByEmail(email);
-  if (existingUser) {
-    return json(
-      { errors: { ...errors, email: "Ya hay una cuenta asociada con este correo" } },
-      { status: 400 }
-    );
-  }
-
-  if (typeof password !== "string" || password.length === 0) {
-    return json(
-      { errors: { ...errors, password: "La contraseña es requerida" } },
-      { status: 400 }
-    );
-  }
-
-  if (password.length < 8) {
-    return json(
-      { errors: { ...errors, password: "Contraseña muy corta, minimo 8 caracteres" } },
-      { status: 400 }
-    );
-  }
-
-  if (typeof phone !== 'string' || phone.length === 0 || phone.length > 10) {
-    return json(
-      { errors: { ...errors, phone: "El telefono no es valido" } },
-      { status: 400 }
-    );
-  }
-
-  const user = await createUser(email, password, name, phone);
-
-  return createUserSession({
-    redirectTo,
-    remember: false,
-    request,
-    userId: user.id,
-  });
+  return null;
 };
 
 export const meta: V2_MetaFunction = () => [{ title: "Crear cuenta" }];
