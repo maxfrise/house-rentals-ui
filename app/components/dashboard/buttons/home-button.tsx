@@ -12,11 +12,6 @@ const StyledLink = styled(Link)`
   display: inline-block;
   width: 100%;
   padding: 5px;
-
-  svg {
-    display: inline;
-    vertical-align: unset;
-  }
 `;
 
 type HomeButtonProps = {

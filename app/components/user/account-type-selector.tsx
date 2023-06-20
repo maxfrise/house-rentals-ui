@@ -22,10 +22,6 @@ const Div = styled.div`
     width: 75px;
   }
 
-  .centered {
-    margin: 0 auto;
-  }
-
   img {
     max-width: 100px;
   }
@@ -38,21 +34,6 @@ const Div = styled.div`
         animation:spin .25s linear 1;
       }
     }
-  }
-
-  @-moz-keyframes spin { 
-    100% { -moz-transform: rotate(360deg); } 
-  }
-
-  @-webkit-keyframes spin { 
-      100% { -webkit-transform: rotate(360deg); } 
-  }
-
-  @keyframes spin { 
-      100% { 
-          -webkit-transform: rotate(360deg); 
-          transform:rotate(360deg); 
-      } 
   }
 `;
 

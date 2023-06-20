@@ -23,10 +23,6 @@ export type SignUpFormProps = {
 
 const FormDiv = styled.div`
   width: 300px;
-
-  svg {
-    display: inline-block;
-  }
 `
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuccess }: SignUpFormProps) => {

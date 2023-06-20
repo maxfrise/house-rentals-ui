@@ -23,10 +23,6 @@ export type LoginFormProps = {
 
 const FormDiv = styled.div`
   width: 300px;
-
-  svg {
-    display: inline-block;
-  }
 `
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSuccess }: LoginFormProps) => {

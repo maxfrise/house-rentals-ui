@@ -19,7 +19,7 @@ import { getUser } from "~/session.server";
 import { MaxfriseTheme } from './theme';
 import { Header } from './components/header';
 import { useThemeDetector } from "./hooks";
-
+import { GlobalStyles } from './styles/global-styles';
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
@@ -73,6 +73,7 @@ export default function App() {
       <body className="">
         <UiView theme={MaxfriseTheme} selectedTheme={selectedTheme}>
           <Header toggleTheme={toggleTheme} />
+          <GlobalStyles />
           <Outlet />
           <ScrollRestoration />
           <Scripts />

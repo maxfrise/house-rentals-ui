@@ -23,10 +23,6 @@ type HeaderProps = {
 const CenteredDiv = styled.div`
   width: 980px;
   margin: 0 auto;
-
-  .full-height {
-    height: 100%;
-  }
 `;
 
 const headerButtonsTextSpacing: UiSpacingProps['padding'] = { inline: 'three' };
