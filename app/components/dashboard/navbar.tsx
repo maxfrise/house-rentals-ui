@@ -20,11 +20,6 @@ type NavbarProps = {
 
 const Div = styled.div`
   min-width: 300px;
-
-  svg {
-    display: inline-block;
-    vertical-align: unset;
-  }
 `;
 
 const StyledLink = styled(Link)`
