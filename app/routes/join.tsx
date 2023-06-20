@@ -1,12 +1,11 @@
 import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
+import { Outlet } from "@remix-run/react";
 import type { UiSpacingProps} from "@uireact/foundation";
-import { UiViewport, Breakpoints} from "@uireact/foundation";
-import { UiSpacing } from "@uireact/foundation";
+import { Breakpoints, UiSpacing, UiViewport } from "@uireact/foundation";
 import { UiViewRow } from "@uireact/view";
 
-import styled from "styled-components";
-import { AccountSelector } from "~/components/user/account-selector";
+import styled from 'styled-components';
 
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
@@ -70,26 +69,26 @@ export const action = async ({ request }: ActionArgs) => {
 
 export const meta: V2_MetaFunction = () => [{ title: "Sign Up" }];
 
+const selectorSpacing: UiSpacingProps['padding'] = { block: 'five' };
+
 const Div = styled.div`
   max-width: 600px;
   margin: 0 auto;
 `;
 
-const selectorSpacing: UiSpacingProps['padding'] = { block: 'five' };
-
 export default function Join() {
   return (
-    <UiViewRow weight='50'>
+    <UiViewRow weight='50' centeredContent>
       <UiViewport criteria={Breakpoints.SMALL}>
-        <AccountSelector />
+        <Outlet />
       </UiViewport>
       <UiViewport criteria={'m|l|xl'}>
         <UiSpacing padding={selectorSpacing}>
           <Div>
-            <AccountSelector />
+            <Outlet />
           </Div>
         </UiSpacing>
       </UiViewport>
     </UiViewRow>
   );
-}
+};

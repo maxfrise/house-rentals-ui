@@ -15,6 +15,7 @@ import { useOptionalUser } from '../../utils';
 import { LoginDialog, LogoutForm, SignUpDialog } from '../user';
 import { HeaderMenu } from './menu';
 import { Logo } from '../branding';
+import { useNavigate } from '@remix-run/react';
 
 type HeaderProps = {
   toggleTheme?: () => void;
@@ -30,8 +31,8 @@ const headerSmallSpacing: UiSpacingProps['padding'] = { inline: 'four' };
 
 export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
   const loginDialog = useDialog('login-dialog');
-  const signUpDialog = useDialog('sign-up-dialog');
   const [menuVisible, setMenuVisible] = useState(false);
+  const navigate = useNavigate();
   const user = useOptionalUser();
 
   const openLoginDialog = useCallback(() => {
@@ -47,8 +48,8 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
       setMenuVisible(false);
     }
 
-    signUpDialog.actions.openDialog();
-  }, [menuVisible, signUpDialog.actions]);
+    navigate('join/');
+  }, [menuVisible, navigate]);
 
   const toggleMenu = useCallback(() => {
     setMenuVisible(!menuVisible);

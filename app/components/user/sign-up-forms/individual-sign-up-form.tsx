@@ -11,10 +11,11 @@ import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
 import { UiIcon } from '@uireact/icons';
 
-import type { action } from '../../routes/login';
-import { useOptionalUser } from '../../utils';
+import type { action } from '../../../routes/login';
+import { useOptionalUser } from '../../../utils';
 
 const submitButtonMargin: UiSpacingProps['margin'] = { block: 'four' };
+const submitButtonPadding: UiSpacingProps['padding'] = { block: 'four' };
 
 export type SignUpFormProps = {
   onBackClick?: () => void;
@@ -22,10 +23,10 @@ export type SignUpFormProps = {
 }
 
 const FormDiv = styled.div`
-  width: 300px;
+  width: 100%;
 `
 
-export const SignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuccess }: SignUpFormProps) => {
+export const IndividualSignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuccess }: SignUpFormProps) => {
   const fetcher = useFetcher<typeof action>();
   const user = useOptionalUser();
   const handleBackClick = useCallback(() => {
@@ -59,10 +60,20 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuc
         />
         <input type="hidden" name="redirectTo" value={'/houses'} />
         <UiSpacing margin={submitButtonMargin}>
-          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}</UiButton>
+          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>
+            <UiSpacing padding={submitButtonPadding}>
+              Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}
+            </UiSpacing>
+          </UiButton>
         </UiSpacing>
-        {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick} cristal>Regresar</UiButton>}
+        {onBackClick && (
+          <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick} cristal>
+            <UiSpacing padding={submitButtonPadding}>
+              Regresar
+            </UiSpacing>
+          </UiButton>
+        )}
       </fetcher.Form>
     </FormDiv>
   );
-}
+};
