@@ -4,7 +4,6 @@ import { UiButton } from '@uireact/button';
 import { UiCard } from '@uireact/card';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
 import type { UiSpacingProps} from '@uireact/foundation';
-import { useViewport} from '@uireact/foundation';
 import { UiSpacing, TextSize } from '@uireact/foundation';
 import { UiHeading, UiText } from '@uireact/text';
 
