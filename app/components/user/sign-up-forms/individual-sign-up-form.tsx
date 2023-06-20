@@ -43,7 +43,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
     <FormDiv>
       <fetcher.Form method="post" action="/join" role="form">
         <UiInput
-          label="Nombre completo"
+          label="Nombre"
           labelOnTop
           name="name"
           error={fetcher.data?.errors?.name || undefined}
