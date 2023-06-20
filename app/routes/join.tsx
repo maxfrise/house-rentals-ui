@@ -22,7 +22,6 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 export const action = async ({ request }: ActionArgs) => {
-  //const formData = await request.formData();
   const formData = Object.fromEntries(await request.formData());
   const redirectTo = safeRedirect(formData.redirectTo, "/");
   const errors: MaxfriseErrors<UserFormFields> = await validate(
