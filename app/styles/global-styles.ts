@@ -9,6 +9,10 @@ export const GlobalStyles = createGlobalStyle`
     height: 100%;
   }
 
+  .full-width {
+    width: 100%;
+  }
+
   @-moz-keyframes spin { 
     100% { -moz-transform: rotate(360deg); } 
   }
@@ -27,5 +31,13 @@ export const GlobalStyles = createGlobalStyle`
   svg {
     display: inline-block;
     vertical-align: unset;
+  }
+
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
   }
 `;
