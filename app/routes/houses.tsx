@@ -8,7 +8,7 @@ import type { UiSpacingProps} from "@uireact/foundation";
 import { UiSpacing, UiViewport } from "@uireact/foundation";
 
 import { requireUserId } from "~/session.server";
-import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+import { MaxfriseApi } from "../api/MaxfriseApi";
 import { Navbar, Graphics } from '../components/dashboard';
 import type { House } from '../types';
 import { FooterActions } from "~/components/dashboard/footer-actions";

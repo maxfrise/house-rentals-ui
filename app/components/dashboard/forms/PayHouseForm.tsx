@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { UiInput, UiTextArea, } from "@uireact/form";
 import { UiButton } from "@uireact/button";
-import type { Payment } from "~/datasource/MaxfriseApi/MaxfriseApiTypes";
+import type { Payment } from "~/api/types/MaxfriseApiTypes";
 import { useFetcher } from "@remix-run/react";
 import type { action } from "../../../routes/payjob";
 

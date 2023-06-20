@@ -12,7 +12,7 @@ import { CreateHouseForm } from "../components/dashboard/forms/CreateHouseForm";
 import { object, string, number } from "yup";
 import { validate } from "../components/dashboard/forms/validator/form-validator-yup";
 import type { MaxfriseErrors } from "../components/dashboard/forms/validator/form-validator-yup";
-import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+import { MaxfriseApi } from "../api/MaxfriseApi";
 
 const newHouseSchema = object({
   houseFriendlyName: string().required().max(40),

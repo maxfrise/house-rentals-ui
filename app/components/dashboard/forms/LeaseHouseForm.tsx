@@ -4,7 +4,7 @@ import { UiButton } from "@uireact/button";
 import { UiInput } from "@uireact/form";
 
 import { useMatchesData } from "../../../utils";
-import type { HouseOverview } from "../../../datasource/MaxfriseApi/MaxfriseApiTypes";
+import type { HouseOverview } from "../../../api/types/MaxfriseApiTypes";
 
 export default function LeaseHouseForm() {
   const data = useMatchesData(
