@@ -43,7 +43,7 @@ export const AccountSelector = () => {
       <UiSpacing margin={headingMargin}>
         <UiHeading>Paso 1. Elige tu tipo de cuenta</UiHeading>
       </UiSpacing>
-      <UiGrid cols={isSmall ? 1 : 2} colSize={isSmall ? '100%' : '300px'} colsGap={10}>
+      <UiGrid cols={isSmall ? 1 : 2} colSize={isSmall ? '100%' : '300px'} colsGap={10} rowsGap={10}>
         <UiGridItem>
           <IndividualAccountSelector />
         </UiGridItem>

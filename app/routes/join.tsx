@@ -70,6 +70,7 @@ export const action = async ({ request }: ActionArgs) => {
 export const meta: V2_MetaFunction = () => [{ title: "Sign Up" }];
 
 const selectorSpacing: UiSpacingProps['padding'] = { block: 'five' };
+const contentSpacing: UiSpacingProps['padding'] = { all: 'five' };
 
 const Div = styled.div`
   max-width: 600px;
@@ -80,7 +81,9 @@ export default function Join() {
   return (
     <UiViewRow weight='50' centeredContent>
       <UiViewport criteria={Breakpoints.SMALL}>
-        <Outlet />
+        <UiSpacing padding={contentSpacing}>
+          <Outlet />
+        </UiSpacing>
       </UiViewport>
       <UiViewport criteria={'m|l|xl'}>
         <UiSpacing padding={selectorSpacing}>

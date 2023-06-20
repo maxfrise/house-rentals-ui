@@ -17,7 +17,7 @@ import { useOptionalUser } from '../../../utils';
 const submitButtonMargin: UiSpacingProps['margin'] = { block: 'four' };
 const submitButtonPadding: UiSpacingProps['padding'] = { block: 'four' };
 
-export type SignUpFormProps = {
+export type IndividualSignUpFormProps = {
   onBackClick?: () => void;
   onSignUpSuccess?: () => void;
 }
@@ -26,7 +26,7 @@ const FormDiv = styled.div`
   width: 100%;
 `
 
-export const IndividualSignUpForm: React.FC<SignUpFormProps> = ({ onBackClick, onSignUpSuccess }: SignUpFormProps) => {
+export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBackClick, onSignUpSuccess }: IndividualSignUpFormProps) => {
   const fetcher = useFetcher<typeof action>();
   const user = useOptionalUser();
   const handleBackClick = useCallback(() => {
