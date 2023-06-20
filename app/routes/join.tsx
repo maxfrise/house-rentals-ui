@@ -12,18 +12,14 @@ import type { MaxfriseErrors} from "~/components/dashboard/forms/validator/form-
 import { validate } from "~/components/dashboard/forms/validator/form-validator-yup";
 
 import { createUser } from "~/models/user.server";
-import { createUserSession, getUserId } from "~/session.server";
-import { safeRedirect } from "~/utils";
+import { createUserSession } from "~/session.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const userId = await getUserId(request);
-  if (userId) return redirect("/");
   return json({});
 };
 
 export const action = async ({ request }: ActionArgs) => {
   const formData = Object.fromEntries(await request.formData());
-  const redirectTo = safeRedirect(formData.redirectTo, "/");
   const errors: MaxfriseErrors<UserFormFields> = await validate(
     formData,
     UserSchema
@@ -41,7 +37,7 @@ export const action = async ({ request }: ActionArgs) => {
   );
   
     return createUserSession({
-    redirectTo,
+    redirectTo: "confirm",
     remember: false,
     request,
     userId: user.id,

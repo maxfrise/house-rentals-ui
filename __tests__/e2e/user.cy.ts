@@ -23,8 +23,11 @@ describe("User tests", () => {
     cy.findByLabelText(/Contraseña/i).type(loginForm.password);
     cy.findByRole("button", { name: /Crear cuenta/i }).click();
 
-    cy.findByRole('link', { name: 'Agregar casa' }).should('be.visible');
+    cy.findByRole('heading', { name: 'Listo!' }).should('be.visible');
+    cy.findByText('Tu cuenta se a creado con exito, revisa tu correo te hemos enviado un correo para verificar tu correo.').should('be.visible');
+    cy.findByRole('link', { name: 'Ir al dashboard' }).should('be.visible').click();
 
+    cy.findByRole('link', { name: 'Agregar casa' }).should('be.visible');
     cy.findByRole("button", { name: /Cerrar sesion/i }).click();
     cy.findByRole("button", { name: /Iniciar Sesion/i });
   });
