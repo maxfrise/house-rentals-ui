@@ -1,9 +1,12 @@
 import React, { useCallback } from 'react';
 
 import { UiDialog, UiDialogType, useDialog } from '@uireact/dialog';
-import { useViewport } from '@uireact/foundation';
+import type { UiSpacingProps} from '@uireact/foundation';
+import { UiSpacing, useViewport } from '@uireact/foundation';
 
-import { AccountTypeSelector } from './account-type-selector';
+import { AccountSelector } from './account-selector';
+
+const selectorMargin: UiSpacingProps['margin'] = { all: 'four' };
 
 export const SignUpDialog: React.FC = () => {
   const dialogId = 'sign-up-dialog';
@@ -16,7 +19,9 @@ export const SignUpDialog: React.FC = () => {
 
   return (
     <UiDialog dialogId={dialogId} title='Registrate' type={isSmall ? UiDialogType.FULLSCREEN : UiDialogType.CENTERED}>
-      <AccountTypeSelector onSuccessSignUp={onSuccessSignUp} />
+      <UiSpacing margin={selectorMargin}>
+        <AccountSelector onSuccessSignUp={onSuccessSignUp} />
+      </UiSpacing>
     </UiDialog>
   )
 };

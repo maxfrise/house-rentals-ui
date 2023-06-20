@@ -9,6 +9,10 @@ export const GlobalStyles = createGlobalStyle`
     height: 100%;
   }
 
+  .full-width {
+    width: 100%;
+  }
+
   @-moz-keyframes spin { 
     100% { -moz-transform: rotate(360deg); } 
   }
