@@ -1,11 +1,11 @@
 import React from 'react';
 
-import JoinConfirm from '../../../app/routes/join.confirm';
+import ConfirmMail from '../../../app/routes/confirm';
 import { render } from '../../utils/render';
 
-describe('<JoinConfirm />', () => {
+describe('<ConfirmMail />', () => {
   it('Should render fine', () => {
-    render(<JoinConfirm />);
+    render(<ConfirmMail />);
 
     cy.findByText('3. Confirma tu correo').should('be.visible');
     cy.findByRole('heading', { name: 'Listo!' }).should('be.visible');
@@ -34,7 +34,7 @@ describe('<JoinConfirm />', () => {
   });
 
   it('Should render email when user session is found', () => {
-    render(<JoinConfirm />, undefined, {
+    render(<ConfirmMail />, undefined, {
       loader: () => { return { user: { email: 'some@email.com', userId: 'xxxx' } } },
       id: 'root',
       path: '/'

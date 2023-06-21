@@ -1,18 +1,15 @@
-import React from 'react';
+import styled from "styled-components"
 
-import styled from 'styled-components';
+import { UiCard } from "@uireact/card"
+import type { UiSpacingProps } from "@uireact/foundation";
+import { UiSpacing, TextSize } from "@uireact/foundation"
+import { UiIcon } from "@uireact/icons"
+import { UiList, UiListItem } from "@uireact/list"
+import { UiHeading, UiText, UiLink } from "@uireact/text"
 
-import { UiCard } from '@uireact/card';
-import type { UiSpacingProps } from '@uireact/foundation';
-import { TextSize } from '@uireact/foundation';
-import { UiSpacing } from '@uireact/foundation';
-import { UiIcon } from '@uireact/icons';
-import { UiList, UiListItem } from '@uireact/list';
-import { UiHeading, UiLink, UiText } from '@uireact/text';
-
-import { SignUpProgressIndicator } from '../components/user/sign-up-progress-indicator';
-import { useOptionalUser } from '../utils';
-import emailImage from '../assets/email.png';
+import { SignUpProgressIndicator } from "./sign-up-progress-indicator"
+import emailImage from '../../assets/email.png';
+import { useOptionalUser } from "../../utils";
 
 const cardSpacing: UiSpacingProps['margin'] = { top: 'five' };
 const listSpacing: UiSpacingProps['padding'] = { left: 'five' };
@@ -23,7 +20,7 @@ const Img = styled.img`
   display: block;
 `
 
-export default function JoinConfirm() {
+export const ConfirmEmail = () => { 
   const user = useOptionalUser();
 
   return (
@@ -51,7 +48,7 @@ export default function JoinConfirm() {
       <UiSpacing margin={cardSpacing}>
         <UiCard>
           <UiLink href='/houses/' useReactLink>
-            <UiIcon icon='House2' size={TextSize.xsmall} /> Ir al dashboard 
+            <UiIcon icon='House2' size={TextSize.xsmall} /> Ir al dashboard
           </UiLink>
         </UiCard>
       </UiSpacing>
@@ -69,5 +66,5 @@ export default function JoinConfirm() {
         </UiCard>
       </UiSpacing>
     </>
-  );
-};
+  )
+}
