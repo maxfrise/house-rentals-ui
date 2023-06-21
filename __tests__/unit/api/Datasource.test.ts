@@ -1,4 +1,4 @@
-import { DataSource } from "../../../app/datasource/Datasource";
+import { DataSource } from "../../../app/api/Datasource";
 import nock from "nock";
 
 describe("Datasource", () => {
