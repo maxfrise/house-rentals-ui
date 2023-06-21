@@ -1,11 +1,11 @@
 import React from 'react';
 
-import ConfirmMail from '../../../app/routes/confirm';
+import Confirm from '../../../app/routes/confirm';
 import { render } from '../../utils/render';
 
-describe('<ConfirmMail />', () => {
+describe('<Confirm />', () => {
   it('Should render fine', () => {
-    render(<ConfirmMail />);
+    render(<Confirm />);
 
     cy.findByText('3. Confirma tu correo').should('be.visible');
     cy.findByRole('heading', { name: 'Listo!' }).should('be.visible');
@@ -20,7 +20,7 @@ describe('<ConfirmMail />', () => {
   });
 
   it('Dashboard link should redirect to houses', () => {
-    render(<JoinConfirm />, [
+    render(<Confirm />, [
       {
         action: () => { },
         loader: () => { return { ok: true } },
@@ -34,7 +34,7 @@ describe('<ConfirmMail />', () => {
   });
 
   it('Should render email when user session is found', () => {
-    render(<ConfirmMail />, undefined, {
+    render(<Confirm />, undefined, {
       loader: () => { return { user: { email: 'some@email.com', userId: 'xxxx' } } },
       id: 'root',
       path: '/'
