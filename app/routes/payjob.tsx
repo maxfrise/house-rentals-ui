@@ -3,7 +3,7 @@ import type { MaxfriseErrors } from "../components/dashboard/forms/validator/for
 import { validate } from "../components/dashboard/forms/validator/form-validator-yup";
 import { object, string } from "yup";
 import { json, redirect } from "@remix-run/node";
-import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+import { MaxfriseApi } from "../api/MaxfriseApi";
 
 export type FormState = {
     method: string;

@@ -15,8 +15,8 @@ import { UiButton } from "@uireact/button";
 import { useDialog } from '@uireact/dialog';
 import { UiHeading, UiText } from "@uireact/text";
 
-import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
-import type { Payment } from "../datasource/MaxfriseApi/MaxfriseApiTypes"
+import { MaxfriseApi } from "../api/MaxfriseApi";
+import type { Payment } from "../api/types/MaxfriseApiTypes"
 import { requireUserId } from "~/session.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
 import type { UiSpacingProps } from "@uireact/foundation";
