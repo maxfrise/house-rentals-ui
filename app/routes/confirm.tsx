@@ -9,7 +9,7 @@ import { Breakpoints, UiSpacing, UiViewport } from '@uireact/foundation';
 import { UiViewRow } from '@uireact/view';
 
 import { ConfirmEmail } from '../components/user';
-import { getUserId } from '~/session.server';
+import { getUserId } from '../session.server';
 
 export const meta: V2_MetaFunction = () => [{ title: "Verifica tu correo" }];
 
