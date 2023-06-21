@@ -51,7 +51,8 @@ export async function createUser(
     pk: `email#${email}`,
     email,
     name,
-    phone
+    phone,
+    verified: false
   });
 
   const user = await getUserByEmail(email);

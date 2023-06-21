@@ -72,7 +72,6 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           error={fetcher.data?.errors?.phone || undefined}
           theme={fetcher.data?.errors?.phone ? 'error' : undefined}
         />
-        <input type="hidden" name="redirectTo" value={'/houses'} />
         <UiSpacing margin={submitButtonMargin}>
           <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>
             <UiSpacing padding={submitButtonPadding}>

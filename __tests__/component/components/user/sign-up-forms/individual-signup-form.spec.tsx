@@ -32,19 +32,19 @@ describe("<IndividualSignUpForm />", () => {
     cy.get('@backFn').should('have.been.calledOnce');
   });
 
-  it("Should redirect to Houses when sign up is correct", () => {
+  it("Should redirect to Confirm page when sign up is correct", () => {
     render(<IndividualSignUpForm />, [
       {
         path: '/join',
-        action: async () => { return redirect('/houses') },
+        action: async () => { return redirect('/confirm') },
         loader: async () => { return { ok: true } },
         element: <p>Sign up route</p>
       },
       {
-        path: '/houses',
+        path: '/confirm',
         action: async () => { return { ok: true } },
         loader: async () => { return { ok: true } },
-        element: <p>Houses route</p>
+        element: <p>Confirm email</p>
       }
     ]);
 
@@ -55,7 +55,7 @@ describe("<IndividualSignUpForm />", () => {
     cy.findByRole('textbox', { name: 'Telefono' }).type('3121212312');
     cy.findByRole('button', { name: 'Crear cuenta' }).click();
 
-    cy.findByText('Houses route').should('be.visible');
+    cy.findByText('Confirm email').should('be.visible');
   });
 
   it("Should show error message when sign up is NOT correct", () => {
@@ -90,10 +90,10 @@ describe("<IndividualSignUpForm />", () => {
         element: <p>Login route</p>
       },
       {
-        path: '/houses',
+        path: '/confirm',
         action: async () => { return { ok: true } },
         loader: async () => { return { ok: true } },
-        element: <p>Houses route</p>
+        element: <p>Confirm email</p>
       }
     ]);
 

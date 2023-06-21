@@ -13,18 +13,18 @@ export const SignUpProgressIndicator = ({ currentIndex, isAgency }: SignUpProgre
   <UiCard>
     <UiProgressIndicator current={currentIndex}>
       <UiProgressIndicatorItem>
-        {currentIndex > 1 ? (
-          <UiLink href='../' useReactLink>
+        {currentIndex === 2 ? (
+          <UiLink href='../' useReactLink theme='positive'>
             1. Tipo de cuenta: {isAgency ? 'Inmobiliaria' : 'Individual'}
           </UiLink>
-        ): (
-          <UiText fontStyle = 'regular'>
+        ) : (
+          <UiText fontStyle='regular' theme={currentIndex > 2 ? 'positive' : undefined}>
             1. Tipo de cuenta
           </UiText>  
         )}
       </UiProgressIndicatorItem>
       <UiProgressIndicatorItem>
-        <UiText>
+        <UiText theme={currentIndex > 2 ? 'positive' : undefined}>
           2. Informacion de la cuenta
         </UiText>
       </UiProgressIndicatorItem>
