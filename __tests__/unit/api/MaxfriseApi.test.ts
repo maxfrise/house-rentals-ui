@@ -21,7 +21,7 @@ describe("MaxfriseApi", () => {
         {
           landlords: [
             {
-              phone: "+523121186644",
+              phone: "+3121186644",
               name: "Sergio",
             },
           ],

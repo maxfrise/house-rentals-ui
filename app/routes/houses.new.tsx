@@ -28,6 +28,7 @@ const newHouseSchema = object({
       (val) => val?.toString().length === 10
     )
     .required(),
+  LandlordCountriePhone : number().required().typeError("Selecciona pais"),
   address: string().required().max(40),
   tenantName: string().required().max(40),
   tenantPhone: number()
@@ -40,6 +41,7 @@ const newHouseSchema = object({
       (val) => val?.toString().length === 10
     )
     .required(),
+    tenantCountriePhone : number().required().typeError("Selecciona pais")
 });
 
 export type FormState = {
@@ -47,6 +49,8 @@ export type FormState = {
   details: string;
   landlordName: string;
   landlordPhone: string;
+  LandlordCountriePhone : string;
+  tenantCountriePhone: string;
   address: string;
   tenantName: string;
   tenantPhone: string;
@@ -68,6 +72,8 @@ export const action = async ({ request }: ActionArgs) => {
     houseFriendlyName,
     address,
     details,
+    LandlordCountriePhone,
+    tenantCountriePhone,
     landlordName,
     landlordPhone,
     tenantName,
@@ -86,9 +92,9 @@ export const action = async ({ request }: ActionArgs) => {
     houseFriendlyName: `${houseFriendlyName}`,
     address: `${address}`,
     details: `${details}`,
-    landlords: [{ name: `${landlordName}`, phone: `+52${landlordPhone}` }],
+    landlords: [{ name: `${landlordName}`, phone: `+${LandlordCountriePhone}${landlordPhone}` }],
     leaseStatus: "AVAILABLE", // Hardcoded as it is the default state
-    tenants: [{ name: `${tenantName}`, phone: `+52${tenantPhone}` }],
+    tenants: [{ name: `${tenantName}`, phone: `+${tenantCountriePhone}${tenantPhone}` }],
   });
 
   return redirect(`/houses/${houseId.replace(/^house#/, "")}`);
@@ -101,9 +107,11 @@ export default function NewHousePage() {
       details: "",
       landlordName: "",
       landlordPhone: "",
+      LandlordCountriePhone :"",
       address: "",
       tenantName: "",
       tenantPhone: "",
+      tenantCountriePhone :"",
     }),
     []
   );
@@ -132,6 +140,8 @@ export default function NewHousePage() {
 
   const onFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     const errors = await validate(formState, newHouseSchema);
+
+    console.log('formstate=>', formState)
 
     if (Object.keys(errors).length > 0) {
       event.preventDefault();
