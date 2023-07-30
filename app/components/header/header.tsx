@@ -97,27 +97,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
           </UiFlexGrid>
         </CenteredDiv>
       </UiViewport>
-        <UiViewport criteria='s|m'>
-          <UiSpacing padding={headerSmallSpacing}>
-            <UiFlexGrid>
-              <UiFlexGridItem grow={1}>
-                <Logo />
-              </UiFlexGridItem>
-              <UiFlexGridItem align='auto'>
-                <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle' cristal>
-                    <UiIcon icon='Discord' />  
-                </UiButton>
-                <UiMenu visible={menuVisible} closeMenuCB={toggleMenu}>
-                  <HeaderMenu
-                    openLoginDialog={openLoginDialog}
-                    openSignUiDialog={navigateToSignUpFlow}
-                    onLogoutCB={onLogoutCB}
-                  />
-                </UiMenu>
-              </UiFlexGridItem>  
-            </UiFlexGrid>
-          </UiSpacing>
-      </UiViewport>
+      
       </UiHeader>
       <LoginDialog />
     </>
