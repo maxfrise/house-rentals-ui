@@ -3,7 +3,7 @@ import React from 'react';
 import { useFetcher, useSearchParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
-import { UiButton, UiPrimaryButton } from "@uireact/button";
+import { UiPrimaryButton, UiTertiaryButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiIcon } from '@uireact/icons';
@@ -58,7 +58,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
         <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} margin={submitButtonMargin}>
           Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner'/>}
         </UiPrimaryButton>
-        {onBackClick && <UiButton category="negative" fullWidth type="button" onClick={handleBackClick} styling='clear'>Regresar</UiButton>}
+        {onBackClick && (
+          <UiTertiaryButton fullWidth type="button" onClick={handleBackClick}>
+            Regresar
+          </UiTertiaryButton>
+        )}
       </fetcher.Form>
     </div>
   );

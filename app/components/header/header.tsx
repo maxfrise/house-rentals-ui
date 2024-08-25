@@ -14,6 +14,7 @@ import { LoginDialog, LogoutForm } from '../user';
 import { HeaderMenu } from './menu';
 import { Logo } from '../branding';
 import { useNavigate } from '@remix-run/react';
+import { UiText } from '@uireact/text';
 
 const headerButtonsTextSpacing: UiSpacingProps['padding'] = { inline: 'three' };
 const headerSmallSpacing: UiSpacingProps['padding'] = { inline: 'four' };
@@ -62,12 +63,12 @@ export const Header: React.FC = () => {
                     <>
                       <UiButton category='primary' onClick={openLoginDialog}>
                         <UiSpacing padding={headerButtonsTextSpacing}>
-                          Iniciar Sesion
+                          <UiText>Iniciar Sesion</UiText>
                         </UiSpacing>
                       </UiButton>
                         <UiPrimaryButton onClick={navigateToSignUpFlow}>
                           <UiSpacing padding={headerButtonsTextSpacing}>
-                            Registrate
+                            <UiText inverseColoration>Registrate</UiText>
                           </UiSpacing>
                         </UiPrimaryButton>
                     </>
