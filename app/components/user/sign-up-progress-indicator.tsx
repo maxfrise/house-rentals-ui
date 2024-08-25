@@ -9,7 +9,7 @@ type SignUpProgressIndicatorProps = {
 }
 
 export const SignUpProgressIndicator = ({ currentIndex, isAgency }: SignUpProgressIndicatorProps) => (
-  <UiCard>
+  <UiCard category='primary'>
     <UiProgressIndicator current={currentIndex}>
       <UiProgressIndicatorItem>
         {currentIndex === 2 ? (
