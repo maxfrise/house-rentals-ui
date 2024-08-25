@@ -11,7 +11,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { UiBadge } from '@uireact/badge';
-import { UiButton, UiPrimaryButton, UiSecondaryButton } from "@uireact/button";
+import { UiPrimaryButton, UiSecondaryButton } from "@uireact/button";
 import { useDialog } from '@uireact/dialog';
 import { UiHeading, UiText } from "@uireact/text";
 

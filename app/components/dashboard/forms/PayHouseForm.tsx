@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { UiInput, UiTextArea, } from "@uireact/form";
-import { UiButton, UiPrimaryButton } from "@uireact/button";
+import { UiPrimaryButton } from "@uireact/button";
 import type { Payment } from "~/api/types/MaxfriseApiTypes";
 import { useFetcher } from "@remix-run/react";
 import type { action } from "../../../routes/payjob";
