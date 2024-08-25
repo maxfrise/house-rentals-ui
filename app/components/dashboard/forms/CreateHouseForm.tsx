@@ -1,7 +1,7 @@
 import type { FormEvent } from "react";
 import { Form } from "@remix-run/react";
 
-import { UiButton } from "@uireact/button";
+import { UiButton, UiPrimaryButton } from "@uireact/button";
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
 import { UiInput, UiTextArea } from '@uireact/form';
@@ -101,11 +101,9 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         error={errors?.tenantPhone}
         category={errors?.tenantPhone ? 'error' : undefined}
       />
-      <UiButton type="submit">
-        <UiSpacing padding={submitButtonSpacing}>
-          Guardar
-        </UiSpacing>
-      </UiButton>
+      <UiPrimaryButton type="submit" padding={submitButtonSpacing}>
+        Guardar
+      </UiPrimaryButton>
     </Form>
   );
 };

@@ -3,48 +3,48 @@ import { Link, useParams } from '@remix-run/react';
 
 import { UiCard } from '@uireact/card';
 import type { UiSpacingProps} from '@uireact/foundation';
-import { UiSpacing, UiViewport } from '@uireact/foundation';
+import { UiSpacing, UiViewport, useViewport } from '@uireact/foundation';
 import { UiBadge } from '@uireact/badge';
 import { UiLink, UiText } from '@uireact/text';
 import { UiNavbar, UiNavbarItem } from '@uireact/navbar';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex';
 
 import type { House } from '../../types';
-import { AddHouseButton, HomeButton } from './buttons';
+import { CardLink } from '../shared';
+
+import styles from './navbar.module.css';
 
 type NavbarProps = {
   houses?: House[];
 }
 
 const navbarSpacing: UiSpacingProps['margin'] = { block: 'three' };
-const linkSpacing: UiSpacingProps['padding'] = { block: 'two' };
 
 export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
+  const { isSmall } = useViewport();
   const { houseId } = useParams();
 
   return (
     <div>
       <>
-        <UiViewport criteria={'l|xl'}>
-          <UiCard>
-            <HomeButton padding={linkSpacing} />
-          </UiCard>
+        <UiViewport criteria={'m|l|xl'}>
+          <CardLink icon='Home' label='Inicio' link='/houses' />
         </UiViewport>
         <UiSpacing margin={navbarSpacing}>
-          <UiCard padding={{}}>
+          <UiCard padding={{ inline: 'three', block: 'four'}} category='primary'>
             {houses && houses.length > 0 ? (
-              <UiNavbar orientation='stacked' rounded='edges'>
+              <UiNavbar orientation='stacked' rounded='all' className={`${styles.navbar} ${isSmall ? styles.smallNavbar : ''}`}>
                 {houses?.map((house, index) => (
                   <UiNavbarItem key={index} active={houseId === house.houseId}>
-                    <UiLink>
+                    <UiLink padding={{ inline: 'four', block: 'three' }} category='fonts'>
                       <Link to={house.houseId}>
-                        <UiFlexGrid>
+                        <UiFlexGrid alignItems='center' gap='three'>
                           <UiFlexGridItem grow={1}>
                             {`${house.houseFriendlyName} `}
                           </UiFlexGridItem>
                           <UiFlexGridItem>
                             {house.leaseStatus === 'AVAILABLE' ? (
-                              <UiBadge category='primary' size='small'>Disponible</UiBadge>
+                              <UiBadge category='warning' size='small'>Disponible</UiBadge>
                             ) : (
                               <UiBadge category='positive' size='small'>Rentada</UiBadge>
                             )}
@@ -60,10 +60,8 @@ export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
             )}
           </UiCard>
         </UiSpacing>
-        <UiViewport criteria={'l|xl'}>
-          <UiCard>
-            <AddHouseButton padding={linkSpacing} />
-          </UiCard>
+        <UiViewport criteria={'m|l|xl'}>
+          <CardLink icon='PlusSmall' label='Agregar casa' link='/houses/new' />
         </UiViewport>
       </>
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { UiInput, UiTextArea, } from "@uireact/form";
-import { UiButton } from "@uireact/button";
+import { UiButton, UiPrimaryButton } from "@uireact/button";
 import type { Payment } from "~/api/types/MaxfriseApiTypes";
 import { useFetcher } from "@remix-run/react";
 import type { action } from "../../../routes/payjob";
@@ -62,9 +62,9 @@ export default function PayHouseform(props: CreateHouseFormProps) {
         />
         <input type="hidden" name="pk" value={payment?.pk} />
         <input type="hidden" name="st" value={payment?.st} />
-        <UiButton className="float-right mb-2" type="submit" disabled={fetcher.state !== "idle"}>
+        <UiPrimaryButton fullWidth type="submit" disabled={fetcher.state !== "idle"}>
           {fetcher.state === "idle" ? "Pagar" : "Guardando"}
-        </UiButton>
+        </UiPrimaryButton>
       </fetcher.Form>
     </div>
   );

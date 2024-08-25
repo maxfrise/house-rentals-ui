@@ -4,7 +4,7 @@ import { UiLink } from "@uireact/text";
 
 export default function HouseIndexPage() {
   return (
-    <UiCard>
+    <UiCard category="primary">
       Information sobre las casas en renta.{' '}
       <UiLink>
         <Link to="new/">
