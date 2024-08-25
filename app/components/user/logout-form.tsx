@@ -9,7 +9,7 @@ type LogoutFormProps = {
 
 export const LogoutForm: React.FC<LogoutFormProps> = ({ onLogout }: LogoutFormProps) => (
   <Form action="/logout" method="post" onSubmit={onLogout} role="form">
-    <UiButton fullWidth fullHeight styling='clear'>
+    <UiButton type='submit' fullWidth fullHeight styling='clear'>
       Cerrar sesion
     </UiButton>
   </Form>

@@ -50,7 +50,7 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <UiHeader>
+      <UiHeader testId='UiHeader'>
         <UiViewport criteria='l|xl'>
             <UiFlexGrid gap='three' justifyContent='space-between'>
               <UiFlexGridItem>
