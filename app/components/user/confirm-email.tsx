@@ -2,7 +2,7 @@ import { Link } from '@remix-run/react';
 
 import { UiCard } from "@uireact/card"
 import type { UiSpacingProps } from "@uireact/foundation";
-import { UiSpacing, TextSize } from "@uireact/foundation"
+import { UiSpacing } from "@uireact/foundation"
 import { UiIcon } from "@uireact/icons"
 import { UiList, UiListItem } from "@uireact/list"
 import { UiHeading, UiText, UiLink } from "@uireact/text"
