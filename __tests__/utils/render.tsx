@@ -3,7 +3,7 @@ import React from 'react';
 import { unstable_createRemixStub } from '@remix-run/testing';
 
 import { UiView, UiViewRow } from '@uireact/view';
-import { ThemeColor, UiSpacing } from '@uireact/foundation';
+import { UiSpacing } from '@uireact/foundation';
 
 type StubbedPath = {
   path: string,
