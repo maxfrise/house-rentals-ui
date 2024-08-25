@@ -18,7 +18,8 @@ export const action = async ({ request }: ActionArgs) => {
   const email = formData.get("email");
   const password = formData.get("password");
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
-  const remember = formData.get("remember");
+  const remember = formData.get("remember"
+  );
 
   if (!validateEmail(email)) {
     return json(
@@ -50,6 +51,7 @@ export const action = async ({ request }: ActionArgs) => {
     );
   }
 
+  // This is going to create the user session
   return createUserSession({
     redirectTo,
     remember: remember === "on" ? true : false,
