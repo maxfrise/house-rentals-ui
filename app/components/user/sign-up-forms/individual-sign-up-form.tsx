@@ -3,7 +3,7 @@ import React from 'react';
 import { useFetcher } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
-import { UiButton } from "@uireact/button";
+import { UiButton, UiPrimaryButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
@@ -66,13 +66,9 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           error={fetcher.data?.errors?.phone || undefined}
           category={fetcher.data?.errors?.phone ? 'error' : undefined}
         />
-        <UiSpacing margin={submitButtonMargin}>
-          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>
-            <UiSpacing padding={submitButtonPadding}>
-              Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}
-            </UiSpacing>
-          </UiButton>
-        </UiSpacing>
+        <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} padding={submitButtonPadding} margin={submitButtonMargin}>
+          Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}
+        </UiPrimaryButton>
         {onBackClick && (
           <UiButton category="negative" fullWidth type="button" onClick={handleBackClick} styling='clear'>
             <UiSpacing padding={submitButtonPadding}>

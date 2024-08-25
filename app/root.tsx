@@ -13,7 +13,6 @@ import { setLocale } from "yup";
 
 import { UiView } from '@uireact/view';
 
-import tailwindStylesheetUrl from "~/styles/tailwind.css";
 import globalStyles from "~/styles/global.css";
 import maxfriseTheme from "~/styles/maxfrise-theme.css";
 import { getUser } from "~/session.server";
@@ -23,7 +22,6 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: maxfriseTheme },
   { rel: "stylesheet", href: globalStyles },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-  { rel: "stylesheet", href: tailwindStylesheetUrl },
   // NOTE: Architect deploys the public directory to /_static/
   { rel: "icon", href: "/_static/favicon.ico" },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

@@ -1,5 +1,6 @@
 .realStateSticker {
   width: 100px;
+  display: block;
 }
 
 .linkWrapper {
