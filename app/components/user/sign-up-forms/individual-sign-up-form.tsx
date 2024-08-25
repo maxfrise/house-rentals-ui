@@ -3,10 +3,9 @@ import React from 'react';
 import { useFetcher } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
-import { UiButton, UiPrimaryButton } from "@uireact/button";
+import { UiPrimaryButton, UiTertiaryButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
-import { UiSpacing } from "@uireact/foundation";
 import { UiIcon } from '@uireact/icons';
 
 import type { action } from '../../../routes/join';
@@ -39,6 +38,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
         <UiInput
           label="Nombre"
           labelOnTop
+          icon={<UiIcon icon="UserCircle" />}
           name="name"
           error={fetcher.data?.errors?.name || undefined}
           category={fetcher.data?.errors?.name ? 'error' : undefined}
@@ -46,6 +46,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
         <UiInput
           label="Correo electronico"
           labelOnTop
+          icon={<UiIcon icon="Mail" />}
           type="email"
           name="email"
           error={fetcher.data?.errors?.email || undefined}
@@ -54,6 +55,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
         <UiInput
           label="Contraseña"
           labelOnTop
+          icon={<UiIcon icon="Password" />}
           type="password"
           name="password"
           error={fetcher.data?.errors?.password || undefined}
@@ -63,6 +65,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           label="Telefono"
           labelOnTop
           name="phone"
+          icon={<UiIcon icon="CirclePhone" />}
           error={fetcher.data?.errors?.phone || undefined}
           category={fetcher.data?.errors?.phone ? 'error' : undefined}
         />
@@ -70,11 +73,9 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}
         </UiPrimaryButton>
         {onBackClick && (
-          <UiButton category="negative" fullWidth type="button" onClick={handleBackClick} styling='clear'>
-            <UiSpacing padding={submitButtonPadding}>
+          <UiTertiaryButton fullWidth type="button" onClick={handleBackClick} padding={submitButtonPadding}>
               Regresar
-            </UiSpacing>
-          </UiButton>
+          </UiTertiaryButton>
         )}
       </fetcher.Form>
     </div>
