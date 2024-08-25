@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { UiButton } from '@uireact/button';
+import { UiButton, UiPrimaryButton } from '@uireact/button';
 import { useDialog } from '@uireact/dialog';
 import type { UiSpacingProps} from '@uireact/foundation';
 import { UiSpacing, UiViewport } from '@uireact/foundation';
@@ -65,11 +65,11 @@ export const Header: React.FC = () => {
                           Iniciar Sesion
                         </UiSpacing>
                       </UiButton>
-                        <UiButton category='positive' onClick={navigateToSignUpFlow}>
+                        <UiPrimaryButton onClick={navigateToSignUpFlow}>
                           <UiSpacing padding={headerButtonsTextSpacing}>
                             Registrate
                           </UiSpacing>
-                        </UiButton>
+                        </UiPrimaryButton>
                     </>
                   ) :
                   (

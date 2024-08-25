@@ -1,7 +1,7 @@
 import { useFetcher, useSearchParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
-import { UiButton } from "@uireact/button";
+import { UiButton, UiPrimaryButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
@@ -54,10 +54,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
           category={fetcher.data?.errors?.password ? 'error' : undefined}
         />
         <input type="hidden" name="redirectTo" value={redirectTo} />
-        
-        <UiSpacing margin={submitButtonMargin}>
-          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner'/>}</UiButton>
-        </UiSpacing>
+        <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} margin={submitButtonMargin}>
+          Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner'/>}
+        </UiPrimaryButton>
         {onBackClick && <UiButton category="negative" fullWidth type="button" onClick={handleBackClick} styling='clear'>Regresar</UiButton>}
       </fetcher.Form>
     </div>
