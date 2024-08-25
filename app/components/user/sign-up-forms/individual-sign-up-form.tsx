@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useFetcher } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
@@ -68,7 +70,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           category={fetcher.data?.errors?.phone ? 'error' : undefined}
         />
         <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} padding={submitButtonPadding} margin={submitButtonMargin}>
-          Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}
+          Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' testId='Icon' />}
         </UiPrimaryButton>
         {onBackClick && (
           <UiTertiaryButton fullWidth type="button" onClick={handleBackClick} padding={submitButtonPadding}>

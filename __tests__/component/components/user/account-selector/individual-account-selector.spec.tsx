@@ -13,13 +13,14 @@ describe('<IndividualAccountSelector />', () => {
 
   it('Should navigate to individual form', () => {
     render(<IndividualAccountSelector />, [{
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       action: () => { },
       element: <p>Individual form</p>,
       loader: () => { return { ok: true } },
       path: 'individual/'
     }]);
 
-    cy.findByRole('button').click();
+    cy.findByRole('link').click();
 
     cy.findByText('Individual form').should('be.visible');
   });

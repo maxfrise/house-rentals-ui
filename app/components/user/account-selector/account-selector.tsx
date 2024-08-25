@@ -1,3 +1,5 @@
+import React from 'react';
+
 import type { UiSpacingProps} from '@uireact/foundation';
 import { UiSpacing, useViewport } from '@uireact/foundation';
 import { UiGrid, UiGridItem } from '@uireact/grid';

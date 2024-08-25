@@ -13,13 +13,14 @@ describe('<AgencyAccountSelector />', () => {
 
   it('Should navigate to agency form', () => {
     render(<AgencyAccountSelector />, [{
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       action: () => { },
       element: <p>Agency form</p>,
       loader: () => { return { ok: true } },
       path: 'agency/'
     }]);
 
-    cy.findByRole('button').click();
+    cy.findByRole('link').click();
 
     cy.findByText('Agency form').should('be.visible');
   });
