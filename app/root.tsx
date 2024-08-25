@@ -58,7 +58,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <UiView>
+        <UiView weight="50">
           <Header />
           <Outlet />
           <ScrollRestoration />
