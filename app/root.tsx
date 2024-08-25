@@ -1,4 +1,5 @@
 import type { LinksFunction, LoaderArgs } from "@remix-run/node";
+import { cssBundleHref } from "@remix-run/css-bundle";
 import { json } from "@remix-run/node";
 import {
   Links,
@@ -8,20 +9,20 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { useCallback, useEffect, useState } from "react";
 import { setLocale } from "yup";
 
-import { ThemeColor } from "@uireact/foundation";
 import { UiView } from '@uireact/view';
 
 import tailwindStylesheetUrl from "~/styles/tailwind.css";
+import globalStyles from "~/styles/global.css";
+import maxfriseTheme from "~/styles/maxfrise-theme.css";
 import { getUser } from "~/session.server";
-import { MaxfriseTheme } from './theme';
 import { Header } from './components/header';
-import { useThemeDetector } from "./hooks";
-import { GlobalStyles } from './styles/global-styles';
 
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: maxfriseTheme },
+  { rel: "stylesheet", href: globalStyles },
+  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: tailwindStylesheetUrl },
   // NOTE: Architect deploys the public directory to /_static/
   { rel: "icon", href: "/_static/favicon.ico" },
@@ -49,16 +50,7 @@ setLocale({
 });
 
 export default function App() {
-  const isDarkTheme = useThemeDetector();
-  const [selectedTheme, setSelectedTheme] = useState<ThemeColor>(isDarkTheme ? ThemeColor.dark : ThemeColor.light);
 
-  const toggleTheme = useCallback(() => {
-    setSelectedTheme(selectedTheme => selectedTheme === ThemeColor.light ? ThemeColor.dark : ThemeColor.light);
-  }, [setSelectedTheme]);
-
-  useEffect(() => { 
-    setSelectedTheme(isDarkTheme ? ThemeColor.dark : ThemeColor.light);
-  }, [isDarkTheme])
   return (
     <html lang="en" className="h-full">
       <head>
@@ -66,14 +58,10 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
-        {typeof document === "undefined"
-          ? "__STYLES__"
-          : null}
       </head>
       <body className="">
-        <UiView theme={MaxfriseTheme} selectedTheme={selectedTheme}>
-          <Header toggleTheme={toggleTheme} />
-          <GlobalStyles />
+        <UiView>
+          <Header />
           <Outlet />
           <ScrollRestoration />
           <Scripts />

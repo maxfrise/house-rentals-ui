@@ -2,26 +2,21 @@ import React from 'react';
 
 import { Link } from '@remix-run/react';
 
-import styled from 'styled-components';
-
 import type { UiSpacingProps } from '@uireact/foundation';
 import { UiSpacing } from '@uireact/foundation';
 import { UiIcon } from '@uireact/icons';
-
-const StyledLink = styled(Link)`
-  display: inline-block;
-  width: 100%;
-  padding: 5px;
-`;
+import { UiLink } from '@uireact/text';
 
 type HomeButtonProps = {
   padding: UiSpacingProps['padding']
 };
 
 export const HomeButton = ({ padding }: HomeButtonProps) => (
-  <StyledLink to="/houses">
-    <UiSpacing padding={padding}>
-      <UiIcon icon='Home' /> Inicio
-    </UiSpacing>
-  </StyledLink>
+  <UiLink>
+    <Link to="/houses">
+      <UiSpacing padding={padding}>
+        <UiIcon icon='Home' /> Inicio
+      </UiSpacing>
+    </Link>
+  </UiLink>
 );

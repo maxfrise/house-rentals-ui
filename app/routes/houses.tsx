@@ -3,7 +3,7 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import { UiViewRow } from "@uireact/view";
-import { UiFlexGrid, UiFlexGridItem } from "@uireact/flex-grid";
+import { UiFlexGrid, UiFlexGridItem } from "@uireact/flex";
 import type { UiSpacingProps} from "@uireact/foundation";
 import { UiSpacing, UiViewport } from "@uireact/foundation";
 

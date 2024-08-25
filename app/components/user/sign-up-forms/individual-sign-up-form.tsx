@@ -3,8 +3,6 @@ import React from 'react';
 import { useFetcher } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 
-import styled from 'styled-components';
-
 import { UiButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
@@ -22,10 +20,6 @@ export type IndividualSignUpFormProps = {
   onSignUpSuccess?: () => void;
 }
 
-const FormDiv = styled.div`
-  width: 100%;
-`;
-
 export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBackClick, onSignUpSuccess }: IndividualSignUpFormProps) => {
   const fetcher = useFetcher<typeof action>();
   const user = useOptionalUser();
@@ -40,14 +34,14 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
   }, [onSignUpSuccess, user]);
 
   return (
-    <FormDiv>
+    <div>
       <fetcher.Form method="post" action="/join" role="form">
         <UiInput
           label="Nombre"
           labelOnTop
           name="name"
           error={fetcher.data?.errors?.name || undefined}
-          theme={fetcher.data?.errors?.name ? 'error' : undefined}
+          category={fetcher.data?.errors?.name ? 'error' : undefined}
         />
         <UiInput
           label="Correo electronico"
@@ -55,7 +49,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           type="email"
           name="email"
           error={fetcher.data?.errors?.email || undefined}
-          theme={fetcher.data?.errors?.email ? 'error' : undefined}
+          category={fetcher.data?.errors?.email ? 'error' : undefined}
         />
         <UiInput
           label="Contraseña"
@@ -63,14 +57,14 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           type="password"
           name="password"
           error={fetcher.data?.errors?.password || undefined}
-          theme={fetcher.data?.errors?.password ? 'error' : undefined}
+          category={fetcher.data?.errors?.password ? 'error' : undefined}
         />
         <UiInput
           label="Telefono"
           labelOnTop
           name="phone"
           error={fetcher.data?.errors?.phone || undefined}
-          theme={fetcher.data?.errors?.phone ? 'error' : undefined}
+          category={fetcher.data?.errors?.phone ? 'error' : undefined}
         />
         <UiSpacing margin={submitButtonMargin}>
           <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>
@@ -80,13 +74,13 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           </UiButton>
         </UiSpacing>
         {onBackClick && (
-          <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick} cristal>
+          <UiButton category="negative" fullWidth type="button" onClick={handleBackClick} styling='clear'>
             <UiSpacing padding={submitButtonPadding}>
               Regresar
             </UiSpacing>
           </UiButton>
         )}
       </fetcher.Form>
-    </FormDiv>
+    </div>
   );
 };

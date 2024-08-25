@@ -44,7 +44,7 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         value={formState?.houseFriendlyName}
         onChange={onChange}
         error={errors?.houseFriendlyName}
-        theme={errors?.houseFriendlyName ? 'error' : undefined}
+        category={errors?.houseFriendlyName ? 'error' : undefined}
       />
       <UiTextArea
         label="Descripción de la propiedad"
@@ -53,7 +53,7 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         onChange={onChange}
         value={formState?.details}
         error={errors?.details}
-        theme={errors?.details ? 'error' : undefined}
+        category={errors?.details ? 'error' : undefined}
         rows={10}
       />
       <UiInput
@@ -63,7 +63,7 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         value={formState?.landlordName}
         onChange={onChange}
         error={errors?.landlordName}
-        theme={errors?.landlordName ? 'error' : undefined}
+        category={errors?.landlordName ? 'error' : undefined}
       />
       <UiInput
         label="Telefono del arrendador"
@@ -72,7 +72,7 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         value={formState?.landlordPhone}
         onChange={onChange}
         error={errors?.landlordPhone}
-        theme={errors?.landlordPhone ? 'error' : undefined}
+        category={errors?.landlordPhone ? 'error' : undefined}
       />
       <UiInput
         label="Direccion de la casa"
@@ -81,7 +81,7 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         value={formState?.address}
         onChange={onChange}
         error={errors?.address}
-        theme={errors?.address ? 'error' : undefined}
+        category={errors?.address ? 'error' : undefined}
       />
       <UiInput
         label="Nombre del arrendatario"
@@ -90,7 +90,7 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         value={formState?.tenantName}
         onChange={onChange}
         error={errors?.tenantName}
-        theme={errors?.tenantName ? 'error' : undefined}
+        category={errors?.tenantName ? 'error' : undefined}
       />
       <UiInput
         label="Telefono del arrendatario"
@@ -99,7 +99,7 @@ export const CreateHouseForm = (props: CreateHouseFormProps) => {
         value={formState?.tenantPhone}
         onChange={onChange}
         error={errors?.tenantPhone}
-        theme={errors?.tenantPhone ? 'error' : undefined}
+        category={errors?.tenantPhone ? 'error' : undefined}
       />
       <UiButton type="submit">
         <UiSpacing padding={submitButtonSpacing}>

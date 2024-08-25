@@ -52,7 +52,7 @@ export default function LeaseHouseForm() {
         name="landlords"
         value={JSON.stringify(house.landlords)}
       />
-      <UiButton type="submit" theme="positive">
+      <UiButton type="submit" category="positive">
         Guardar
       </UiButton>
     </Form>

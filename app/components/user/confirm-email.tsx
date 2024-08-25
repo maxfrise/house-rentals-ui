@@ -1,6 +1,3 @@
-import React from 'react';
-import styled from "styled-components"
-
 import { UiCard } from "@uireact/card"
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing, TextSize } from "@uireact/foundation"
@@ -11,15 +8,10 @@ import { UiHeading, UiText, UiLink } from "@uireact/text"
 import { SignUpProgressIndicator } from "./sign-up-progress-indicator"
 import emailImage from '../../assets/email.png';
 import { useOptionalUser } from "../../utils";
+import { Link } from '@remix-run/react';
 
 const cardSpacing: UiSpacingProps['margin'] = { top: 'five' };
 const listSpacing: UiSpacingProps['padding'] = { left: 'five' };
-
-const Img = styled.img`
-  max-width: 150px;
-  margin: 0 auto;
-  display: block;
-`
 
 export const ConfirmEmail = () => { 
   const user = useOptionalUser();
@@ -37,24 +29,26 @@ export const ConfirmEmail = () => {
       </UiSpacing>
       <UiSpacing margin={cardSpacing}>
         <UiCard>
-          <Img src={emailImage} alt="revisa tu correo" />
+          <img src={emailImage} alt="revisa tu correo" />
           {user && (
             <>
-              <UiText centered>Revisa el correo:</UiText>
-              <UiText centered fontStyle='bold'>{user.email}</UiText>
+              <UiText align='center'>Revisa el correo:</UiText>
+              <UiText align='center' fontStyle='bold'>{user.email}</UiText>
             </>
           )}
         </UiCard>
       </UiSpacing>
       <UiSpacing margin={cardSpacing}>
         <UiCard>
-          <UiLink href='/houses/' useReactLink>
-            <UiIcon icon='House2' size={TextSize.xsmall} /> Ir al dashboard
+          <UiLink>
+            <Link to='/houses/'>
+              <UiIcon icon='Home' size={TextSize.xsmall} /> Ir al dashboard
+            </Link>
           </UiLink>
         </UiCard>
       </UiSpacing>
       <UiSpacing margin={cardSpacing}>
-        <UiCard theme='tertiary'>
+        <UiCard category='tertiary'>
           <UiHeading>Unos tips de seguridad</UiHeading>
           <UiSpacing padding={listSpacing}>
             <UiList type='BULLETED'>

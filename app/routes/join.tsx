@@ -5,7 +5,6 @@ import type { UiSpacingProps} from "@uireact/foundation";
 import { Breakpoints, UiSpacing, UiViewport } from "@uireact/foundation";
 import { UiViewRow } from "@uireact/view";
 
-import styled from 'styled-components';
 import type { UserFormFields} from "~/api/schemas/user.schema";
 import { UserSchema } from "~/api/schemas/user.schema";
 import type { MaxfriseErrors} from "~/components/dashboard/forms/validator/form-validator-yup";
@@ -51,11 +50,6 @@ export const meta: V2_MetaFunction = () => [{ title: "Crear cuenta" }];
 const selectorSpacing: UiSpacingProps['padding'] = { block: 'five' };
 const contentSpacing: UiSpacingProps['padding'] = { all: 'five' };
 
-const Div = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
 export default function Join() {
   return (
     <UiViewRow weight='50' centeredContent>
@@ -66,9 +60,9 @@ export default function Join() {
       </UiViewport>
       <UiViewport criteria={'m|l|xl'}>
         <UiSpacing padding={selectorSpacing}>
-          <Div>
+          <div>
             <Outlet />
-          </Div>
+          </div>
         </UiSpacing>
       </UiViewport>
     </UiViewRow>

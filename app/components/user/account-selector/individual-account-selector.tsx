@@ -7,7 +7,7 @@ import { UiCard } from '@uireact/card';
 import type { UiSpacingProps} from '@uireact/foundation';
 import { TextSize, UiSpacing } from '@uireact/foundation';
 import { UiHeading, UiText } from '@uireact/text';
-import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
+import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex';
 
 const imageMargin: UiSpacingProps['margin'] = { block: 'six' };
 const titlePadding: UiSpacingProps['padding'] = { top: 'five' };
@@ -21,8 +21,8 @@ export const IndividualAccountSelector = () => {
   }, [navigate]);
 
   return (
-    <UiCard noPadding className='full-height full-width'>
-      <UiButton fullHeight fullWidth cristal className='no-padding rotate-imagery-on-hover' onClick={onSelect}>
+    <UiCard className='full-height full-width' padding={{}}>
+      <UiButton fullHeight fullWidth styling='clear' className='no-padding rotate-imagery-on-hover' onClick={onSelect}>
         <UiFlexGrid direction='column' className='full-height' justifyContent='center' alignItems='stretch'>
           <UiFlexGridItem grow={1}>
             <UiSpacing padding={titlePadding}>
@@ -35,7 +35,7 @@ export const IndividualAccountSelector = () => {
             </UiSpacing>
           </UiFlexGridItem>
           <UiSpacing margin={textMargin}>
-            <UiText size={TextSize.small} fontStyle='regular'>Cuenta para personas individuales que necesitan administrar sus propiedades.</UiText>
+            <UiText size={TextSize.small}>Cuenta para personas individuales que necesitan administrar sus propiedades.</UiText>
           </UiSpacing>
         </UiFlexGrid>
       </UiButton>

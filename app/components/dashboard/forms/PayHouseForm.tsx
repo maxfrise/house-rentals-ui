@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import styled from "styled-components";
 import { UiInput, UiTextArea, } from "@uireact/form";
 import { UiButton } from "@uireact/button";
 import type { Payment } from "~/api/types/MaxfriseApiTypes";
@@ -11,10 +10,6 @@ interface CreateHouseFormProps {
   payment?: Payment;
   onPaymentSubmitted?: () => void;
 }
-
-const Container = styled.div`
-  width: 350px;
-`;
 
 export default function PayHouseform(props: CreateHouseFormProps) {
   const { payment, onPaymentSubmitted } = props;
@@ -38,7 +33,7 @@ export default function PayHouseform(props: CreateHouseFormProps) {
   }, [formSubmitted, fetcher.state, fetcher.data?.errors, onPaymentSubmitted]);
 
   return (
-    <Container>
+    <div>
       <fetcher.Form
         method="POST"
         action="/payjob"
@@ -51,14 +46,14 @@ export default function PayHouseform(props: CreateHouseFormProps) {
           type="text"
           name="method"
           error={fetcher.data?.errors?.method || undefined}
-          theme={fetcher.data?.errors?.method ? "error" : undefined}
+          category={fetcher.data?.errors?.method ? "error" : undefined}
         />
         <UiTextArea
           label="Detalles"
           labelOnTop
           name="details"
           error={fetcher.data?.errors?.details || undefined}
-          theme={fetcher.data?.errors?.details ? "error" : undefined}
+          category={fetcher.data?.errors?.details ? "error" : undefined}
         />
         <input
           type="hidden"
@@ -71,6 +66,6 @@ export default function PayHouseform(props: CreateHouseFormProps) {
           {fetcher.state === "idle" ? "Pagar" : "Guardando"}
         </UiButton>
       </fetcher.Form>
-    </Container>
+    </div>
   );
 }
