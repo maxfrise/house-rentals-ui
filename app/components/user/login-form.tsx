@@ -4,7 +4,6 @@ import { useCallback, useEffect } from "react";
 import { UiButton, UiPrimaryButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
-import { UiSpacing } from "@uireact/foundation";
 import { UiIcon } from '@uireact/icons';
 
 import type { action } from '../../routes/login';
