@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:__tests__/unit/datasource/Datasource.test.ts
-import { DataSource } from "../../../app/datasource/Datasource";
-========
 import { DataSource } from "../../../app/api/Datasource";
->>>>>>>> dev:__tests__/unit/api/Datasource.test.ts
 import nock from "nock";
 
 describe("Datasource", () => {

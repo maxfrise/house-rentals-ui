@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:__tests__/unit/datasource/MaxfriseApi/MaxfriseApi.test.ts
-import { MaxfriseApi } from "../../../../app/datasource/MaxfriseApi/MaxfriseApi";
-========
 import { MaxfriseApi } from "../../../app/api/MaxfriseApi";
->>>>>>>> dev:__tests__/unit/api/MaxfriseApi.test.ts
 import nock from "nock";
 
 describe("MaxfriseApi", () => {
