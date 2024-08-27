@@ -1,14 +1,10 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useFetcher } from "@remix-run/react";
-import { useCallback, useEffect } from "react";
 
-import styled from 'styled-components';
-
-import { UiButton } from "@uireact/button";
+import { UiPrimaryButton, UiTertiaryButton } from "@uireact/button";
 import { UiInput } from '@uireact/form';
 import type { UiSpacingProps } from "@uireact/foundation";
-import { UiSpacing } from "@uireact/foundation";
 import { UiIcon } from '@uireact/icons';
 
 import type { action } from '../../../routes/join';
@@ -21,10 +17,6 @@ export type IndividualSignUpFormProps = {
   onBackClick?: () => void;
   onSignUpSuccess?: () => void;
 }
-
-const FormDiv = styled.div`
-  width: 100%;
-`;
 
 export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBackClick, onSignUpSuccess }: IndividualSignUpFormProps) => {
   const fetcher = useFetcher<typeof action>();
@@ -40,53 +32,51 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
   }, [onSignUpSuccess, user]);
 
   return (
-    <FormDiv>
+    <div>
       <fetcher.Form method="post" action="/join" role="form">
         <UiInput
           label="Nombre"
           labelOnTop
+          icon={<UiIcon icon="UserCircle" />}
           name="name"
           error={fetcher.data?.errors?.name || undefined}
-          theme={fetcher.data?.errors?.name ? 'error' : undefined}
+          category={fetcher.data?.errors?.name ? 'error' : undefined}
         />
         <UiInput
           label="Correo electronico"
           labelOnTop
+          icon={<UiIcon icon="Mail" />}
           type="email"
           name="email"
           error={fetcher.data?.errors?.email || undefined}
-          theme={fetcher.data?.errors?.email ? 'error' : undefined}
+          category={fetcher.data?.errors?.email ? 'error' : undefined}
         />
         <UiInput
           label="Contraseña"
           labelOnTop
+          icon={<UiIcon icon="Password" />}
           type="password"
           name="password"
           error={fetcher.data?.errors?.password || undefined}
-          theme={fetcher.data?.errors?.password ? 'error' : undefined}
+          category={fetcher.data?.errors?.password ? 'error' : undefined}
         />
         <UiInput
           label="Telefono"
           labelOnTop
           name="phone"
+          icon={<UiIcon icon="CirclePhone" />}
           error={fetcher.data?.errors?.phone || undefined}
-          theme={fetcher.data?.errors?.phone ? 'error' : undefined}
+          category={fetcher.data?.errors?.phone ? 'error' : undefined}
         />
-        <UiSpacing margin={submitButtonMargin}>
-          <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>
-            <UiSpacing padding={submitButtonPadding}>
-              Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' />}
-            </UiSpacing>
-          </UiButton>
-        </UiSpacing>
+        <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} padding={submitButtonPadding} margin={submitButtonMargin}>
+          Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' testId='Icon' />}
+        </UiPrimaryButton>
         {onBackClick && (
-          <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick} cristal>
-            <UiSpacing padding={submitButtonPadding}>
+          <UiTertiaryButton fullWidth type="button" onClick={handleBackClick} padding={submitButtonPadding}>
               Regresar
-            </UiSpacing>
-          </UiButton>
+          </UiTertiaryButton>
         )}
       </fetcher.Form>
-    </FormDiv>
+    </div>
   );
 };

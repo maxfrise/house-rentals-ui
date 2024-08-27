@@ -1,1 +1,1 @@
-export * from './account-selector';
+export { AccountSelector } from './account-selector';

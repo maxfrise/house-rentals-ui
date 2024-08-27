@@ -3,10 +3,7 @@ import React from 'react';
 import { unstable_createRemixStub } from '@remix-run/testing';
 
 import { UiView, UiViewRow } from '@uireact/view';
-import { ThemeColor, UiSpacing } from '@uireact/foundation';
-
-import { MaxfriseTheme } from '../../app/theme';
-import { GlobalStyles } from '../../app/styles/global-styles';
+import { UiSpacing } from '@uireact/foundation';
 
 type StubbedPath = {
   path: string,
@@ -32,8 +29,7 @@ export const render = (component: React.ReactElement, stubedPaths: StubbedPath[]
           <link href="https://fonts.googleapis.com" rel="preconnect" />
           <link href="https://fonts.googleapis.com" rel="preconnect" crossOrigin="use-credentials" />
           <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet" />
-          <GlobalStyles />
-          <UiView selectedTheme={ThemeColor.dark} theme={MaxfriseTheme}>
+          <UiView>
             <UiViewRow weight='50'>
               <UiSpacing padding={{all: 'four'}}>
                 <>{component}</>

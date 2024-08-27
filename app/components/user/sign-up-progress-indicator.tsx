@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from '@remix-run/react';
 import { UiCard } from '@uireact/card';
 import { UiProgressIndicator, UiProgressIndicatorItem } from '@uireact/progress-indicator';
 import { UiLink, UiText } from '@uireact/text';
@@ -10,21 +11,23 @@ type SignUpProgressIndicatorProps = {
 }
 
 export const SignUpProgressIndicator = ({ currentIndex, isAgency }: SignUpProgressIndicatorProps) => (
-  <UiCard>
+  <UiCard category='primary'>
     <UiProgressIndicator current={currentIndex}>
       <UiProgressIndicatorItem>
         {currentIndex === 2 ? (
-          <UiLink href='../' useReactLink theme='positive'>
-            1. Tipo de cuenta: {isAgency ? 'Inmobiliaria' : 'Individual'}
+          <UiLink fontStyle='bold' category='fonts'>
+            <Link to="../">
+              1. Tipo de cuenta: {isAgency ? 'Inmobiliaria' : 'Individual'}
+            </Link>
           </UiLink>
         ) : (
-          <UiText fontStyle='regular' theme={currentIndex > 2 ? 'positive' : undefined}>
+          <UiText category={currentIndex > 2 ? 'positive' : undefined}>
             1. Tipo de cuenta
           </UiText>  
         )}
       </UiProgressIndicatorItem>
       <UiProgressIndicatorItem>
-        <UiText theme={currentIndex > 2 ? 'positive' : undefined}>
+        <UiText fontStyle={currentIndex > 2 ? 'bold' : undefined}>
           2. Informacion de la cuenta
         </UiText>
       </UiProgressIndicatorItem>

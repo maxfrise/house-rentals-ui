@@ -22,6 +22,7 @@ describe('<Confirm />', () => {
   it('Dashboard link should redirect to houses', () => {
     render(<Confirm />, [
       {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         action: () => { },
         loader: () => { return { ok: true } },
         element: <>Houses</>,

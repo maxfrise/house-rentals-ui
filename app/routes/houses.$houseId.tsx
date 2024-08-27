@@ -11,7 +11,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { UiBadge } from '@uireact/badge';
-import { UiButton } from "@uireact/button";
+import { UiPrimaryButton, UiSecondaryButton } from "@uireact/button";
 import { useDialog } from '@uireact/dialog';
 import { UiHeading, UiText } from "@uireact/text";
 
@@ -21,6 +21,8 @@ import { requireUserId } from "~/session.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
 import type { UiSpacingProps } from "@uireact/foundation";
 import { UiSpacing } from "@uireact/foundation";
+import { UiCard } from "@uireact/card";
+import { UiFlexGrid } from "@uireact/flex";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   const url = process.env.MAXFRISE_API;
@@ -82,7 +84,7 @@ export default function HouseDetailsPage() {
   }
 
   return (
-    <div>
+    <UiCard category="primary">
       <UiSpacing margin={headingSpacing}>
         <UiHeading>{house.houseFriendlyName}</UiHeading>
       </UiSpacing>
@@ -106,51 +108,45 @@ export default function HouseDetailsPage() {
 
       <hr className="my-4" />
       {house.leaseStatus === "AVAILABLE" && (
-        <UiButton onClick={onLeaseClick}>
+        <UiPrimaryButton onClick={onLeaseClick} margin={{ top: 'four' }}>
           Arrendar la casa
-        </UiButton>
+        </UiPrimaryButton>
       )}
       {house.leaseStatus === "LEASED" && (
         <>
           <UiHeading>Pagos</UiHeading>
-          <div className="payments">
+          <UiFlexGrid gap="four" direction="column">
             {data.payments?.map((payment, idx) => {
               const dateString = payment.pk.replace(/^p#/, "");
               const date = dateString.replace(/T.*$/, "");
 
               return (
-                <div key={`payment-${idx}`} className="flex p-2">
-                  <div className="flex-auto">
-                    <UiText>{payment.details[0].amount}</UiText>
-                  </div>
-                  <div className="flex-auto">
-                    <UiText>{date}</UiText>
-                  </div>
-                  <div className="w-64">
-                    <Badge status={payment.status} />
-                  </div>
-                  <div className="">
+                <UiFlexGrid key={`payment-${idx}`} alignItems="center" gap="four">
+                  <UiText>{payment.details[0].amount}</UiText>
+                  <UiText>{date}</UiText>
+                  <Badge status={payment.status} />
+                  <div>
                     {payment.status === "DUE" ? (
-                      <UiButton onClick={() => onPayButtonClick(payment)}>
+                      <UiSecondaryButton onClick={() => onPayButtonClick(payment)}>
                         Pagar
-                      </UiButton>
+                      </UiSecondaryButton>
                     ) : (
-                      <UiButton disabled>
+                      <UiSecondaryButton disabled>
                         Pagar
-                      </UiButton>
+                      </UiSecondaryButton>
                     )}
                   </div>
-                </div>
+                </UiFlexGrid>
               );
             })}
-            <PayHouseDialog payment={activePayment} />
-          </div>
+          </UiFlexGrid>
+          <PayHouseDialog payment={activePayment} />
         </>
       )}
       <div className="my-4">
         <Outlet />
       </div>
-    </div>
+    </UiCard>
   );
 }
 

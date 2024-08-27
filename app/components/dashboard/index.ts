@@ -1,2 +1,2 @@
-export * from './graphics';
-export * from './navbar';
+export { Graphics } from './graphics';
+export { Navbar } from './navbar';

@@ -2,10 +2,9 @@ import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import type { UiSpacingProps} from "@uireact/foundation";
-import { Breakpoints, UiSpacing, UiViewport } from "@uireact/foundation";
+import { UiSpacing } from "@uireact/foundation";
 import { UiViewRow } from "@uireact/view";
 
-import styled from 'styled-components';
 import type { UserFormFields} from "~/api/schemas/user.schema";
 import { UserSchema } from "~/api/schemas/user.schema";
 import type { MaxfriseErrors} from "~/components/dashboard/forms/validator/form-validator-yup";
@@ -48,29 +47,14 @@ export const action = async ({ request }: ActionArgs) => {
 
 export const meta: V2_MetaFunction = () => [{ title: "Crear cuenta" }];
 
-const selectorSpacing: UiSpacingProps['padding'] = { block: 'five' };
 const contentSpacing: UiSpacingProps['padding'] = { all: 'five' };
-
-const Div = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-`;
 
 export default function Join() {
   return (
     <UiViewRow weight='50' centeredContent>
-      <UiViewport criteria={Breakpoints.SMALL}>
-        <UiSpacing padding={contentSpacing}>
-          <Outlet />
-        </UiSpacing>
-      </UiViewport>
-      <UiViewport criteria={'m|l|xl'}>
-        <UiSpacing padding={selectorSpacing}>
-          <Div>
-            <Outlet />
-          </Div>
-        </UiSpacing>
-      </UiViewport>
+      <UiSpacing padding={contentSpacing}>
+        <Outlet />
+      </UiSpacing>
     </UiViewRow>
   );
 };
