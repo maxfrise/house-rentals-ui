@@ -1,0 +1,16 @@
+.hero {
+  position: relative;
+  padding-top: 50px;
+}
+
+.action {
+  position: absolute;
+  bottom: 50px;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.portrait {
+  border-radius: 30px;
+}

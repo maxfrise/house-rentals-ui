@@ -1,79 +1,69 @@
 import React from 'react';
-import { Link } from '@remix-run/react';
-
-import styled from 'styled-components';
+import { Link, useParams } from '@remix-run/react';
 
 import { UiCard } from '@uireact/card';
-import { UiList, UiListItem } from '@uireact/list';
-import type { UiSpacingProps } from '@uireact/foundation';
-import { UiSpacing , TextSize} from '@uireact/foundation';
-import { UiIcon } from '@uireact/icons';
+import type { UiSpacingProps} from '@uireact/foundation';
+import { UiSpacing, UiViewport, useViewport } from '@uireact/foundation';
 import { UiBadge } from '@uireact/badge';
+import { UiLink, UiText } from '@uireact/text';
+import { UiNavbar, UiNavbarItem } from '@uireact/navbar';
+import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex';
 
 import type { House } from '../../types';
-import { UiText } from '@uireact/text';
+import { CardLink } from '../shared';
+
+import styles from './navbar.module.css';
 
 type NavbarProps = {
   houses?: House[];
 }
 
-const Div = styled.div`
-  min-width: 300px;
-
-  svg {
-    display: inline-block;
-    vertical-align: unset;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  display: inline-block;
-  width: 100%;
-`
-
 const navbarSpacing: UiSpacingProps['margin'] = { block: 'three' };
-const homeLinkSpacing: UiSpacingProps['margin'] = { left: 'four' };
 
-export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => (
-  <Div>
-    <>
-      <UiCard>
-        <StyledLink to="/houses">
-          <UiSpacing margin={homeLinkSpacing}>
-            <UiIcon icon='Home' /> Inicio
-          </UiSpacing>
-        </StyledLink>
-      </UiCard>
+export const Navbar: React.FC<NavbarProps> = ({ houses }: NavbarProps) => {
+  const { isSmall } = useViewport();
+  const { houseId } = useParams();
+
+  return (
+    <div>
+      <>
+        <UiViewport criteria={'m|l|xl'}>
+          <CardLink icon='Home' label='Inicio' link='/houses' />
+        </UiViewport>
         <UiSpacing margin={navbarSpacing}>
-          <UiCard>
-          {houses && houses.length > 0 ? (
-            <UiList>
-              {houses?.map((house, index) => (
-                <UiListItem key={index}>
-                  {(index > 0 && index === houses.length - 1) && <hr />}
-                  <StyledLink to={house.houseId}>
-                    {`${house.houseFriendlyName} `}
-                    {house.leaseStatus === 'AVAILABLE' ? (
-                      <UiBadge category='primary' size={TextSize.xsmall}>Disponible</UiBadge>
-                    ) : (
-                      <UiBadge category='positive' size={TextSize.xsmall}>Rentada</UiBadge>
-                    )}
-                  </StyledLink>
-                </UiListItem>
-              ))}
-            </UiList>
-          ) : (
-           <UiText>Todavia no hay casas</UiText>   
-          )}
+          <UiCard padding={{ inline: 'three', block: 'four'}} category='primary'>
+            {houses && houses.length > 0 ? (
+              <UiNavbar orientation='stacked' rounded='all' className={`${styles.navbar} ${isSmall ? styles.smallNavbar : ''}`}>
+                {houses?.map((house, index) => (
+                  <UiNavbarItem key={index} active={houseId === house.houseId}>
+                    <UiLink padding={{ inline: 'four', block: 'three' }} category='fonts'>
+                      <Link to={house.houseId}>
+                        <UiFlexGrid alignItems='center' gap='three'>
+                          <UiFlexGridItem grow={1}>
+                            {`${house.houseFriendlyName} `}
+                          </UiFlexGridItem>
+                          <UiFlexGridItem>
+                            {house.leaseStatus === 'AVAILABLE' ? (
+                              <UiBadge category='warning' size='small'>Disponible</UiBadge>
+                            ) : (
+                              <UiBadge category='positive' size='small'>Rentada</UiBadge>
+                            )}
+                          </UiFlexGridItem>
+                        </UiFlexGrid>
+                      </Link>
+                    </UiLink>
+                  </UiNavbarItem>
+                ))}
+              </UiNavbar>
+            ) : (
+            <UiText>Todavia no hay casas</UiText>   
+            )}
           </UiCard>
         </UiSpacing>
-      <UiCard>
-        <StyledLink to="./new">
-          <UiSpacing margin={homeLinkSpacing}>
-            <UiIcon icon='Pages' /> Agregar casa
-          </UiSpacing>
-        </StyledLink>
-      </UiCard>
-    </>
-  </Div>
-);
+        <UiViewport criteria={'m|l|xl'}>
+          <CardLink icon='PlusSmall' label='Agregar casa' link='/houses/new' />
+        </UiViewport>
+      </>
+    </div>
+  );
+};

@@ -1,5 +1,4 @@
-export * from './login-dialog';
-export * from './login-form';
-export * from './logout-form';
-export * from './signup-dialog';
-export * from './signup-form';
+export { ConfirmEmail } from './confirm-email';
+export { LoginDialog } from './login-dialog';
+export { LoginForm } from './login-form';
+export { LogoutForm } from './logout-form';

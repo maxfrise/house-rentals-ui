@@ -1,0 +1,11 @@
+.sticker {
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+.goToDashboardLink {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
