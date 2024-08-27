@@ -23,7 +23,7 @@ export const action = async ({ request }: ActionArgs) => {
     throw new Error("All test emails must end in @example.com");
   }
 
-  const user = await createUser(email, "myreallystrongpassword");
+  const user = await createUser(email, "myreallystrongpassword", "Some name", "1234567890");
 
   return createUserSession({
     redirectTo: "/",

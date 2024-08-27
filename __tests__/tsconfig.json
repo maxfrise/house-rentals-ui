@@ -4,6 +4,7 @@
     "../node_modules/@testing-library/jest-dom"
   ],
   "include": [
+    "../remix.env.d.ts",
     "e2e/**/*",
     "component/**/*",
     "utils/**/*",

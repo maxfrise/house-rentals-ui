@@ -8,10 +8,10 @@ import type { UiSpacingProps} from "@uireact/foundation";
 import { UiSpacing, UiViewport } from "@uireact/foundation";
 
 import { requireUserId } from "~/session.server";
-
-import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+import { MaxfriseApi } from "../api/MaxfriseApi";
 import { Navbar, Graphics } from '../components/dashboard';
 import type { House } from '../types';
+import { FooterActions } from "~/components/dashboard/footer-actions";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
@@ -31,31 +31,40 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 const MainContentSpacing: UiSpacingProps['margin'] = { block: 'four' };
+const RowSpacing: UiSpacingProps['margin'] = { all: 'three' };
 
 export default function HousesPage() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <UiViewRow centeredContent weight="50">
-      <UiViewport criteria={'l|xl'}>
-        <UiFlexGrid columnGap="five">
-          <UiFlexGridItem>
-            <UiSpacing margin={MainContentSpacing}>
-              <Navbar houses={data} />
-            </UiSpacing>
-          </UiFlexGridItem>
-          <UiFlexGridItem grow={1}>
+    <>
+      <UiViewRow centeredContent weight="50">
+        <UiSpacing padding={RowSpacing}>
+          <UiViewport criteria={'l|xl'}>
+            <UiFlexGrid columnGap="five">
+              <UiFlexGridItem>
+                <UiSpacing margin={MainContentSpacing}>
+                  <Navbar houses={data} />
+                </UiSpacing>
+              </UiFlexGridItem>
+              <UiFlexGridItem grow={1}>
+                <UiSpacing margin={MainContentSpacing}>
+                  <Graphics />
+                </UiSpacing>
+              </UiFlexGridItem>
+            </UiFlexGrid>
+          </UiViewport>
+          <UiViewport criteria={'s|m'}>
             <UiSpacing margin={MainContentSpacing}>
               <Graphics />
+              <Navbar houses={data} />
             </UiSpacing>
-          </UiFlexGridItem>
-        </UiFlexGrid>
-      </UiViewport>
-      <UiViewport criteria={'s|m'}>
-        <UiSpacing margin={MainContentSpacing}>
-          <Graphics />
+          </UiViewport>
         </UiSpacing>
+      </UiViewRow>
+      <UiViewport criteria={'s|m'}>
+        <FooterActions />
       </UiViewport>
-    </UiViewRow>
+    </>
   );
 }

@@ -1,11 +1,11 @@
-import { DataSource } from "../Datasource";
+import { DataSource } from "./Datasource";
 
 import type {
   House,
   HouseOverview,
   InitLeaseRequest,
   PayHouseRequest
-} from "./MaxfriseApiTypes";
+} from "./types";
 
 export class MaxfriseApi extends DataSource {
   async getHouses(landlord: string): Promise<House[]> {

@@ -1,3 +1,4 @@
+import type { FormEvent } from "react";
 import { useEffect, useState, useMemo } from "react";
 import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
@@ -6,12 +7,12 @@ import cuid from "cuid";
 
 import { requireUserId } from "~/session.server";
 
-import { CreateHouseForm } from "../components/forms/CreateHouseForm";
+import { CreateHouseForm } from "../components/dashboard/forms/CreateHouseForm";
 
 import { object, string, number } from "yup";
-import { validate } from "../components/forms/validator/form-validator-yup";
-import type { MaxfriseErrors } from "../components/forms/validator/form-validator-yup";
-import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+import { validate } from "../components/dashboard/forms/validator/form-validator-yup";
+import type { MaxfriseErrors } from "../components/dashboard/forms/validator/form-validator-yup";
+import { MaxfriseApi } from "../api/MaxfriseApi";
 
 const newHouseSchema = object({
   houseFriendlyName: string().required().max(40),
@@ -129,7 +130,7 @@ export default function NewHousePage() {
     });
   };
 
-  const onFormSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     const errors = await validate(formState, newHouseSchema);
 
     if (Object.keys(errors).length > 0) {

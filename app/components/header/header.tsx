@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from 'react';
 
-import { Link } from '@remix-run/react';
-
 import styled from 'styled-components';
 
 import { UiButton } from '@uireact/button';
@@ -10,13 +8,14 @@ import type { UiSpacingProps} from '@uireact/foundation';
 import { UiSpacing, UiViewport } from '@uireact/foundation';
 import { UiHeader } from '@uireact/header';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex-grid';
-import { UiHeading } from '@uireact/text';
 import { UiIcon } from '@uireact/icons';
 import { UiMenu } from '@uireact/menu';
 
 import { useOptionalUser } from '../../utils';
-import { LoginDialog, LogoutForm, SignUpDialog } from '../user';
+import { LoginDialog, LogoutForm } from '../user';
 import { HeaderMenu } from './menu';
+import { Logo } from '../branding';
+import { useNavigate } from '@remix-run/react';
 
 type HeaderProps = {
   toggleTheme?: () => void;
@@ -32,8 +31,8 @@ const headerSmallSpacing: UiSpacingProps['padding'] = { inline: 'four' };
 
 export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
   const loginDialog = useDialog('login-dialog');
-  const signUpDialog = useDialog('sign-up-dialog');
   const [menuVisible, setMenuVisible] = useState(false);
+  const navigate = useNavigate();
   const user = useOptionalUser();
 
   const openLoginDialog = useCallback(() => {
@@ -44,13 +43,13 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
     loginDialog.actions.openDialog();
   }, [loginDialog.actions, menuVisible]);
 
-  const openSignUpDialog = useCallback(() => {
+  const navigateToSignUpFlow = useCallback(() => {
     if (menuVisible) { 
       setMenuVisible(false);
     }
 
-    signUpDialog.actions.openDialog();
-  }, [menuVisible, signUpDialog.actions]);
+    navigate('join/');
+  }, [menuVisible, navigate]);
 
   const toggleMenu = useCallback(() => {
     setMenuVisible(!menuVisible);
@@ -65,36 +64,36 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
     <UiHeader>
       <UiViewport criteria='l|xl'>
         <CenteredDiv>
-            <UiFlexGrid gap='three'>
-            <UiFlexGridItem grow={1}>
-                <Link to='/'><UiHeading>Maxfrise</UiHeading></Link>
+          <UiFlexGrid gap='three' justifyContent='space-between'>
+            <UiFlexGridItem>
+              <Logo />
             </UiFlexGridItem>
-              {!user ? (
-                <>
-                <UiFlexGridItem>
-                  <UiButton theme='primary' onClick={openLoginDialog} fullHeight>
-                    <UiSpacing padding={headerButtonsTextSpacing}>
-                      Iniciar Sesion
-                    </UiSpacing>
-                  </UiButton>
-                  </UiFlexGridItem>
-                  <UiFlexGridItem>
-                    <UiButton theme='positive' onClick={openSignUpDialog} fullHeight>
+            <UiFlexGridItem>
+                <UiFlexGrid className='full-height' columnGap={'four'}>
+                {!user ? (
+                  <>
+                    <UiButton theme='primary' onClick={openLoginDialog} fullHeight cristal>
                       <UiSpacing padding={headerButtonsTextSpacing}>
-                        Registrate
+                        Iniciar Sesion
                       </UiSpacing>
                     </UiButton>
-                  </UiFlexGridItem>
-                </>
-              ) :
-              (
-                <LogoutForm />
-              )}
-            {toggleTheme && (
-              <UiButton onClick={toggleTheme} testId='theme-toggle'>
-                <UiIcon icon='ColorDrop' />
-              </UiButton>
-            )}
+                      <UiButton theme='positive' onClick={navigateToSignUpFlow} fullHeight>
+                        <UiSpacing padding={headerButtonsTextSpacing}>
+                          Registrate
+                        </UiSpacing>
+                      </UiButton>
+                  </>
+                ) :
+                (
+                  <LogoutForm />
+                )}
+                {toggleTheme && (
+                  <UiButton onClick={toggleTheme} testId='theme-toggle' cristal>
+                    <UiIcon icon='ColorDrop' />
+                  </UiButton>
+                )}
+              </UiFlexGrid>
+            </UiFlexGridItem>
           </UiFlexGrid>
         </CenteredDiv>
       </UiViewport>
@@ -102,16 +101,16 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
           <UiSpacing padding={headerSmallSpacing}>
             <UiFlexGrid>
               <UiFlexGridItem grow={1}>
-                <Link to='/'><UiHeading>Maxfrise</UiHeading></Link>
+                <Logo />
               </UiFlexGridItem>
               <UiFlexGridItem align='auto'>
-                <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle'>
+                <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle' cristal>
                     <UiIcon icon='Discord' />  
                 </UiButton>
                 <UiMenu visible={menuVisible} closeMenuCB={toggleMenu}>
                   <HeaderMenu
                     openLoginDialog={openLoginDialog}
-                    openSignUiDialog={openSignUpDialog}
+                    openSignUiDialog={navigateToSignUpFlow}
                     onLogoutCB={onLogoutCB}
                   />
                 </UiMenu>
@@ -121,7 +120,6 @@ export const Header: React.FC<HeaderProps> = ({ toggleTheme }: HeaderProps) => {
       </UiViewport>
       </UiHeader>
       <LoginDialog />
-      <SignUpDialog />
     </>
   );
 };

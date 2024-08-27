@@ -19,7 +19,7 @@ import { getUser } from "~/session.server";
 import { MaxfriseTheme } from './theme';
 import { Header } from './components/header';
 import { useThemeDetector } from "./hooks";
-
+import { GlobalStyles } from './styles/global-styles';
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
@@ -27,7 +27,7 @@ export const links: LinksFunction = () => [
   { rel: "icon", href: "/_static/favicon.ico" },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'use-credentials' },
-  { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap' }
+  { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+Pro:wght@300;400;700&display=swap' }
 ];
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -73,6 +73,7 @@ export default function App() {
       <body className="">
         <UiView theme={MaxfriseTheme} selectedTheme={selectedTheme}>
           <Header toggleTheme={toggleTheme} />
+          <GlobalStyles />
           <Outlet />
           <ScrollRestoration />
           <Scripts />

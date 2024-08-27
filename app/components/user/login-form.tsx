@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useFetcher, useSearchParams } from "@remix-run/react";
-import { useCallback, useEffect } from "react";
 
 import styled from 'styled-components';
 
@@ -23,10 +22,6 @@ export type LoginFormProps = {
 
 const FormDiv = styled.div`
   width: 300px;
-
-  svg {
-    display: inline-block;
-  }
 `
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSuccess }: LoginFormProps) => {
@@ -68,7 +63,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
         <UiSpacing margin={submitButtonMargin}>
           <UiButton type="submit" fullWidth disabled={fetcher.state !== 'idle'}>Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner'/>}</UiButton>
         </UiSpacing>
-        {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick}>Regresar</UiButton>}
+        {onBackClick && <UiButton theme="negative" fullWidth type="button" onClick={handleBackClick} cristal>Regresar</UiButton>}
       </fetcher.Form>
     </FormDiv>
   );

@@ -36,7 +36,9 @@ async function getUserPasswordByEmail(email: User["email"]) {
 
 export async function createUser(
   email: User["email"],
-  password: Password["password"]
+  password: Password["password"],
+  name: string,
+  phone: string
 ) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const db = await arc.tables();
@@ -48,6 +50,9 @@ export async function createUser(
   await db.user.put({
     pk: `email#${email}`,
     email,
+    name,
+    phone,
+    verified: false
   });
 
   const user = await getUserByEmail(email);
