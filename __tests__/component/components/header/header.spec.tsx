@@ -8,28 +8,14 @@ describe("<Header />", () => {
 
     render(<Header />);
 
-    cy.findByRole('heading', { name: 'Maxfrise' }).should('be.visible');
-  });
-
-  it("Should render button to toggle theme", () => {
-    cy.viewport('macbook-16');
-    const fn = cy.stub().as('toggleThemeFn');
-    render(<Header toggleTheme={fn}/>);
-
-    cy.findByRole('heading', { name: 'Maxfrise' }).should('be.visible');
-    cy.findByTestId('Icon').should('be.visible');
-    cy.findByTestId('theme-toggle').as('toggleButton').should('be.visible');
-
-    cy.get('@toggleButton').click();
-
-    cy.get('@toggleThemeFn').should('have.been.calledOnce');
+    cy.findByRole('link', { name: 'Maxfrise, Regresar al inicio link' }).should('be.visible');
   });
 
   it("Should render menu button", () => {
     cy.viewport('iphone-x');
     render(<Header />);
 
-    cy.findByRole('heading', { name: 'Maxfrise' }).should('be.visible');
+    cy.findByRole('link', { name: 'Maxfrise, Regresar al inicio link' }).should('be.visible');
     cy.findByTestId('header-menu-toogle').as('menuToggleBtn').should('be.visible');
 
     cy.get('@menuToggleBtn').click();

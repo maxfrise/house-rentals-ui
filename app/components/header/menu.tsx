@@ -1,18 +1,12 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
-import { UiFlexGrid } from '@uireact/flex-grid';
+import { UiFlexGrid } from '@uireact/flex';
 import { UiButton } from '@uireact/button';
 import type { UiSpacingProps } from '@uireact/foundation';
 import { UiSpacing } from '@uireact/foundation';
 
 import { useOptionalUser } from '../../utils';
 import { LogoutForm  } from '../user';
-
-const Div = styled.div`
-  width: 200px;
-`;
 
 type HeaderMenuProps = {
   openLoginDialog: () => void;
@@ -27,19 +21,19 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({ onLogoutCB, openLoginDia
   const user = useOptionalUser();
 
   return (
-    <Div>
+    <div>
       <UiFlexGrid direction='column'>
         {!user ? (
           <>
             <UiSpacing margin={menuItemSpacing}>
-              <UiButton onClick={openLoginDialog} fullWidth theme='primary'>
+              <UiButton onClick={openLoginDialog} fullWidth category='primary'>
                 <UiSpacing padding={buttonSpacing}>
                   Iniciar sesion
                 </UiSpacing>
               </UiButton>
             </UiSpacing>
             <UiSpacing margin={menuItemSpacing}>
-              <UiButton onClick={openSignUiDialog} fullWidth theme='positive'>
+              <UiButton onClick={openSignUiDialog} fullWidth category='positive'>
                 <UiSpacing padding={buttonSpacing}>
                   Registrate
                 </UiSpacing>
@@ -50,6 +44,6 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({ onLogoutCB, openLoginDia
             <LogoutForm onLogout={onLogoutCB}/>
         )}
       </UiFlexGrid>
-    </Div>
+    </div>
   )
 };

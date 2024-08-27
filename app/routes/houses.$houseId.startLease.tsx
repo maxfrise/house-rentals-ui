@@ -1,10 +1,10 @@
-import LeaseHouseForm from "../components/forms/LeaseHouseForm";
+import LeaseHouseForm from "../components/dashboard/forms/LeaseHouseForm";
 import { requireUserId } from "~/session.server";
 
 import { redirect } from "@remix-run/node";
 import type { ActionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { MaxfriseApi } from "../datasource/MaxfriseApi/MaxfriseApi";
+import { MaxfriseApi } from "../api/MaxfriseApi";
 
 // TODO: the loader should check the house status, and if it is rented then it should redirect it back to the prev view
 
