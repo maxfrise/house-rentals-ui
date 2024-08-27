@@ -3,9 +3,9 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import { UiViewRow } from "@uireact/view";
-import { UiFlexGrid, UiFlexGridItem } from "@uireact/flex-grid";
+import { UiFlexGrid, UiFlexGridItem } from "@uireact/flex";
 import type { UiSpacingProps} from "@uireact/foundation";
-import { UiSpacing, UiViewport } from "@uireact/foundation";
+import { Breakpoints, UiSpacing, UiViewport } from "@uireact/foundation";
 
 import { requireUserId } from "~/session.server";
 import { MaxfriseApi } from "../api/MaxfriseApi";
@@ -40,7 +40,7 @@ export default function HousesPage() {
     <>
       <UiViewRow centeredContent weight="50">
         <UiSpacing padding={RowSpacing}>
-          <UiViewport criteria={'l|xl'}>
+          <UiViewport criteria={'m|l|xl'}>
             <UiFlexGrid columnGap="five">
               <UiFlexGridItem>
                 <UiSpacing margin={MainContentSpacing}>
@@ -54,7 +54,7 @@ export default function HousesPage() {
               </UiFlexGridItem>
             </UiFlexGrid>
           </UiViewport>
-          <UiViewport criteria={'s|m'}>
+          <UiViewport criteria={Breakpoints.SMALL}>
             <UiSpacing margin={MainContentSpacing}>
               <Graphics />
               <Navbar houses={data} />
@@ -62,7 +62,7 @@ export default function HousesPage() {
           </UiViewport>
         </UiSpacing>
       </UiViewRow>
-      <UiViewport criteria={'s|m'}>
+      <UiViewport criteria={Breakpoints.SMALL}>
         <FooterActions />
       </UiViewport>
     </>

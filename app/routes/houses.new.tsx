@@ -13,6 +13,7 @@ import { object, string, number } from "yup";
 import { validate } from "../components/dashboard/forms/validator/form-validator-yup";
 import type { MaxfriseErrors } from "../components/dashboard/forms/validator/form-validator-yup";
 import { MaxfriseApi } from "../api/MaxfriseApi";
+import { UiCard } from "@uireact/card";
 
 const newHouseSchema = object({
   houseFriendlyName: string().required().max(40),
@@ -141,11 +142,13 @@ export default function NewHousePage() {
   };
 
   return (
-    <CreateHouseForm
-      onFormFieldChange={onFormFieldChange}
-      onFormSubmit={onFormSubmit}
-      formState={formState}
-      errors={errors}
-    />
+    <UiCard category="primary">
+      <CreateHouseForm
+        onFormFieldChange={onFormFieldChange}
+        onFormSubmit={onFormSubmit}
+        formState={formState}
+        errors={errors}
+      />
+    </UiCard>
   );
 }

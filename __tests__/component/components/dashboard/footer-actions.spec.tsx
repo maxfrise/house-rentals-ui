@@ -8,7 +8,7 @@ describe('<FooterActions />', () => {
     cy.viewport('macbook-11');
     render(<FooterActions />);
 
-    cy.findByTestId('footer-actions').should('not.exist');
+    cy.findByTestId('footer-actions').should('be.visible');
   });
 
   it('Should render if is small', () => {

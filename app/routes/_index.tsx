@@ -1,48 +1,40 @@
 import type { V2_MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import { UiCard } from "@uireact/card";
+import { UiFlexGrid } from "@uireact/flex";
+import { UiLink } from "@uireact/text";
+import { UiIcon } from "@uireact/icons";
+import { UiReactHoverScaleUp, UiReactTapScaleDown } from "@uireact/framer-animations";
 
 import { useOptionalUser } from "~/utils";
+import styles from '../styles/hero.module.css';
 
 export const meta: V2_MetaFunction = () => [{ title: "MaxFrise" }];
 
 export default function Index() {
   const user = useOptionalUser();
   return (
-    <main className="relative min-h-screen sm:flex sm:items-center sm:justify-center">
-      <div className="relative sm:pb-16 sm:pt-8">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
-            <div className="absolute inset-0">
-              <img
-                className="h-full w-full object-cover"
-                src="https://www.mothermag.com/wp-content/uploads/2019/03/jonklassen_mothermag-471.jpg"
-                alt="Man reading a book"
-              />
-              <div className="absolute inset-0 bg-[color:rgba(91,96,89,0.5)] mix-blend-multiply" />
-            </div>
-            <div className="relative px-4 pb-8 pt-16 sm:px-6 sm:pb-14 sm:pt-24 lg:px-8 lg:pb-20 lg:pt-32">
-              <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
-                <span className="block uppercase text-red-500 drop-shadow-md">
-                  Maxfrise
-                </span>
-              </h1>
-              <p className="mx-auto mt-6 max-w-lg text-center text-xl text-white sm:max-w-3xl">
-                Admistramos la renta de tu casa
-              </p>
-              <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
-                {user && (
-                  <Link
-                    to="/houses"
-                    className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-red-700 shadow-sm hover:bg-red-50 sm:px-8"
-                  >
-                    ver casas de {user.email}
+    <main>
+      <UiFlexGrid alignItems="center" justifyContent="center">
+        <div className={styles.hero}>
+          <img
+            src="https://www.mothermag.com/wp-content/uploads/2019/03/jonklassen_mothermag-471.jpg"
+            alt="Man reading a book"
+            className={styles.portrait}
+          />
+          <div className={styles.action}>
+            {user && (
+              <UiCard padding={{}} category="primary" motion={{ ...UiReactHoverScaleUp, ...UiReactTapScaleDown }}>
+                <UiLink className="cover" padding={{ block: 'three', inline: 'four'}} category="secondary">
+                  <Link to="/houses">
+                    <UiIcon icon="Building" category="secondary" /> ver casas de {user.email}
                   </Link>
-                )}
-              </div>
-            </div>
+                </UiLink>
+              </UiCard>
+            )}
           </div>
         </div>
-      </div>
+      </UiFlexGrid>
     </main>
   );
 }

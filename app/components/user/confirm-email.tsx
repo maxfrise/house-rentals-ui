@@ -1,9 +1,10 @@
 import React from 'react';
-import styled from "styled-components"
+
+import { Link } from '@remix-run/react';
 
 import { UiCard } from "@uireact/card"
 import type { UiSpacingProps } from "@uireact/foundation";
-import { UiSpacing, TextSize } from "@uireact/foundation"
+import { UiSpacing } from "@uireact/foundation"
 import { UiIcon } from "@uireact/icons"
 import { UiList, UiListItem } from "@uireact/list"
 import { UiHeading, UiText, UiLink } from "@uireact/text"
@@ -12,23 +13,21 @@ import { SignUpProgressIndicator } from "./sign-up-progress-indicator"
 import emailImage from '../../assets/email.png';
 import { useOptionalUser } from "../../utils";
 
+import styles from './confirm.module.css';
+import { UiFlexGrid } from '@uireact/flex';
+import { UiReactHoverElevate } from '@uireact/framer-animations';
+
 const cardSpacing: UiSpacingProps['margin'] = { top: 'five' };
 const listSpacing: UiSpacingProps['padding'] = { left: 'five' };
-
-const Img = styled.img`
-  max-width: 150px;
-  margin: 0 auto;
-  display: block;
-`
 
 export const ConfirmEmail = () => { 
   const user = useOptionalUser();
 
   return (
-    <>
+    <div>
       <SignUpProgressIndicator currentIndex={3} />
       <UiSpacing margin={cardSpacing}>
-        <UiCard>
+        <UiCard category="primary">
           <UiHeading level={1}>Listo!</UiHeading>
           <UiText>
             Tu cuenta se a creado con exito, revisa tu correo te hemos enviado un correo para verificar tu correo.
@@ -36,25 +35,32 @@ export const ConfirmEmail = () => {
         </UiCard>
       </UiSpacing>
       <UiSpacing margin={cardSpacing}>
-        <UiCard>
-          <Img src={emailImage} alt="revisa tu correo" />
+        <UiCard category="primary">
+          <img src={emailImage} alt="revisa tu correo" className={styles.sticker} />
           {user && (
             <>
-              <UiText centered>Revisa el correo:</UiText>
-              <UiText centered fontStyle='bold'>{user.email}</UiText>
+              <UiText align='center'>Revisa el correo:</UiText>
+              <UiText align='center' fontStyle='bold'>{user.email}</UiText>
             </>
           )}
         </UiCard>
       </UiSpacing>
       <UiSpacing margin={cardSpacing}>
-        <UiCard>
-          <UiLink href='/houses/' useReactLink>
-            <UiIcon icon='House2' size={TextSize.xsmall} /> Ir al dashboard
+        <UiCard padding={{}} motion={UiReactHoverElevate}>
+          <UiLink padding={{ block: 'four', inline: 'three'}} className={styles.goToDashboardLink}>
+            <Link to='/houses/'>
+              <UiFlexGrid alignItems='center' gap='four'>
+                <UiIcon icon='Home' size='large' inverseColoration /> 
+                <UiText inverseColoration>
+                  Ir al dashboard
+                </UiText>
+              </UiFlexGrid>
+            </Link>
           </UiLink>
         </UiCard>
       </UiSpacing>
       <UiSpacing margin={cardSpacing}>
-        <UiCard theme='tertiary'>
+        <UiCard category='primary'>
           <UiHeading>Unos tips de seguridad</UiHeading>
           <UiSpacing padding={listSpacing}>
             <UiList type='BULLETED'>
@@ -66,6 +72,6 @@ export const ConfirmEmail = () => {
           </UiSpacing>
         </UiCard>
       </UiSpacing>
-    </>
+    </div>
   )
 }

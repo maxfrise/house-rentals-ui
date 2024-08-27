@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 import type { UiSpacingProps} from '@uireact/foundation';
 import { UiSpacing } from '@uireact/foundation';
@@ -18,14 +18,14 @@ export default function JoinIndividual() {
   }, [navigate]);
 
   return (
-    <>
+    <div className='centeredPage'>
       <SignUpProgressIndicator currentIndex={2} />
       <UiSpacing margin={headingMargin}>
         <UiHeading>Paso 2. Llena tu informacion de usuario</UiHeading>
       </UiSpacing>
-      <UiCard>
+      <UiCard category='primary'>
         <IndividualSignUpForm onBackClick={onBackClick} />
       </UiCard>
-    </>
+    </div>
   );
 };

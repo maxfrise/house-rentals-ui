@@ -3,10 +3,7 @@ import React from 'react';
 
 import { Link } from '@remix-run/react';
 
-import styled from 'styled-components';
-
-import { UiHeading } from '@uireact/text';
-
+/*
 const LogoHeader = styled.h1`
   color: #B00202;
   font-size: 30px;
@@ -19,11 +16,12 @@ const LogoHeader = styled.h1`
     text-shadow: black 0 0 1px;
   }
 `;
+*/
 
 export const Logo = () => {
   return (
     <Link to="/" aria-label='Maxfrise, Regresar al inicio link'>
-      <LogoHeader aria-hidden>M a x f r i s e</LogoHeader>
+      <h1 aria-hidden>M a x f r i s e</h1>
     </Link>
   )
 };
