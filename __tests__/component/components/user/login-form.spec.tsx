@@ -94,6 +94,6 @@ describe("<LoginForm />", () => {
     cy.findByLabelText('Contraseña').type('123456');
     cy.findByRole('button', { name: 'Iniciar sesion' }).click();
 
-    cy.findByTestId('Icon').should('be.visible');
+    cy.findByTestId('icon-loading-spinner').should('be.visible');
   });
 });

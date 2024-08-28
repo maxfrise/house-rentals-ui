@@ -59,7 +59,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
         />
         <input type="hidden" name="redirectTo" value={redirectTo} />
         <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} margin={submitButtonMargin} padding={{ block: 'two' }}>
-          Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner'/>}
+          Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' testId='icon-loading-spinner'/>}
         </UiPrimaryButton>
         {onBackClick && (
           <UiTertiaryButton fullWidth type="button" onClick={handleBackClick} padding={{ block: 'two' }}>
