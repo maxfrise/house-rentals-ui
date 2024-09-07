@@ -47,6 +47,7 @@
     "@uireact/menu": "^3.3.6",
     "@uireact/navbar": "^3.1.2",
     "@uireact/progress-indicator": "^3.0.22",
+    "@uireact/table": "^2.1.16",
     "@uireact/text": "^3.5.1",
     "@uireact/view": "^3.5.1",
     "bcryptjs": "2.4.3",

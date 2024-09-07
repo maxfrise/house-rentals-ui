@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
@@ -11,18 +11,21 @@ import {
 import invariant from "tiny-invariant";
 
 import { UiBadge } from '@uireact/badge';
-import { UiPrimaryButton, UiSecondaryButton } from "@uireact/button";
+import { UiPrimaryButton } from "@uireact/button";
 import { useDialog } from '@uireact/dialog';
 import { UiHeading, UiText } from "@uireact/text";
+import type { UiSpacingProps } from "@uireact/foundation";
+import { UiSpacing } from "@uireact/foundation";
+import { UiCard } from "@uireact/card";
+import type { UiTableData, UiTableItem } from "@uireact/table";
+import { UiTable } from "@uireact/table";
 
 import { MaxfriseApi } from "../api/MaxfriseApi";
 import type { Payment } from "../api/types/MaxfriseApiTypes"
 import { requireUserId } from "~/session.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
-import type { UiSpacingProps } from "@uireact/foundation";
-import { UiSpacing } from "@uireact/foundation";
-import { UiCard } from "@uireact/card";
-import { UiFlexGrid } from "@uireact/flex";
+import { formatDate } from "~/utils/format-date";
+import { formatMoney } from "~/utils/format-money";
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   const url = process.env.MAXFRISE_API;
@@ -66,6 +69,7 @@ const Badge: React.FC<{ status: string }> = ({ status }) => {
 
 const textSpacing: UiSpacingProps['margin'] = { block: 'three' };
 const headingSpacing: UiSpacingProps['margin'] = { block: 'four' };
+const payButtonSpacing: UiSpacingProps['padding'] = {block: 'two', inline: 'four'};
 
 export default function HouseDetailsPage() {
   const data = useLoaderData<typeof loader>();
@@ -74,14 +78,58 @@ export default function HouseDetailsPage() {
   const house = data.house;
   const navigate = useNavigate();
 
-  const onPayButtonClick = (paymentJob: Payment) => {
+  const onPayButtonClick = useCallback((paymentJob: Payment) => {
     setActivePayment(paymentJob)
     payHouseDialog.actions.openDialog();
-  }
+  }, [payHouseDialog.actions]);
 
   const onLeaseClick = () => { 
     navigate('./startLease');
   }
+
+  const tableData = useMemo((): UiTableData => {
+    const items: UiTableItem[] = data.payments?.map((payment, id) => {
+      const dateString = payment.pk.replace(/^p#/, "");
+      const stringifiedDate = dateString.replace(/T.*$/, "");
+      const date = new Date(`${stringifiedDate} 00:00`);
+
+      return {
+        id,
+        cols: [
+          `${formatMoney(parseInt(payment.details?.[0]?.amount))}`,
+          `${formatDate(date)}`,
+          <Badge status={payment.status} key={`payment-badge-status-${id}`} />,
+          <div key={`payment-action-${id}`}>
+            {payment.status === "DUE" ? (
+              <UiPrimaryButton onClick={() => onPayButtonClick(payment)} padding={payButtonSpacing}>
+                Pagar
+              </UiPrimaryButton>
+            ) : (
+              <UiPrimaryButton disabled padding={payButtonSpacing}>
+                Pagar
+              </UiPrimaryButton>
+            )}
+          </div>
+        ]
+      }
+    }) || [];
+
+    return {
+      headings: [
+        {
+          label: "Cantidad",
+        }, {
+          label: "Fecha"
+        },
+        { 
+          label: "Estado"
+        }, {
+          label: ""
+        }
+      ],
+      items
+    }
+  }, [data.payments, onPayButtonClick]);
 
   return (
     <UiCard category="primary">
@@ -115,31 +163,7 @@ export default function HouseDetailsPage() {
       {house.leaseStatus === "LEASED" && (
         <>
           <UiHeading>Pagos</UiHeading>
-          <UiFlexGrid gap="four" direction="column">
-            {data.payments?.map((payment, idx) => {
-              const dateString = payment.pk.replace(/^p#/, "");
-              const date = dateString.replace(/T.*$/, "");
-
-              return (
-                <UiFlexGrid key={`payment-${idx}`} alignItems="center" gap="four">
-                  <UiText>{payment.details[0].amount}</UiText>
-                  <UiText>{date}</UiText>
-                  <Badge status={payment.status} />
-                  <div>
-                    {payment.status === "DUE" ? (
-                      <UiSecondaryButton onClick={() => onPayButtonClick(payment)}>
-                        Pagar
-                      </UiSecondaryButton>
-                    ) : (
-                      <UiSecondaryButton disabled>
-                        Pagar
-                      </UiSecondaryButton>
-                    )}
-                  </div>
-                </UiFlexGrid>
-              );
-            })}
-          </UiFlexGrid>
+          <UiTable data={tableData} bordered />
           <PayHouseDialog payment={activePayment} />
         </>
       )}
