@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
   isRouteErrorResponse,
@@ -27,7 +27,7 @@ import { PayHouseDialog } from "../components/payHouseDialog"
 import { formatDate } from "~/utils/format-date";
 import { formatMoney } from "~/utils/format-money";
 
-export const loader = async ({ params, request }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const url = process.env.MAXFRISE_API;
   const api = new MaxfriseApi(url);
   invariant(params.houseId, "house not found");

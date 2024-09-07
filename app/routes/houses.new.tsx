@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { useEffect, useState, useMemo } from "react";
-import type { ActionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
 import cuid from "cuid";
@@ -53,7 +53,7 @@ export type FormState = {
   tenantPhone: string;
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const userId = await requireUserId(request);
   const formData = Object.fromEntries(await request.formData());
   const errors: MaxfriseErrors<FormState> = await validate(

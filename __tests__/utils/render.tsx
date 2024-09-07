@@ -9,7 +9,7 @@ type StubbedPath = {
   path: string,
   action: () => any,
   loader: () => any,
-  element: React.ReactElement
+  Component: React.FunctionComponent
 }
 
 type StubbedCurrentPath = {
@@ -24,7 +24,7 @@ export const render = (component: React.ReactElement, stubedPaths: StubbedPath[]
       path: currentPath?.path || '/',
       loader: currentPath?.loader,
       id: currentPath?.id,
-      element: (
+      Component: () => (
         <>
           <link href="https://fonts.googleapis.com" rel="preconnect" />
           <link href="https://fonts.googleapis.com" rel="preconnect" crossOrigin="use-credentials" />

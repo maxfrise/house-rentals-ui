@@ -38,13 +38,13 @@ describe("<LoginForm />", () => {
         path: '/login',
         action: async () => { return redirect('/houses') },
         loader: async () => { return { ok: true } },
-        element: <p>Login route</p>
+        Component: () => <p>Login route</p>
       },
       {
         path: '/houses',
         action: async () => { return { ok: true } },
         loader: async () => { return { ok: true } },
-        element: <p>Houses route</p>
+        Component: () => <p>Houses route</p>
       }
     ]);
 
@@ -64,7 +64,7 @@ describe("<LoginForm />", () => {
           return { errors: { email: "Email o password invalido", password: null }, userId: null }
         },
         loader: async () => { return { ok: true } },
-        element: <p>Login route</p>
+        Component: () => <p>Login route</p>
       },
     ]);
 
@@ -85,7 +85,7 @@ describe("<LoginForm />", () => {
           return { errors: { email: "Email o password invalido", password: null }, userId: null };
         },
         loader: async () => { return { ok: true } },
-        element: <p>Login route</p>
+        Component: () => <p>Login route</p>
       }
     ]);
 
