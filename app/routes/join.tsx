@@ -1,4 +1,4 @@
-import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import type { UiSpacingProps} from "@uireact/foundation";
@@ -13,13 +13,13 @@ import { validate } from "~/components/dashboard/forms/validator/form-validator-
 import { createUser } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await getUserId(request);
   if (userId) return redirect("/");
   return json({});
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = Object.fromEntries(await request.formData());
   const errors: MaxfriseErrors<UserFormFields> = await validate(
     formData,
@@ -45,7 +45,7 @@ export const action = async ({ request }: ActionArgs) => {
   });
 };
 
-export const meta: V2_MetaFunction = () => [{ title: "Crear cuenta" }];
+export const meta: MetaFunction = () => [{ title: "Crear cuenta" }];
 
 const contentSpacing: UiSpacingProps['padding'] = { all: 'five' };
 

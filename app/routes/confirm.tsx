@@ -1,13 +1,13 @@
 import React from 'react';
 
-import type { V2_MetaFunction} from '@remix-run/node';
+import type { MetaFunction} from '@remix-run/node';
 
 import { ConfirmEmail } from '../components/user';
 import { UiViewRow } from '@uireact/view';
 import { UiSpacing } from '@uireact/foundation';
 import type { UiSpacingProps } from '@uireact/foundation';
 
-export const meta: V2_MetaFunction = () => [{ title: "Verifica tu correo" }];
+export const meta: MetaFunction = () => [{ title: "Verifica tu correo" }];
 
 const contentSpacing: UiSpacingProps['padding'] = { all: 'five' };
 

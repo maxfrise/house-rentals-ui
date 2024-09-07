@@ -1,4 +1,4 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
@@ -13,7 +13,7 @@ import { Navbar, Graphics } from '../components/dashboard';
 import type { House } from '../types';
 import { FooterActions } from "~/components/dashboard/footer-actions";
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await requireUserId(request);
 
   const url = process.env.MAXFRISE_API;
