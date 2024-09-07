@@ -9,7 +9,7 @@ type StubbedPath = {
   path: string,
   action: () => any,
   loader: () => any,
-  element: React.ReactElement
+  Component: React.FunctionComponent
 }
 
 type StubbedCurrentPath = {
