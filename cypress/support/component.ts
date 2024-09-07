@@ -20,6 +20,8 @@ import "./commands";
 // require('./commands')
 
 import { mount } from "cypress/react18";
+import "../../app/styles/maxfrise-theme.css";
+import "../../app/styles/global.css";
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
