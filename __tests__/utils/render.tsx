@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { unstable_createRemixStub } from '@remix-run/testing';
+import { createRemixStub } from '@remix-run/testing';
 
 import { UiView, UiViewRow } from '@uireact/view';
 import { UiSpacing } from '@uireact/foundation';
@@ -19,7 +19,7 @@ type StubbedCurrentPath = {
 }
 
 export const render = (component: React.ReactElement, stubedPaths: StubbedPath[] = [], currentPath?: StubbedCurrentPath) => {
-  const RemixStub = unstable_createRemixStub([
+  const RemixStub = createRemixStub([
     {
       path: currentPath?.path || '/',
       loader: currentPath?.loader,
