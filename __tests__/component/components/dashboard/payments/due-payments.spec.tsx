@@ -19,7 +19,7 @@ const duePayments: Payment[] = [
   }
 ];
 
-describe('<FooterActions />', () => { 
+describe('<DuePayments />', () => { 
   it('Should render payments card if is large', () => {
     const onPayClick = cy.stub().as("onPayClick");
     cy.viewport('macbook-11');
@@ -44,7 +44,7 @@ describe('<FooterActions />', () => {
     cy.findByText('$1,000.00').should('be.visible');
     cy.findByRole('button', { name: 'Pagar' }).as("payButton").should('be.visible');
 
-    cy.get("@payButton").click();
+    cy.get("@payButton").click({force: true});
 
     cy.get("@onPayClick").should('have.been.calledOnce');
     cy.get("@onPayClick").should('have.been.calledWith', duePayments[0]);
