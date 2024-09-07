@@ -25,7 +25,7 @@ import type { Payment } from "../api/types/MaxfriseApiTypes"
 import { requireUserId } from "~/session.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
 import { formatDate } from "~/utils/format-date";
-import { formatMoney } from "~/utils/format-money";
+import { DuePayments } from "~/components/dashboard/payments";
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const url = process.env.MAXFRISE_API;
@@ -69,7 +69,6 @@ const Badge: React.FC<{ status: string }> = ({ status }) => {
 
 const textSpacing: UiSpacingProps['margin'] = { block: 'three' };
 const headingSpacing: UiSpacingProps['margin'] = { block: 'four' };
-const payButtonSpacing: UiSpacingProps['padding'] = {block: 'two', inline: 'four'};
 
 export default function HouseDetailsPage() {
   const data = useLoaderData<typeof loader>();
@@ -77,6 +76,7 @@ export default function HouseDetailsPage() {
   const [activePayment, setActivePayment] = useState<Payment>()
   const house = data.house;
   const navigate = useNavigate();
+  const duePayments = data.payments?.filter(payment => payment.status === 'DUE') || [];
 
   const onPayButtonClick = useCallback((paymentJob: Payment) => {
     setActivePayment(paymentJob)
@@ -96,20 +96,8 @@ export default function HouseDetailsPage() {
       return {
         id,
         cols: [
-          `${formatMoney(parseInt(payment.details?.[0]?.amount))}`,
           `${formatDate(date)}`,
-          <Badge status={payment.status} key={`payment-badge-status-${id}`} />,
-          <div key={`payment-action-${id}`}>
-            {payment.status === "DUE" ? (
-              <UiPrimaryButton onClick={() => onPayButtonClick(payment)} padding={payButtonSpacing}>
-                Pagar
-              </UiPrimaryButton>
-            ) : (
-              <UiPrimaryButton disabled padding={payButtonSpacing}>
-                Pagar
-              </UiPrimaryButton>
-            )}
-          </div>
+          <Badge status={payment.status} key={`payment-badge-status-${id}`} />
         ]
       }
     }) || [];
@@ -117,19 +105,16 @@ export default function HouseDetailsPage() {
     return {
       headings: [
         {
-          label: "Cantidad",
-        }, {
           label: "Fecha"
         },
         { 
-          label: "Estado"
-        }, {
-          label: ""
+          label: "Estado",
+          sort: false
         }
       ],
       items
     }
-  }, [data.payments, onPayButtonClick]);
+  }, [data.payments]);
 
   return (
     <UiCard category="primary">
@@ -153,7 +138,6 @@ export default function HouseDetailsPage() {
         <UiText>{house.tenants[0].name}</UiText>
         <UiText>{house.tenants[0].phone}</UiText>
       </UiSpacing>
-
       <hr className="my-4" />
       {house.leaseStatus === "AVAILABLE" && (
         <UiPrimaryButton onClick={onLeaseClick} margin={{ top: 'four' }}>
@@ -162,7 +146,10 @@ export default function HouseDetailsPage() {
       )}
       {house.leaseStatus === "LEASED" && (
         <>
-          <UiHeading>Pagos</UiHeading>
+          {duePayments && (
+            <DuePayments payments={duePayments} onPayClick={onPayButtonClick} />
+          )}
+          <UiHeading level={5}>Todos los pagos</UiHeading>
           <UiTable data={tableData} bordered />
           <PayHouseDialog payment={activePayment} />
         </>
