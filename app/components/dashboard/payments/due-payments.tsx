@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { UiPrimaryButton } from "@uireact/button";
 import { UiCard } from "@uireact/card";
 import { UiFlexGrid } from "@uireact/flex";
@@ -6,8 +8,8 @@ import { UiSpacing, UiViewport, useViewport } from "@uireact/foundation";
 import { UiHeading, UiText } from "@uireact/text";
 
 import type { Payment } from "~/api/types";
-import { formatDate } from "~/utils/format-date";
-import { formatMoney } from "~/utils/format-money";
+import { formatDate } from "../../../utils/format-date";
+import { formatMoney } from "../../../utils/format-money";
 
 type DuePaymentsProps = {
   payments: Payment[];
@@ -24,7 +26,7 @@ export const DuePayments = ({ payments, onPayClick }: DuePaymentsProps) => {
         <UiHeading level={4} margin={{top: 'four'}}>Pagos activos</UiHeading>
         <UiSpacing padding={{ block: 'four' }}>
           {!payments || payments.length === 0 && (
-            <UiText fontStyle="bold">No hay pagos activos, todo al dia.</UiText>
+            <UiText fontStyle="bold">No hay pagos activos</UiText>
           )}
           <UiFlexGrid direction="column" gap="four">
             {payments?.map((payment, index) => {
@@ -41,14 +43,14 @@ export const DuePayments = ({ payments, onPayClick }: DuePaymentsProps) => {
                     </UiFlexGrid>
                     <UiViewport criteria={"m|l|xl"}>
                       <UiPrimaryButton onClick={() => onPayClick(payment)} padding={payButtonSpacing} size="large">
-                        <p>Pay</p>
+                        <p>Pagar</p>
                       </UiPrimaryButton>
                     </UiViewport>
                   </UiFlexGrid>
                   {isSmall && (
                     <UiSpacing padding={{ top: 'four' }}>
                       <UiPrimaryButton onClick={() => onPayClick(payment)} padding={payButtonSpacing} fullWidth>
-                        Pay
+                        Pagar
                       </UiPrimaryButton>
                     </UiSpacing>
                   )}
