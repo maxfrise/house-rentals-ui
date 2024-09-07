@@ -14,14 +14,14 @@ export const FooterActions = () => (
       <UiFlexGridItem grow={1}>
         <UiLink className={styles.smallNavbarActions}>
           <Link to="/houses" aria-label='Inicio'>
-            <UiIcon icon="Home" />
+            <UiIcon icon="Home" category='tertiary' size='large' />
           </Link>
         </UiLink>
       </UiFlexGridItem>
       <UiFlexGridItem grow={1}>
         <UiLink className={styles.smallNavbarActions}>
           <Link to="/houses/new" aria-label='Agregar casa'>
-            <UiIcon icon="PlusSmall" />
+            <UiIcon icon="Plus" category='tertiary' size='large' />
           </Link>
         </UiLink>
       </UiFlexGridItem>
