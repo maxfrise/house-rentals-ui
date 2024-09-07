@@ -52,6 +52,7 @@
     "@uireact/view": "^3.5.1",
     "bcryptjs": "2.4.3",
     "cuid": "^2.1.8",
+    "framer-motion": "^11.5.4",
     "isbot": "^3.6.7",
     "lodash.merge": "^4.6.2",
     "react": "^18.2.0",
