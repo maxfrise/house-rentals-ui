@@ -118,7 +118,7 @@ export default function HouseDetailsPage() {
       <HousesInformation house={house} />
       <hr className="my-4" />
       {house.leaseStatus === "AVAILABLE" && (
-        <UiSecondaryButton onClick={onLeaseClick} margin={{ top: 'four' }}>
+        <UiSecondaryButton onClick={onLeaseClick} margin={{ top: 'four' }} padding={{ block: 'two', inline: 'three' }}>
           Arrendar la casa
         </UiSecondaryButton>
       )}
