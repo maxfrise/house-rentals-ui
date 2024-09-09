@@ -17,7 +17,7 @@ export const HousesInformation = ({ house }: HousesInformationProps) => {
     <UiSpacing padding={{ block: 'three' }}>
       <UiFlexGrid gap="three" wrap="wrap">
         <UiFlexGridItem grow={1}>
-          <UiCard category="primary" className={styles.houseInfoCard}>
+          <UiCard category="primary" className={styles.houseInfoCard} weight="50">
           <UiFlexGrid alignItems="center" gap="two">
               <UiIcon icon="Home" size="large" category="secondary"/>
               <UiText fontStyle="bold" size="large" category="secondary">{house.houseFriendlyName}</UiText>
@@ -28,7 +28,7 @@ export const HousesInformation = ({ house }: HousesInformationProps) => {
           </UiCard>
         </UiFlexGridItem>
         <UiFlexGridItem grow={1}>
-          <UiCard category="primary" className={styles.houseInfoCard}>
+          <UiCard category="primary" className={styles.houseInfoCard} weight="50">
             <UiFlexGrid alignItems="center" gap="two">
               <UiIcon icon="UserCrown" size="large" category="secondary"/>
               <UiText fontStyle="bold" size="large" category="secondary">Propietario</UiText>
@@ -42,7 +42,7 @@ export const HousesInformation = ({ house }: HousesInformationProps) => {
           </UiCard>
         </UiFlexGridItem>
         <UiFlexGridItem grow={1}>
-          <UiCard category="primary" className={styles.houseInfoCard}>
+          <UiCard category="primary" className={styles.houseInfoCard} weight="50">
             <UiFlexGrid alignItems="center" gap="two">
               <UiIcon icon="Briefcase" size="large" category="secondary" />
               <UiText fontStyle="bold" size="large" category="secondary">Arrendatario</UiText>
