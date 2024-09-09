@@ -69,7 +69,7 @@ export default function LeaseHouseForm() {
               value={JSON.stringify(house.landlords)}
             />
             <UiPrimaryButton type="submit" padding={{ block: 'two' }}>
-              Guardar
+              Iniciar arrendamiento
             </UiPrimaryButton>
             <UiTertiaryButton onClick={goBack}>
               Cancelar
