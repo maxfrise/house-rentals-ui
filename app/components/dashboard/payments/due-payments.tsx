@@ -8,8 +8,8 @@ import { UiSpacing, UiViewport, useViewport } from "@uireact/foundation";
 import { UiHeading, UiText } from "@uireact/text";
 
 import type { Payment } from "~/api/types";
-import { formatDate } from "../../../utils/format-date";
-import { formatMoney } from "../../../utils/format-money";
+import { formatDate } from "../../../lib/format-date";
+import { formatMoney } from "../../../lib/format-money";
 
 type DuePaymentsProps = {
   payments: Payment[];
@@ -35,7 +35,7 @@ export const DuePayments = ({ payments, onPayClick }: DuePaymentsProps) => {
               const date = new Date(`${stringifiedDate} 00:00`);
 
               return (
-                <UiCard key={`due-payment-card-${index}`} category="primary" weight="10">
+                <UiCard key={`due-payment-card-${index}`} category="primary" weight="50">
                   <UiFlexGrid alignItems="center" justifyContent="space-between">
                     <UiFlexGrid direction={isSmall ? 'row' : 'column'} justifyContent="space-between" className={"full-width"} gap="three">
                       <UiText fontStyle="bold">{formatDate(date)}</UiText>

@@ -11,11 +11,9 @@ import {
 import invariant from "tiny-invariant";
 
 import { UiBadge } from '@uireact/badge';
-import { UiPrimaryButton } from "@uireact/button";
+import { UiSecondaryButton } from "@uireact/button";
 import { useDialog } from '@uireact/dialog';
-import { UiHeading, UiText } from "@uireact/text";
-import type { UiSpacingProps } from "@uireact/foundation";
-import { UiSpacing } from "@uireact/foundation";
+import { UiHeading } from "@uireact/text";
 import { UiCard } from "@uireact/card";
 import type { UiTableData, UiTableItem } from "@uireact/table";
 import { UiTable } from "@uireact/table";
@@ -24,8 +22,9 @@ import { MaxfriseApi } from "../api/MaxfriseApi";
 import type { Payment } from "../api/types/MaxfriseApiTypes"
 import { requireUserId } from "~/session.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
-import { formatDate } from "~/utils/format-date";
+import { formatDate } from "~/lib/format-date";
 import { DuePayments } from "~/components/dashboard/payments";
+import { HousesInformation } from "~/components/dashboard/houses";
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const url = process.env.MAXFRISE_API;
@@ -66,9 +65,6 @@ const Badge: React.FC<{ status: string }> = ({ status }) => {
       return null;
   }
 };
-
-const textSpacing: UiSpacingProps['margin'] = { block: 'three' };
-const headingSpacing: UiSpacingProps['margin'] = { block: 'four' };
 
 export default function HouseDetailsPage() {
   const data = useLoaderData<typeof loader>();
@@ -117,32 +113,14 @@ export default function HouseDetailsPage() {
   }, [data.payments]);
 
   return (
-    <UiCard category="primary">
-      <UiSpacing margin={headingSpacing}>
-        <UiHeading>{house.houseFriendlyName}</UiHeading>
-      </UiSpacing>
-      <UiSpacing margin={textSpacing}>
-        <UiText>{house.details}</UiText>
-      </UiSpacing>
-      <UiSpacing margin={headingSpacing}>
-        <UiHeading>Propietario</UiHeading>
-      </UiSpacing>
-      <UiSpacing margin={textSpacing}>
-        <UiText>{house.landlords[0].name}</UiText>
-        <UiText>{house.landlords[0].phone}</UiText>
-      </UiSpacing>
-      <UiSpacing margin={headingSpacing}>
-        <UiHeading>Arrendatario</UiHeading>
-      </UiSpacing>
-      <UiSpacing margin={textSpacing}>
-        <UiText>{house.tenants[0].name}</UiText>
-        <UiText>{house.tenants[0].phone}</UiText>
-      </UiSpacing>
+    <UiCard category="primary" weight="10">
+      <UiHeading>Informacion de la casa</UiHeading>
+      <HousesInformation house={house} />
       <hr className="my-4" />
       {house.leaseStatus === "AVAILABLE" && (
-        <UiPrimaryButton onClick={onLeaseClick} margin={{ top: 'four' }}>
+        <UiSecondaryButton onClick={onLeaseClick} margin={{ top: 'four' }} padding={{ block: 'two', inline: 'three' }}>
           Arrendar la casa
-        </UiPrimaryButton>
+        </UiSecondaryButton>
       )}
       {house.leaseStatus === "LEASED" && (
         <>
