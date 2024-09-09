@@ -8,8 +8,8 @@ import { UiSpacing, UiViewport, useViewport } from "@uireact/foundation";
 import { UiHeading, UiText } from "@uireact/text";
 
 import type { Payment } from "~/api/types";
-import { formatDate } from "../../../utils/format-date";
-import { formatMoney } from "../../../utils/format-money";
+import { formatDate } from "../../../lib/format-date";
+import { formatMoney } from "../../../lib/format-money";
 
 type DuePaymentsProps = {
   payments: Payment[];

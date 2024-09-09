@@ -2,9 +2,6 @@ import { Form, useNavigate } from "@remix-run/react";
 
 import { UiPrimaryButton, UiTertiaryButton } from "@uireact/button";
 import { UiInput } from "@uireact/form";
-
-import { useMatchesData } from "../../../utils";
-import type { HouseOverview } from "../../../api/types/MaxfriseApiTypes";
 import { UiInputDatepicker } from "@uireact/datepicker";
 import { useCallback, useState } from "react";
 import { UiFlexGrid } from "@uireact/flex";
@@ -12,6 +9,10 @@ import { UiText } from "@uireact/text";
 import { UiIcon } from "@uireact/icons";
 import { UiSpacing } from "@uireact/foundation";
 import { UiCard } from "@uireact/card";
+
+import { useMatchesData } from "../../../utils";
+import type { HouseOverview } from "../../../api/types/MaxfriseApiTypes";
+import { DatepickerLabels } from "~/lib";
 
 export default function LeaseHouseForm() {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ export default function LeaseHouseForm() {
               required
               dateFormat="mm/dd/yyyy"
               disablePastDates
+              localizedLabels={DatepickerLabels}
             />
             {/* TODO: This should probably be a fixed selection, 6 or 12 months maybe? */}
             <UiFlexGrid alignItems="end" gap="two">

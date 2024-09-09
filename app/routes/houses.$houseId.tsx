@@ -22,7 +22,7 @@ import { MaxfriseApi } from "../api/MaxfriseApi";
 import type { Payment } from "../api/types/MaxfriseApiTypes"
 import { requireUserId } from "~/session.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
-import { formatDate } from "~/utils/format-date";
+import { formatDate } from "~/lib/format-date";
 import { DuePayments } from "~/components/dashboard/payments";
 import { HousesInformation } from "~/components/dashboard/houses";
 
