@@ -35,7 +35,7 @@ export const DuePayments = ({ payments, onPayClick }: DuePaymentsProps) => {
               const date = new Date(`${stringifiedDate} 00:00`);
 
               return (
-                <UiCard key={`due-payment-card-${index}`} category="primary" weight="10">
+                <UiCard key={`due-payment-card-${index}`} category="primary" weight="50">
                   <UiFlexGrid alignItems="center" justifyContent="space-between">
                     <UiFlexGrid direction={isSmall ? 'row' : 'column'} justifyContent="space-between" className={"full-width"} gap="three">
                       <UiText fontStyle="bold">{formatDate(date)}</UiText>

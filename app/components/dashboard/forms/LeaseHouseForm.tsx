@@ -1,16 +1,19 @@
 import { Form } from "@remix-run/react";
 
-import { UiButton } from "@uireact/button";
+import { UiPrimaryButton } from "@uireact/button";
 import { UiInput } from "@uireact/form";
 
 import { useMatchesData } from "../../../utils";
 import type { HouseOverview } from "../../../api/types/MaxfriseApiTypes";
+import { UiInputDatepicker } from "@uireact/datepicker";
+import { useState } from "react";
 
 export default function LeaseHouseForm() {
   const data = useMatchesData(
     "routes/houses.$houseId"
   ) as unknown as HouseOverview;
   const house = data.house;
+  const [, setDate] = useState("");
 
   return (
     <Form
@@ -22,12 +25,14 @@ export default function LeaseHouseForm() {
         width: "20%",
       }}
     >
-      {/* TOOD: restrict the day to be selected */}
-      <UiInput
+      <UiInputDatepicker 
         label="Dia de inicio del arendamiento"
         labelOnTop
         name="startDate"
-        type='date'
+        onChange={(date) => {setDate(date)}}
+        required
+        dateFormat="mm/dd/yyyy"
+        disablePastDates
       />
       {/* TODO: This should probably be a fixed selection, 6 or 12 months maybe? */}
       <UiInput
@@ -52,9 +57,9 @@ export default function LeaseHouseForm() {
         name="landlords"
         value={JSON.stringify(house.landlords)}
       />
-      <UiButton type="submit" category="positive">
+      <UiPrimaryButton type="submit">
         Guardar
-      </UiButton>
+      </UiPrimaryButton>
     </Form>
   );
 }
