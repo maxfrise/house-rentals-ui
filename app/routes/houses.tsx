@@ -12,6 +12,7 @@ import { MaxfriseApi } from "../api/MaxfriseApi";
 import { Navbar, Graphics } from '../components/dashboard';
 import type { House } from '../types';
 import { FooterActions } from "~/components/dashboard/footer-actions";
+import { Sidebar } from "~/components/sidebar";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await requireUserId(request);
@@ -44,7 +45,7 @@ export default function HousesPage() {
             <UiFlexGrid columnGap="five">
               <UiFlexGridItem>
                 <UiSpacing margin={MainContentSpacing}>
-                  <Navbar houses={data} />
+                  <Sidebar houses={data} />
                 </UiSpacing>
               </UiFlexGridItem>
               <UiFlexGridItem grow={1}>
