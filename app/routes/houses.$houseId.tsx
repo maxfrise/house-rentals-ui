@@ -113,29 +113,31 @@ export default function HouseDetailsPage() {
   }, [data.payments]);
 
   return (
-    <UiCard category="primary" weight="10">
+    <>
       <UiHeading>Informacion de la casa</UiHeading>
-      <HousesInformation house={house} />
-      <hr className="my-4" />
-      {house.leaseStatus === "AVAILABLE" && (
-        <UiSecondaryButton onClick={onLeaseClick} margin={{ top: 'four' }} padding={{ block: 'two', inline: 'three' }}>
-          Arrendar la casa
-        </UiSecondaryButton>
-      )}
-      {house.leaseStatus === "LEASED" && (
-        <>
-          {duePayments && (
-            <DuePayments payments={duePayments} onPayClick={onPayButtonClick} />
-          )}
-          <UiHeading level={5}>Todos los pagos</UiHeading>
-          <UiTable data={tableData} bordered />
-          <PayHouseDialog payment={activePayment} />
-        </>
-      )}
-      <div className="my-4">
-        <Outlet />
-      </div>
-    </UiCard>
+      <UiCard category="primary" weight="10">
+        <HousesInformation house={house} />
+        <hr className="my-4" />
+        {house.leaseStatus === "AVAILABLE" && (
+          <UiSecondaryButton onClick={onLeaseClick} margin={{ top: 'four' }} padding={{ block: 'two', inline: 'three' }}>
+            Arrendar la casa
+          </UiSecondaryButton>
+        )}
+        {house.leaseStatus === "LEASED" && (
+          <>
+            {duePayments && (
+              <DuePayments payments={duePayments} onPayClick={onPayButtonClick} />
+            )}
+            <UiHeading level={5}>Todos los pagos</UiHeading>
+            <UiTable data={tableData} bordered />
+            <PayHouseDialog payment={activePayment} />
+          </>
+        )}
+        <div className="my-4">
+          <Outlet />
+        </div>
+      </UiCard>
+    </>
   );
 }
 

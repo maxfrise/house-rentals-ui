@@ -1,5 +1,12 @@
 .container {
   position: relative;
+
+  @media screen and (max-width: 580px) {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .sidebar {
@@ -14,5 +21,5 @@
 }
 
 .selectedButton {
-  background-color: var(--secondary-token_150);
+  background-color: var(--secondary-token_100);
 }

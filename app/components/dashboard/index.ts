@@ -1,2 +1,2 @@
 export { Graphics } from './graphics';
-export { Navbar } from './navbar';
+export { HousesList } from './houses-list';
