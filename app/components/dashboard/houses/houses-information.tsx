@@ -49,8 +49,8 @@ export const HousesInformation = ({ house }: HousesInformationProps) => {
             </UiFlexGrid>
             <UiSpacing padding={{ top: 'two' }}>
               <UiFlexGrid direction="column" gap="two">
-                <TextIcon icon="User" text={house.landlords[0].name} />
-                <TextIcon icon="CirclePhone" text={house.landlords[0].phone} />
+                <TextIcon icon="User" text={house.tenants[0].name} />
+                <TextIcon icon="CirclePhone" text={house.tenants[0].phone} />
               </UiFlexGrid>
             </UiSpacing>
           </UiCard>
