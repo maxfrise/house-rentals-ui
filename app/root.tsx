@@ -1,4 +1,4 @@
-import type { LinksFunction, LoaderArgs } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { json } from "@remix-run/node";
 import {
@@ -18,6 +18,8 @@ import maxfriseTheme from "~/styles/maxfrise-theme.css";
 import { getUser } from "~/session.server";
 import { Header } from './components/header';
 
+import styles from './styles/root.module.css';
+
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: maxfriseTheme },
   { rel: "stylesheet", href: globalStyles },
@@ -29,7 +31,7 @@ export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+Pro:wght@300;400;700&display=swap' }
 ];
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({ user: await getUser(request) });
 };
 
@@ -60,10 +62,12 @@ export default function App() {
       <body>
         <UiView weight="50">
           <Header />
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
+          <div className={styles.page}>
+            <Outlet />
+            <ScrollRestoration />
+            <Scripts />
+            <LiveReload />
+          </div>
         </UiView>
       </body>
     </html>

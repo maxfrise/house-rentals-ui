@@ -21,7 +21,7 @@ export const SignUpProgressIndicator = ({ currentIndex, isAgency }: SignUpProgre
             </Link>
           </UiLink>
         ) : (
-          <UiText category={currentIndex > 2 ? 'positive' : undefined}>
+          <UiText fontStyle={currentIndex > 1 ? 'bold' : undefined}>
             1. Tipo de cuenta
           </UiText>  
         )}
