@@ -1,23 +1,25 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
-
+import type { UiSpacingProps} from "@uireact/foundation";
+import { UiSpacing } from "@uireact/foundation";
 import { UiViewRow } from "@uireact/view";
 
 import type { UserFormFields} from "~/api/schemas/user.schema";
 import { UserSchema } from "~/api/schemas/user.schema";
 import type { MaxfriseErrors} from "~/components/dashboard/forms/validator/form-validator-yup";
 import { validate } from "~/components/dashboard/forms/validator/form-validator-yup";
+
 import { createUser } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const userId = await getUserId(request);
   if (userId) return redirect("/");
   return json({});
 };
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async ({ request }: ActionArgs) => {
   const formData = Object.fromEntries(await request.formData());
   const errors: MaxfriseErrors<UserFormFields> = await validate(
     formData,
@@ -43,12 +45,16 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   });
 };
 
-export const meta: MetaFunction = () => [{ title: "Crear cuenta" }];
+export const meta: V2_MetaFunction = () => [{ title: "Crear cuenta" }];
+
+const contentSpacing: UiSpacingProps['padding'] = { all: 'five' };
 
 export default function Join() {
   return (
     <UiViewRow weight='50' centeredContent>
-      <Outlet />
+      <UiSpacing padding={contentSpacing}>
+        <Outlet />
+      </UiSpacing>
     </UiViewRow>
   );
 };

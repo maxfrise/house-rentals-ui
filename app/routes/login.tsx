@@ -1,4 +1,4 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";
@@ -7,13 +7,13 @@ import { verifyLogin } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 import { safeRedirect, validateEmail } from "~/utils";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const userId = await getUserId(request);
   if (userId) return redirect("/");
   return json({});
 };
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
@@ -58,7 +58,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   });
 };
 
-export const meta: MetaFunction = () => [{ title: "Login" }];
+export const meta: V2_MetaFunction = () => [{ title: "Login" }];
 
 export default function LoginPage() {
   const [searchParams] = useSearchParams();

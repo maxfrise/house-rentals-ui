@@ -19,7 +19,7 @@ describe('AccountSelector', () => {
       {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         action: () => { },
-        Component: () => <p>Sign up form</p>,
+        element: <p>Sign up form</p>,
         loader: () => { return { ok: true } },
         path: 'individual/'
       }

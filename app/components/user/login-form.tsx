@@ -40,29 +40,25 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onBackClick, onLoginSucces
         <UiInput
           label="Correo electronico"
           labelOnTop
-          icon={<UiIcon icon="Credential" />}
           type="email"
           name="email"
           error={fetcher.data?.errors?.email || undefined}
           category={fetcher.data?.errors?.email ? 'error' : undefined}
-          padding={{ block: 'two' }}
         />
         <UiInput
           label="Contraseña"
           labelOnTop
-          icon={<UiIcon icon="Password" />}
           type="password"
           name="password"
           error={fetcher.data?.errors?.password || undefined}
           category={fetcher.data?.errors?.password ? 'error' : undefined}
-          padding={{ block: 'two' }}
         />
         <input type="hidden" name="redirectTo" value={redirectTo} />
-        <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} margin={submitButtonMargin} padding={{ block: 'two' }}>
-          Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' testId='icon-loading-spinner'/>}
+        <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} margin={submitButtonMargin}>
+          Iniciar sesion {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner'/>}
         </UiPrimaryButton>
         {onBackClick && (
-          <UiTertiaryButton fullWidth type="button" onClick={handleBackClick} padding={{ block: 'two' }}>
+          <UiTertiaryButton fullWidth type="button" onClick={handleBackClick}>
             Regresar
           </UiTertiaryButton>
         )}

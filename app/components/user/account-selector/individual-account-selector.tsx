@@ -32,7 +32,7 @@ export const IndividualAccountSelector = () => {
               </UiSpacing>
             </UiFlexGridItem>
             <UiSpacing margin={textMargin}>
-              <UiText size={TextSize.small} align='center'>Cuenta para personas individuales que necesitan administrar sus propiedades.</UiText>
+              <UiText size={TextSize.small}>Cuenta para personas individuales que necesitan administrar sus propiedades.</UiText>
             </UiSpacing>
           </UiFlexGrid>
         </Link>

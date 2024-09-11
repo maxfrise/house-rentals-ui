@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { useEffect, useState, useMemo } from "react";
-import type { ActionFunctionArgs } from "@remix-run/node";
+import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
 import cuid from "cuid";
@@ -14,7 +14,6 @@ import { validate } from "../components/dashboard/forms/validator/form-validator
 import type { MaxfriseErrors } from "../components/dashboard/forms/validator/form-validator-yup";
 import { MaxfriseApi } from "../api/MaxfriseApi";
 import { UiCard } from "@uireact/card";
-import { UiHeading } from "@uireact/text";
 
 const newHouseSchema = object({
   houseFriendlyName: string().required().max(40),
@@ -54,7 +53,7 @@ export type FormState = {
   tenantPhone: string;
 };
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async ({ request }: ActionArgs) => {
   const userId = await requireUserId(request);
   const formData = Object.fromEntries(await request.formData());
   const errors: MaxfriseErrors<FormState> = await validate(
@@ -143,16 +142,13 @@ export default function NewHousePage() {
   };
 
   return (
-    <>
-      <UiHeading>Nueva propiedad</UiHeading>
-      <UiCard category="primary">
-        <CreateHouseForm
-          onFormFieldChange={onFormFieldChange}
-          onFormSubmit={onFormSubmit}
-          formState={formState}
-          errors={errors}
-        />
-      </UiCard>
-    </>
+    <UiCard category="primary">
+      <CreateHouseForm
+        onFormFieldChange={onFormFieldChange}
+        onFormSubmit={onFormSubmit}
+        formState={formState}
+        errors={errors}
+      />
+    </UiCard>
   );
 }

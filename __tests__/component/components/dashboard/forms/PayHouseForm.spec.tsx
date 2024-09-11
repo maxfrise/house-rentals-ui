@@ -38,7 +38,7 @@ describe("<PayHouseform />", () => {
         path: '/payjob',
         action: () => { return { errors: { method: "required", details: "required" } } },
         loader: () => { return null },
-        Component: () => <></>
+        element: <></>
       },
     ]);
 
@@ -57,7 +57,7 @@ describe("<PayHouseform />", () => {
         path: '/payjob',
         action: () => { return null },
         loader: () => { return null },
-        Component: () => <></>
+        element: <></>
       },
     ]);
 

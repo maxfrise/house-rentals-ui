@@ -21,7 +21,7 @@ describe('Dashboard smokes', () => {
 
     cy.findByText("Todavia no hay casas");
 
-    cy.findByRole("link", { name: /Agregar nueva casa/i }).click();
+    cy.findByRole("link", { name: /Agregar casa/i }).click();
 
     cy.findByRole("textbox", { name: /Nombre de la propiedad/i }).type(
       testHouse.houseFriendlyName
@@ -68,7 +68,7 @@ describe('Dashboard smokes', () => {
     cy.findByRole("link", { name: /casas/i }).click();
     cy.findByText("Todavia no hay casas");
 
-    cy.findByRole("link", { name: /Agregar nueva casa/i }).click();
+    cy.findByRole("link", { name: /Agregar casa/i }).click();
 
     cy.findByRole("textbox", { name: /Nombre de la propiedad/i }).type(
       testHouse.houseFriendlyName

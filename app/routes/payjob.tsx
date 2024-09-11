@@ -1,4 +1,4 @@
-import type { ActionFunctionArgs } from "@remix-run/node";
+import type { ActionArgs } from "@remix-run/node";
 import type { MaxfriseErrors } from "../components/dashboard/forms/validator/form-validator-yup";
 import { validate } from "../components/dashboard/forms/validator/form-validator-yup";
 import { object, string } from "yup";
@@ -21,7 +21,7 @@ export const housePaymentSchema = object({
     st: string().required(),
 });
 
-export const action = async ({ params, request }: ActionFunctionArgs) => {
+export const action = async ({ params, request }: ActionArgs) => {
     const formData = Object.fromEntries(await request.formData());
     const errors: MaxfriseErrors<FormState> = await validate(
         formData,

@@ -38,13 +38,13 @@ describe("<LoginForm />", () => {
         path: '/login',
         action: async () => { return redirect('/houses') },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Login route</p>
+        element: <p>Login route</p>
       },
       {
         path: '/houses',
         action: async () => { return { ok: true } },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Houses route</p>
+        element: <p>Houses route</p>
       }
     ]);
 
@@ -64,7 +64,7 @@ describe("<LoginForm />", () => {
           return { errors: { email: "Email o password invalido", password: null }, userId: null }
         },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Login route</p>
+        element: <p>Login route</p>
       },
     ]);
 
@@ -85,7 +85,7 @@ describe("<LoginForm />", () => {
           return { errors: { email: "Email o password invalido", password: null }, userId: null };
         },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Login route</p>
+        element: <p>Login route</p>
       }
     ]);
 
@@ -94,6 +94,6 @@ describe("<LoginForm />", () => {
     cy.findByLabelText('Contraseña').type('123456');
     cy.findByRole('button', { name: 'Iniciar sesion' }).click();
 
-    cy.findByTestId('icon-loading-spinner').should('be.visible');
+    cy.findByTestId('Icon').should('be.visible');
   });
 });

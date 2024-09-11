@@ -25,7 +25,7 @@ describe('<Confirm />', () => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         action: () => { },
         loader: () => { return { ok: true } },
-        Component: () => <>Houses</>,
+        element: <>Houses</>,
         path: 'houses/'
       }
     ]);

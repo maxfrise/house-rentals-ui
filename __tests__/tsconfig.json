@@ -16,7 +16,9 @@
     "baseUrl": ".",
     "noEmit": true,
     "types": [
-      "node"
+      "node",
+      "cypress",
+      "@testing-library/cypress"
     ],
     "esModuleInterop": true,
     "jsx": "react-jsx",

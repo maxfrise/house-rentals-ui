@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { UiButton, UiPrimaryButton } from '@uireact/button';
 import { useDialog } from '@uireact/dialog';
 import type { UiSpacingProps} from '@uireact/foundation';
-import { Breakpoints, UiSpacing, UiViewport } from '@uireact/foundation';
+import { UiSpacing, UiViewport } from '@uireact/foundation';
 import { UiHeader } from '@uireact/header';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex';
 import { UiIcon } from '@uireact/icons';
@@ -52,13 +52,13 @@ export const Header: React.FC = () => {
   return (
     <>
       <UiHeader testId='UiHeader'>
-        <UiViewport criteria='m|l|xl'>
+        <UiViewport criteria='l|xl'>
             <UiFlexGrid gap='three' justifyContent='space-between'>
               <UiFlexGridItem>
                 <Logo />
               </UiFlexGridItem>
               <UiFlexGridItem>
-                <UiFlexGrid className='full-height' columnGap='four'>
+                <UiFlexGrid className='full-height' columnGap={'four'}>
                   {!user ? (
                     <>
                       <UiButton category='primary' onClick={openLoginDialog}>
@@ -80,14 +80,14 @@ export const Header: React.FC = () => {
               </UiFlexGridItem>
             </UiFlexGrid>
         </UiViewport>
-        <UiViewport criteria={Breakpoints.SMALL}>
+        <UiViewport criteria='s|m'>
           <UiSpacing padding={headerSmallSpacing}>
-            <UiFlexGrid alignItems='center'>
+            <UiFlexGrid>
               <UiFlexGridItem grow={1}>
                 <Logo />
               </UiFlexGridItem>
               <UiFlexGridItem align='auto'>
-                <UiButton onClick={toggleMenu} testId='header-menu-toogle' styling='icon'>
+                <UiButton fullWidth fullHeight onClick={toggleMenu} testId='header-menu-toogle'>
                     <UiIcon icon='MenuBurger' />
                 </UiButton>
                 <UiMenu visible={menuVisible} closeMenuCB={toggleMenu}>

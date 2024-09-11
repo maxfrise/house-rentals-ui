@@ -38,13 +38,13 @@ describe("<IndividualSignUpForm />", () => {
         path: '/join',
         action: async () => { return redirect('/confirm') },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Sign up route</p>
+        element: <p>Sign up route</p>
       },
       {
         path: '/confirm',
         action: async () => { return { ok: true } },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Confirm email</p>
+        element: <p>Confirm email</p>
       }
     ]);
 
@@ -66,7 +66,7 @@ describe("<IndividualSignUpForm />", () => {
           return { errors: { email: "El correo ya existe", password: null }, userId: null }
         },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Login route</p>
+        element: <p>Login route</p>
       },
     ]);
 
@@ -88,13 +88,13 @@ describe("<IndividualSignUpForm />", () => {
           return { errors: { email: "El correo ya existe", password: null }, userId: null };
         },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Login route</p>
+        element: <p>Login route</p>
       },
       {
         path: '/confirm',
         action: async () => { return { ok: true } },
         loader: async () => { return { ok: true } },
-        Component: () => <p>Confirm email</p>
+        element: <p>Confirm email</p>
       }
     ]);
 

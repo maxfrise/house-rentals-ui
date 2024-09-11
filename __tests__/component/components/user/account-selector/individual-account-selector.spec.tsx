@@ -15,7 +15,7 @@ describe('<IndividualAccountSelector />', () => {
     render(<IndividualAccountSelector />, [{
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       action: () => { },
-      Component: () => <p>Individual form</p>,
+      element: <p>Individual form</p>,
       loader: () => { return { ok: true } },
       path: 'individual/'
     }]);
