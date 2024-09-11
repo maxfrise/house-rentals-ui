@@ -10,8 +10,9 @@ import { UiIcon } from '@uireact/icons';
 import type { action } from '../../../routes/join';
 import { useOptionalUser } from '../../../utils';
 
-const submitButtonMargin: UiSpacingProps['margin'] = { block: 'four' };
-const submitButtonPadding: UiSpacingProps['padding'] = { block: 'four' };
+const submitButtonMargin: UiSpacingProps['margin'] = { block: 'two' };
+const submitButtonPadding: UiSpacingProps['padding'] = { block: 'two' };
+const inputPadding: UiSpacingProps['padding'] = { block: 'two' };
 
 export type IndividualSignUpFormProps = {
   onBackClick?: () => void;
@@ -41,6 +42,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           name="name"
           error={fetcher.data?.errors?.name || undefined}
           category={fetcher.data?.errors?.name ? 'error' : undefined}
+          padding={inputPadding}
         />
         <UiInput
           label="Correo electronico"
@@ -50,6 +52,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           name="email"
           error={fetcher.data?.errors?.email || undefined}
           category={fetcher.data?.errors?.email ? 'error' : undefined}
+          padding={inputPadding}
         />
         <UiInput
           label="Contraseña"
@@ -59,6 +62,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           name="password"
           error={fetcher.data?.errors?.password || undefined}
           category={fetcher.data?.errors?.password ? 'error' : undefined}
+          padding={inputPadding}
         />
         <UiInput
           label="Telefono"
@@ -67,6 +71,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           icon={<UiIcon icon="CirclePhone" />}
           error={fetcher.data?.errors?.phone || undefined}
           category={fetcher.data?.errors?.phone ? 'error' : undefined}
+          padding={inputPadding}
         />
         <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} padding={submitButtonPadding} margin={submitButtonMargin}>
           Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' testId='Icon' />}

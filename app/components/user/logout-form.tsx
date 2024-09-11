@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from "@remix-run/react";
 
-import { UiButton } from "@uireact/button";
+import { UiSecondaryButton } from "@uireact/button";
 import { UiText } from '@uireact/text';
 
 type LogoutFormProps = {
@@ -10,8 +10,8 @@ type LogoutFormProps = {
 
 export const LogoutForm: React.FC<LogoutFormProps> = ({ onLogout }: LogoutFormProps) => (
   <Form action="/logout" method="post" onSubmit={onLogout} role="form">
-    <UiButton type='submit' fullWidth fullHeight styling='clear'>
+    <UiSecondaryButton type='submit' padding={{ inline: 'three', block: 'two'}}>
       <UiText>Cerrar sesion</UiText>
-    </UiButton>
+    </UiSecondaryButton>
   </Form>
 );

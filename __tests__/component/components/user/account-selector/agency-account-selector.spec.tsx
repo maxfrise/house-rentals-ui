@@ -15,7 +15,7 @@ describe('<AgencyAccountSelector />', () => {
     render(<AgencyAccountSelector />, [{
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       action: () => { },
-      element: <p>Agency form</p>,
+      Component: () => <p>Agency form</p>,
       loader: () => { return { ok: true } },
       path: 'agency/'
     }]);
