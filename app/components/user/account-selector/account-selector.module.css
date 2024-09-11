@@ -10,5 +10,9 @@
 }
 
 .selectorCard {
-  height: 100%;
+  width: 350px;
+
+  @media screen and (max-width: 760px) {
+    width: 100%;
+  }
 }

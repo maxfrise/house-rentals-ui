@@ -7,28 +7,30 @@ import { Graphics } from '../components/dashboard';
 import { Controls } from "~/components/controls";
 
 const MainContentSpacing: UiSpacingProps['margin'] = { block: 'four' };
-const RowSpacing: UiSpacingProps['margin'] = { left: 'three', right: 'three', top: 'five', bottom: 'seven' };
 
 export default function HousesPage() {
   return (
     <>
       <UiViewRow centeredContent weight="50">
-        <UiSpacing padding={RowSpacing}>
-          <UiFlexGrid gap="five">
-            <UiViewport criteria={"m|l|xl"}>
-              <UiFlexGridItem>
-                <UiSpacing margin={MainContentSpacing}>
-                  <Controls />
-                </UiSpacing>
-              </UiFlexGridItem>
-            </UiViewport>
+        <UiViewport criteria={'m|l|xl'}>
+          <UiFlexGrid columnGap="five">
+            <UiFlexGridItem>
+              <UiSpacing margin={MainContentSpacing}>
+                <Controls />
+              </UiSpacing>
+            </UiFlexGridItem>
             <UiFlexGridItem grow={1}>
-              <UiSpacing padding={MainContentSpacing}>
+              <UiSpacing margin={MainContentSpacing}>
                 <Graphics />
               </UiSpacing>
             </UiFlexGridItem>
           </UiFlexGrid>
-        </UiSpacing>
+        </UiViewport>
+        <UiViewport criteria={Breakpoints.SMALL}>
+          <UiSpacing margin={MainContentSpacing}>
+            <Graphics />
+          </UiSpacing>
+        </UiViewport>
       </UiViewRow>
       <UiViewport criteria={Breakpoints.SMALL}>
         <Controls />

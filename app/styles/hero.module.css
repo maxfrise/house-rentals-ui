@@ -13,4 +13,6 @@
 
 .portrait {
   border-radius: 30px;
+  width: 800px;
+  max-width: 100%;
 }

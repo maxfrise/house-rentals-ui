@@ -18,6 +18,8 @@ import maxfriseTheme from "~/styles/maxfrise-theme.css";
 import { getUser } from "~/session.server";
 import { Header } from './components/header';
 
+import styles from './styles/root.module.css';
+
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: maxfriseTheme },
   { rel: "stylesheet", href: globalStyles },
@@ -60,10 +62,12 @@ export default function App() {
       <body>
         <UiView weight="50">
           <Header />
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
+          <div className={styles.page}>
+            <Outlet />
+            <ScrollRestoration />
+            <Scripts />
+            <LiveReload />
+          </div>
         </UiView>
       </body>
     </html>
