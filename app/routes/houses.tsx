@@ -4,7 +4,7 @@ import type { UiSpacingProps} from "@uireact/foundation";
 import { Breakpoints, UiSpacing, UiViewport } from "@uireact/foundation";
 
 import { Graphics } from '../components/dashboard';
-import { Sidebar } from "~/components/sidebar";
+import { Controls } from "~/components/controls";
 
 const MainContentSpacing: UiSpacingProps['margin'] = { block: 'four' };
 const RowSpacing: UiSpacingProps['margin'] = { left: 'three', right: 'three', top: 'five', bottom: 'seven' };
@@ -18,7 +18,7 @@ export default function HousesPage() {
             <UiViewport criteria={"m|l|xl"}>
               <UiFlexGridItem>
                 <UiSpacing margin={MainContentSpacing}>
-                  <Sidebar />
+                  <Controls />
                 </UiSpacing>
               </UiFlexGridItem>
             </UiViewport>
@@ -31,7 +31,7 @@ export default function HousesPage() {
         </UiSpacing>
       </UiViewRow>
       <UiViewport criteria={Breakpoints.SMALL}>
-        <Sidebar />
+        <Controls />
       </UiViewport>
     </>
   );

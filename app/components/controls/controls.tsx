@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Link, useLocation } from "@remix-run/react";
 
 import { UiCard } from "@uireact/card";
@@ -6,9 +8,9 @@ import { UiIcon } from "@uireact/icons";
 import { UiFlexGrid } from "@uireact/flex";
 import { UiSpacing, useViewport } from "@uireact/foundation";
 
-import styles from './sidebar.module.css';
+import styles from './controls.module.css';
 
-export const Sidebar = () => {
+export const Controls = () => {
   const location = useLocation();
   const { isSmall } = useViewport();
 
@@ -18,12 +20,12 @@ export const Sidebar = () => {
         <UiCard className={styles.sidebar} weight="50">
           <UiFlexGrid direction={isSmall ? 'row' : 'column'} gap="three">
             <UiButtonLink styling="icon" category="secondary" className={`${styles.button} ${location.pathname === '/houses' ? styles.selectedButton : ''}`}>
-              <Link to='/houses'>
+              <Link to='/houses' aria-label='Casas'>
                 <UiIcon icon="Home" inverseColoration size="large" />
               </Link>
             </UiButtonLink>
             <UiButtonLink styling="icon" category="secondary" className={`${styles.button} ${location.pathname === '/houses/new' ? styles.selectedButton : ''}`}>
-              <Link to='/houses/new'>
+              <Link to='/houses/new' aria-label='Agregar nueva casa'>
                 <UiIcon icon="Plus" inverseColoration size="large" />
               </Link>
             </UiButtonLink>
