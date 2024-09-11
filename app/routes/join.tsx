@@ -1,15 +1,13 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
-import type { UiSpacingProps} from "@uireact/foundation";
-import { UiSpacing } from "@uireact/foundation";
+
 import { UiViewRow } from "@uireact/view";
 
 import type { UserFormFields} from "~/api/schemas/user.schema";
 import { UserSchema } from "~/api/schemas/user.schema";
 import type { MaxfriseErrors} from "~/components/dashboard/forms/validator/form-validator-yup";
 import { validate } from "~/components/dashboard/forms/validator/form-validator-yup";
-
 import { createUser } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 
@@ -47,14 +45,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export const meta: MetaFunction = () => [{ title: "Crear cuenta" }];
 
-const contentSpacing: UiSpacingProps['padding'] = { all: 'five' };
-
 export default function Join() {
   return (
     <UiViewRow weight='50' centeredContent>
-      <UiSpacing padding={contentSpacing}>
-        <Outlet />
-      </UiSpacing>
+      <Outlet />
     </UiViewRow>
   );
 };
