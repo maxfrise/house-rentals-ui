@@ -18,7 +18,7 @@ describe('<LogoutForm />', () => {
         path: '/logout',
         action: () => { return { ok: true } },
         loader: () => { return { ok: true } },
-        element: <p>Logout path</p>
+        Component: () => <p>Logout path</p>
       }
     ]);
 
