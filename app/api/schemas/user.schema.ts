@@ -1,5 +1,6 @@
 import { object, string } from "yup";
 import { getUserByEmail } from "~/models/user.server";
+import { UserTypes, type Usertype } from "../types";
 
 export const UserSchema = object({
   name: string().required("El nombre es requerido").max(100, "Maximo 100 caracteres"),
@@ -9,12 +10,14 @@ export const UserSchema = object({
     async (value) => await getUserByEmail(value) === null
   ),
   password: string().required("La contraseña es requerida").min(8, "La contraseña debe tener minimo 8 caracteres"),
-  phone: string().required("El telefono es requerido").length(10, "El telefono debe tener 10 digitos")
+  phone: string().required("El telefono es requerido").length(10, "El telefono debe tener 10 digitos"),
+  type: string().required().is(UserTypes, "The user type is not valid")
 });
 
 export type UserFormFields = {
-  name?: string,
-  email?: string,
-  password?: string,
-  phone?: string
+  name: string,
+  email: string,
+  password: string,
+  phone?: string,
+  type: Usertype
 };

@@ -18,7 +18,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const formData = Object.fromEntries(await request.formData());
+  const formData = Object.fromEntries(await request.formData()) as UserFormFields;
   const errors: MaxfriseErrors<UserFormFields> = await validate(
     formData,
     UserSchema
@@ -29,13 +29,14 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 
   const user = await createUser(
-    formData.email.toString(),
-    formData.password.toString(),
-    formData.name.toString(),
-    formData.phone.toString()
+    formData.email,
+    formData.password,
+    formData.name,
+    formData.phone || '',
+    formData.type
   );
-  
-    return createUserSession({
+
+  return createUserSession({
     redirectTo: "/confirm",
     remember: false,
     request,

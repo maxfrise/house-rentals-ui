@@ -48,7 +48,7 @@ export const ConfirmEmail = () => {
       <UiSpacing margin={cardSpacing}>
         <UiCard padding={{}} motion={UiReactHoverElevate}>
           <UiLink padding={{ block: 'four', inline: 'three'}} className={styles.goToDashboardLink}>
-            <Link to='/houses/'>
+            <Link to='/houses'>
               <UiFlexGrid alignItems='center' gap='four'>
                 <UiIcon icon='Home' size='large' inverseColoration /> 
                 <UiText inverseColoration>

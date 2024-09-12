@@ -5,7 +5,7 @@ import { Link } from '@remix-run/react';
 import { UiCard } from '@uireact/card';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex';
 import type { UiSpacingProps} from '@uireact/foundation';
-import { UiSpacing, TextSize } from '@uireact/foundation';
+import { UiSpacing } from '@uireact/foundation';
 import { UiReactHoverElevate } from '@uireact/framer-animations';
 import { UiButtonLink, UiHeading, UiText } from '@uireact/text';
 
@@ -36,7 +36,7 @@ export const AgencyAccountSelector = () => {
               </UiSpacing>
             </UiFlexGridItem>
             <UiSpacing margin={textMargin}>
-              <UiText size={TextSize.small} align='center'>Cuenta para inmobiliarias que requieren un perfil empresarial y cuentas individuales para los agentes inmobiliarios.</UiText>
+              <UiText align='center'>Cuenta para inmobiliarias que adminitran propiedades.</UiText>
             </UiSpacing>
           </UiFlexGrid>
         </Link>

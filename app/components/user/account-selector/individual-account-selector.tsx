@@ -4,7 +4,7 @@ import { Link } from '@remix-run/react';
 
 import { UiCard } from '@uireact/card';
 import type { UiSpacingProps} from '@uireact/foundation';
-import { TextSize, UiSpacing } from '@uireact/foundation';
+import { UiSpacing } from '@uireact/foundation';
 import { UiReactHoverElevate } from '@uireact/framer-animations';
 import { UiButtonLink, UiHeading, UiText } from '@uireact/text';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex';
@@ -23,7 +23,7 @@ export const IndividualAccountSelector = () => {
           <UiFlexGrid direction='column' className='full-height' justifyContent='center' alignItems='stretch'>
             <UiFlexGridItem grow={1}>
               <UiSpacing padding={titlePadding}>
-                <UiHeading centered>Individual</UiHeading>
+                <UiHeading centered>Propietario</UiHeading>
               </UiSpacing>
             </UiFlexGridItem>
             <UiFlexGridItem grow={1}>
@@ -32,7 +32,7 @@ export const IndividualAccountSelector = () => {
               </UiSpacing>
             </UiFlexGridItem>
             <UiSpacing margin={textMargin}>
-              <UiText size={TextSize.small} align='center'>Cuenta para personas individuales que necesitan administrar sus propiedades.</UiText>
+              <UiText align='center'>Cuenta para propietarios que necesitan administrar sus rentas.</UiText>
             </UiSpacing>
           </UiFlexGrid>
         </Link>

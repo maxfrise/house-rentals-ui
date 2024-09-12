@@ -1,6 +1,7 @@
 import arc from "@architect/functions";
 import bcrypt from "bcryptjs";
 import invariant from "tiny-invariant";
+import type { Usertype } from "~/api/types/user-types";
 
 export type User = { id: `email#${string}`; email: string };
 export type Password = { password: string };
@@ -38,27 +39,29 @@ export async function createUser(
   email: User["email"],
   password: Password["password"],
   name: string,
-  phone: string
+  phone: string,
+  type: Usertype
 ) {
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const db = await arc.tables();
-  await db.password.put({
-    pk: `email#${email}`,
-    password: hashedPassword,
-  });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const db = await arc.tables();
+    await db.password.put({
+      pk: `email#${email}`,
+      password: hashedPassword,
+    });
 
-  await db.user.put({
-    pk: `email#${email}`,
-    email,
-    name,
-    phone,
-    verified: false
-  });
+    await db.user.put({
+      pk: `email#${email}`,
+      email,
+      name,
+      phone,
+      verified: false,
+      type
+    });
 
-  const user = await getUserByEmail(email);
-  invariant(user, `User not found after being created. This should not happen`);
+    const user = await getUserByEmail(email);
+    invariant(user, `User not found after being created. This should not happen`);
 
-  return user;
+    return user;
 }
 
 export async function deleteUser(email: User["email"]) {

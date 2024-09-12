@@ -73,6 +73,7 @@ export const IndividualSignUpForm: React.FC<IndividualSignUpFormProps> = ({ onBa
           category={fetcher.data?.errors?.phone ? 'error' : undefined}
           padding={inputPadding}
         />
+        <input type="hidden" value="OWNER" name="type" />
         <UiPrimaryButton type="submit" fullWidth disabled={fetcher.state !== 'idle'} padding={submitButtonPadding} margin={submitButtonMargin}>
           Crear cuenta {fetcher.state !== 'idle' && <UiIcon icon='LoadingSpinner' testId='Icon' />}
         </UiPrimaryButton>

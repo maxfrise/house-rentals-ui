@@ -17,7 +17,7 @@ export const AccountSelector = () => {
     <div className='centeredPage'>
       <SignUpProgressIndicator currentIndex={1}/>
       <UiSpacing margin={headingMargin}>
-        <UiHeading>Paso 1. Elige tu tipo de cuenta</UiHeading>
+        <UiHeading centered>Paso 1. Elige tu tipo de cuenta</UiHeading>
       </UiSpacing>
       <UiFlexGrid gap='three' wrap='wrap' alignItems='stretch' justifyContent='center'>
         <IndividualAccountSelector />
