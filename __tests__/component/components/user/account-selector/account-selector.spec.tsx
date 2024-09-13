@@ -9,8 +9,8 @@ describe('AccountSelector', () => {
 
     cy.findByText('1. Tipo de cuenta').should('be.visible');
     cy.findByRole('heading', { name: 'Paso 1. Elige tu tipo de cuenta' }).should('be.visible');
-    cy.findByRole('link', { name: 'Individual Cuenta para personas individuales que necesitan administrar sus propiedades.' }).should('be.visible');
-    cy.findByRole('link', { name: 'Inmobiliaria Cuenta para inmobiliarias que requieren un perfil empresarial y cuentas individuales para los agentes inmobiliarios.' }).should('be.visible');
+    cy.findByRole('link', { name: 'Propietario Cuenta para propietarios que necesitan administrar sus rentas.' }).should('be.visible');
+    cy.findByRole('link', { name: 'Inmobiliaria Cuenta empresarial para inmobiliarias.' }).should('be.visible');
   });
 
   // TODO: Follow up different forms depending on account type
@@ -25,7 +25,7 @@ describe('AccountSelector', () => {
       }
     ]);
 
-    cy.findByRole('link', { name: 'Individual Cuenta para personas individuales que necesitan administrar sus propiedades.' }).click();
+    cy.findByRole('link', { name: 'Propietario Cuenta para propietarios que necesitan administrar sus rentas.' }).click();
 
     cy.findByText('Sign up form').should('be.visible');
   });

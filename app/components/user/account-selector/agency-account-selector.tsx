@@ -36,7 +36,7 @@ export const AgencyAccountSelector = () => {
               </UiSpacing>
             </UiFlexGridItem>
             <UiSpacing margin={textMargin}>
-              <UiText align='center'>Cuenta para inmobiliarias que adminitran propiedades.</UiText>
+              <UiText align='center'>Cuenta empresarial para inmobiliarias.</UiText>
             </UiSpacing>
           </UiFlexGrid>
         </Link>

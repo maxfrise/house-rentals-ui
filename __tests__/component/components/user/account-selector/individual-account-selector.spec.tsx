@@ -8,7 +8,7 @@ describe('<IndividualAccountSelector />', () => {
     render(<IndividualAccountSelector />);
 
     cy.findByRole('heading', { name: 'Individual' }).should('be.visible');
-    cy.findByText('Cuenta para personas individuales que necesitan administrar sus propiedades.').should('be.visible');
+    cy.findByText('Cuenta para propietarios que necesitan administrar sus rentas.').should('be.visible');
   });
 
   it('Should navigate to individual form', () => {
