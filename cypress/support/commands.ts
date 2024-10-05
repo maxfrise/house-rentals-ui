@@ -53,6 +53,8 @@ function visitAndCheck(url: string, waitTime: number = 1000) {
   cy.location("pathname").should("contain", url).wait(waitTime);
 }
 
-Cypress.Commands.add("login", login);
-Cypress.Commands.add("visitAndCheck", visitAndCheck);
-Cypress.Commands.add("mount", mount);
+export function registerCommands() {
+  Cypress.Commands.add("login", login);
+  Cypress.Commands.add("visitAndCheck", visitAndCheck);
+  Cypress.Commands.add("mount", mount);
+}
