@@ -2,6 +2,7 @@
   "name": "my-remix-app-ac08",
   "private": true,
   "sideEffects": false,
+  "type": "module",
   "scripts": {
     "build": "run-s build:*",
     "build:remix": "remix build",
@@ -27,10 +28,10 @@
   "dependencies": {
     "@architect/architect": "^10.11.2",
     "@architect/functions": "^5.4.0",
-    "@remix-run/architect": "2.11.2",
+    "@remix-run/architect": "^2.12.1",
     "@remix-run/css-bundle": "2.11.2",
     "@remix-run/node": "2.11.2",
-    "@remix-run/react": "2.11.2",
+    "@remix-run/react": "^2.12.1",
     "@remix-run/server-runtime": "2.11.2",
     "@uireact/badge": "3.0.8",
     "@uireact/button": "3.2.8",
