@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
@@ -79,7 +79,7 @@ export default function HouseDetailsPage() {
     payHouseDialog.actions.openDialog();
   }, [payHouseDialog.actions]);
 
-  const onLeaseClick = () => { 
+  const onLeaseClick = () => {
     navigate('./startLease');
   }
 
@@ -103,7 +103,7 @@ export default function HouseDetailsPage() {
         {
           label: "Fecha"
         },
-        { 
+        {
           label: "Estado",
           sort: false
         }
