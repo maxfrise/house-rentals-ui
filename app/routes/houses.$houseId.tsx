@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from "react"
-import { useNavigate } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
@@ -7,6 +6,7 @@ import {
   useLoaderData,
   useRouteError,
   Outlet,
+  useNavigate
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 

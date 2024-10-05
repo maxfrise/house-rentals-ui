@@ -4,7 +4,9 @@ import { requireUserId } from "~/session.server";
 import { redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { MaxfriseApi } from "../api/MaxfriseApi";
+import {
+
+ } from "../api/MaxfriseApi";
 
 // TODO: the loader should check the house status, and if it is rented then it should redirect it back to the prev view
 
