@@ -1,13 +1,17 @@
-const path = require("path");
+import path, {dirname} from "path";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 /** @type {import('@remix-run/dev').AppConfig} */
-module.exports = {
+export default {
   cacheDirectory: "./node_modules/.cache/remix",
   ignoredRouteFiles: ["**/.*", "**/*.css", "**/*.test.{js,jsx,ts,tsx}"],
   publicPath: "/_static/build/",
   server: "./server.ts",
-  serverBuildPath: "server/index.js",
-  serverModuleFormat: "cjs",
+  serverBuildPath: "server/index.mjs",
+  serverModuleFormat: "esm",
   routes(defineRoutes) {
     return defineRoutes((route) => {
       if (process.env.NODE_ENV === "production") return;
