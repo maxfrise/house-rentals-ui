@@ -5,7 +5,7 @@ import { json, redirect } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
 import cuid from "cuid";
 
-import { requireUserId } from "~/session.server";
+import { requireUserIdV2 } from "~/session/sessionv2.server";
 
 import { CreateHouseForm } from "../components/dashboard/forms/CreateHouseForm";
 
@@ -55,7 +55,7 @@ export type FormState = {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const userId = await requireUserId(request);
+  const userId = await requireUserIdV2(request);
   const formData = Object.fromEntries(await request.formData());
   const errors: MaxfriseErrors<FormState> = await validate(
     formData,

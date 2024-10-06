@@ -27,6 +27,7 @@ export default defineConfig({
       runMode: 2,
     },
     specPattern: "./__tests__/e2e/**/*.cy.ts",
+    chromeWebSecurity: false
   },
 
   component: {

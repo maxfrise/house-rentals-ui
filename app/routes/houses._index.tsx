@@ -3,13 +3,13 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 
 import { UiHeading, UiText } from "@uireact/text";
 
-import { requireUserId } from "~/session.server";
+import { requireUserIdV2 } from "~/session/sessionv2.server"
 import { MaxfriseApi } from "~/api/MaxfriseApi";
 import type { House } from "~/types";
 import { HousesList } from "~/components/dashboard";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const userId = await requireUserId(request);
+  const userId = await requireUserIdV2(request);
 
   const url = process.env.MAXFRISE_API;
 

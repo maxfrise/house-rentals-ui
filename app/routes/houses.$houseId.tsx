@@ -20,7 +20,7 @@ import { UiTable } from "@uireact/table";
 
 import { MaxfriseApi } from "../api/MaxfriseApi";
 import type { Payment } from "../api/types/MaxfriseApiTypes"
-import { requireUserId } from "~/session.server";
+import { requireUserIdV2 } from "~/session/sessionv2.server";
 import { PayHouseDialog } from "../components/payHouseDialog"
 import { formatDate } from "~/lib/format-date";
 import { DuePayments } from "~/components/dashboard/payments";
@@ -30,7 +30,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const url = process.env.MAXFRISE_API;
   const api = new MaxfriseApi(url);
   invariant(params.houseId, "house not found");
-  const userId = await requireUserId(request);
+  const userId = await requireUserIdV2(request);
 
   const houseOverview = await api.getHouseOverView(params.houseId, userId);
 

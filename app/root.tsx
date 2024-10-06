@@ -10,12 +10,11 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { setLocale } from "yup";
-
+import { getUserV2 } from "./session/sessionv2.server"
 import { UiView } from '@uireact/view';
 
 import globalStyles from "~/styles/global.css";
 import maxfriseTheme from "~/styles/maxfrise-theme.css";
-import { getUser } from "~/session.server";
 import { Header } from './components/header';
 
 import styles from './styles/root.module.css';
@@ -32,7 +31,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  return json({ user: await getUser(request) });
+  return json({ user: await getUserV2(request, false) });
 };
 
 setLocale({
