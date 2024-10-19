@@ -1,46 +1,11 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 
 import { UiViewRow } from "@uireact/view";
 
-import type { UserFormFields} from "~/api/schemas/user.schema";
-import { UserSchema } from "~/api/schemas/user.schema";
-import type { MaxfriseErrors} from "~/components/dashboard/forms/validator/form-validator-yup";
-import { validate } from "~/components/dashboard/forms/validator/form-validator-yup";
-import { createUser } from "~/models/user.server";
-import { createUserSession, getUserId } from "~/session.server";
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const userId = await getUserId(request);
-  if (userId) return redirect("/");
-  return json({});
-};
-
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const formData = Object.fromEntries(await request.formData());
-  const errors: MaxfriseErrors<UserFormFields> = await validate(
-    formData,
-    UserSchema
-  );
-
-  if (Object.keys(errors).length > 0) {
-    return json({ errors }, { status: 400 });
-  }
-
-  const user = await createUser(
-    formData.email.toString(),
-    formData.password.toString(),
-    formData.name.toString(),
-    formData.phone.toString()
-  );
-  
-    return createUserSession({
-    redirectTo: "/confirm",
-    remember: false,
-    request,
-    userId: user.id,
-  });
+  return json({}, { status: 400 });
 };
 
 export const meta: MetaFunction = () => [{ title: "Crear cuenta" }];

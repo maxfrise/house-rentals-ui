@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { UiButton, UiPrimaryButton } from '@uireact/button';
 import { useDialog } from '@uireact/dialog';
-import type { UiSpacingProps} from '@uireact/foundation';
+import type { UiSpacingProps } from '@uireact/foundation';
 import { Breakpoints, UiSpacing, UiViewport } from '@uireact/foundation';
 import { UiHeader } from '@uireact/header';
 import { UiFlexGrid, UiFlexGridItem } from '@uireact/flex';
@@ -33,13 +33,8 @@ export const Header: React.FC = () => {
     loginDialog.actions.openDialog();
   }, [loginDialog.actions, menuVisible]);
 
-  const navigateToSignUpFlow = useCallback(() => {
-    if (menuVisible) { 
-      setMenuVisible(false);
-    }
-
-    navigate('join/');
-  }, [menuVisible, navigate]);
+  const navigateToSignInFlow = () => navigate('/login')
+  const navigateToSignUpFlow = () => navigate('/signup');
 
   const toggleMenu = useCallback(() => {
     setMenuVisible(!menuVisible);
@@ -53,32 +48,32 @@ export const Header: React.FC = () => {
     <>
       <UiHeader testId='UiHeader'>
         <UiViewport criteria='m|l|xl'>
-            <UiFlexGrid gap='three' justifyContent='space-between'>
-              <UiFlexGridItem>
-                <Logo />
-              </UiFlexGridItem>
-              <UiFlexGridItem>
-                <UiFlexGrid className='full-height' columnGap='four'>
-                  {!user ? (
-                    <>
-                      <UiButton category='primary' onClick={openLoginDialog}>
-                        <UiSpacing padding={headerButtonsTextSpacing}>
-                          <UiText>Iniciar Sesion</UiText>
-                        </UiSpacing>
-                      </UiButton>
-                        <UiPrimaryButton onClick={navigateToSignUpFlow}>
-                          <UiSpacing padding={headerButtonsTextSpacing}>
-                            <UiText inverseColoration>Registrate</UiText>
-                          </UiSpacing>
-                        </UiPrimaryButton>
-                    </>
-                  ) :
+          <UiFlexGrid gap='three' justifyContent='space-between'>
+            <UiFlexGridItem>
+              <Logo />
+            </UiFlexGridItem>
+            <UiFlexGridItem>
+              <UiFlexGrid className='full-height' columnGap='four'>
+                {!user ? (
+                  <>
+                    <UiButton category='primary' onClick={navigateToSignInFlow}>
+                      <UiSpacing padding={headerButtonsTextSpacing}>
+                        <UiText>Iniciar Sesion</UiText>
+                      </UiSpacing>
+                    </UiButton>
+                    <UiPrimaryButton onClick={navigateToSignUpFlow}>
+                      <UiSpacing padding={headerButtonsTextSpacing}>
+                        <UiText inverseColoration>Registrate</UiText>
+                      </UiSpacing>
+                    </UiPrimaryButton>
+                  </>
+                ) :
                   (
                     <LogoutForm />
                   )}
-                </UiFlexGrid>
-              </UiFlexGridItem>
-            </UiFlexGrid>
+              </UiFlexGrid>
+            </UiFlexGridItem>
+          </UiFlexGrid>
         </UiViewport>
         <UiViewport criteria={Breakpoints.SMALL}>
           <UiSpacing padding={headerSmallSpacing}>
@@ -88,7 +83,7 @@ export const Header: React.FC = () => {
               </UiFlexGridItem>
               <UiFlexGridItem align='auto'>
                 <UiButton onClick={toggleMenu} testId='header-menu-toogle' styling='icon'>
-                    <UiIcon icon='MenuBurger' />
+                  <UiIcon icon='MenuBurger' />
                 </UiButton>
                 <UiMenu visible={menuVisible} closeMenuCB={toggleMenu}>
                   <HeaderMenu
@@ -97,7 +92,7 @@ export const Header: React.FC = () => {
                     onLogoutCB={onLogoutCB}
                   />
                 </UiMenu>
-              </UiFlexGridItem>  
+              </UiFlexGridItem>
             </UiFlexGrid>
           </UiSpacing>
         </UiViewport>

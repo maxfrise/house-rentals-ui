@@ -1,5 +1,5 @@
 import LeaseHouseForm from "../components/dashboard/forms/LeaseHouseForm";
-import { requireUserId } from "~/session.server";
+import { requireUserIdV2 } from "~/session/sessionv2.server";
 
 import { redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
@@ -9,7 +9,7 @@ import { MaxfriseApi } from "../api/MaxfriseApi";
 // TODO: the loader should check the house status, and if it is rented then it should redirect it back to the prev view
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
-  const userId = await requireUserId(request);
+  const userId = await requireUserIdV2(request);
   const formData = await request.formData();
 
   const startDate = formData.get("startDate");
