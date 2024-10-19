@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-describe.skip("User tests", () => {
+describe("User tests", () => {
   it("should allow you to register", () => {
 
     const loginForm = {

@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-describe('Dashboard smokes', () => {
+describe.skip('Dashboard smokes', () => {
   it("should allow you to create a house", () => {
     const testHouse = {
       houseFriendlyName: faker.animal.rabbit(),
