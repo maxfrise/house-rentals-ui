@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
   }, [loginDialog.actions, menuVisible]);
 
   const navigateToSignInFlow = () => navigate('/login')
-  const navigateToSignUpFlow = () => navigate('/auth/signup');
+  const navigateToSignUpFlow = () => navigate('/signup');
 
   const toggleMenu = useCallback(() => {
     setMenuVisible(!menuVisible);
